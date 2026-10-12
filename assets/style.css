@@ -1,7 +1,7 @@
 /* Free CRM Website Generator. Plain CSS, OKLCH tokens, light + dark. */
 :root {
   color-scheme: light;
-  --hue: 170;
+  --hue: 192;
   --bg: oklch(0.985 0.004 var(--hue));
   --surface: oklch(1 0 0);
   --surface-2: oklch(0.96 0.012 var(--hue));
@@ -11,7 +11,7 @@
   --line-strong: oklch(0.72 0.02 var(--hue));
   --brand: oklch(0.47 0.075 var(--hue));
   --brand-ink: oklch(0.38 0.07 var(--hue));
-  --hero-bg: oklch(0.33 0.055 var(--hue));
+  --hero-bg: oklch(0.33 0.04 195);
   --hero-ink: oklch(0.97 0.01 var(--hue));
   --hero-ink-2: oklch(0.86 0.03 var(--hue));
   --accent: oklch(0.72 0.15 52);
@@ -57,7 +57,7 @@
     --line-strong: oklch(0.5 0.025 var(--hue));
     --brand: oklch(0.72 0.09 var(--hue));
     --brand-ink: oklch(0.8 0.08 var(--hue));
-    --hero-bg: oklch(0.26 0.045 var(--hue));
+    --hero-bg: oklch(0.3 0.04 195);
     --code-bg: oklch(0.15 0.015 var(--hue));
     --art-card: oklch(0.3 0.02 var(--hue));
     --art-chrome: oklch(0.36 0.02 var(--hue));
@@ -115,20 +115,27 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
 
 /* Header */
 .top {
-  background: var(--hero-bg); color: var(--hero-ink);
+  position: absolute; inset-inline: 0; top: 0; z-index: var(--z-sticky);
+  color: var(--hero-ink);
   padding-top: env(safe-area-inset-top, 0px);
 }
-.top__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; flex-wrap: wrap; }
-.logo { display: inline-flex; align-items: center; gap: 10px; color: var(--hero-ink); text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
-.logo svg { color: var(--accent); }
-.logo b { color: var(--accent); }
+.top__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 84px; flex-wrap: wrap; }
+.logo { display: inline-flex; align-items: center; gap: 14px; color: var(--hero-ink); text-decoration: none; }
+.logo img { display: block; height: 40px; width: auto; }
+.logo__app { padding-left: 14px; border-left: 1px solid oklch(1 0 0 / 0.35); font-weight: 600; font-size: 1.02rem; letter-spacing: -0.01em; line-height: 1.1; }
 .logo:hover { color: var(--hero-ink); }
 .top nav { display: flex; gap: clamp(12px, 2.5vw, 28px); flex-wrap: wrap; }
 .top nav a { color: var(--hero-ink-2); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
 .top nav a:hover { color: var(--hero-ink); text-decoration: underline; }
 
 /* Hero */
-.hero { background: var(--hero-bg); color: var(--hero-ink); padding-block: clamp(40px, 7vw, 96px) clamp(56px, 8vw, 112px); overflow: hidden; }
+.hero {
+  background-color: var(--hero-bg);
+  background-image: url("img/hero-bg.jpg");
+  background-image: image-set(url("img/hero-bg.webp") type("image/webp"), url("img/hero-bg.jpg") type("image/jpeg"));
+  background-size: cover; background-position: center;
+  color: var(--hero-ink); padding-block: calc(84px + env(safe-area-inset-top, 0px) + clamp(32px, 6vw, 80px)) clamp(56px, 8vw, 112px); overflow: hidden;
+}
 .hero__in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
 .hero__tag { margin: 0 0 18px; font-weight: 600; color: var(--accent); font-size: 0.95rem; }
 .hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); font-weight: 800; letter-spacing: -0.035em; max-width: 13ch; }
@@ -270,10 +277,30 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .inc__list dd { margin: 0; color: var(--ink-2); }
 
 /* IDX note */
-.idx { background: var(--hero-bg); color: var(--hero-ink); padding-block: clamp(48px, 7vw, 88px); }
+.idx {
+  background-color: var(--hero-bg);
+  background-image: url("img/hero-bg.jpg");
+  background-image: image-set(url("img/hero-bg.webp") type("image/webp"), url("img/hero-bg.jpg") type("image/jpeg"));
+  background-size: cover; background-position: center;
+  color: var(--hero-ink); padding-block: clamp(48px, 7vw, 88px);
+}
 .idx__in { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: clamp(24px, 5vw, 72px); }
 .idx p { margin: 0; color: var(--hero-ink-2); font-size: 1.08rem; max-width: 68ch; line-height: 1.65; }
 .idx b { color: var(--hero-ink); }
+
+/* Closing CTA: the desk scene keeps its props in the corners, so copy sits in the empty middle. */
+.cta {
+  background-color: var(--hero-bg);
+  background-image: radial-gradient(ellipse 46% 60% at 50% 50%, oklch(0.22 0.03 195 / 0.75), transparent 100%), url("img/desk-bg.jpg");
+  background-image: radial-gradient(ellipse 46% 60% at 50% 50%, oklch(0.22 0.03 195 / 0.75), transparent 100%), image-set(url("img/desk-bg.webp") type("image/webp"), url("img/desk-bg.jpg") type("image/jpeg"));
+  background-size: cover; background-position: center;
+  color: var(--hero-ink); text-align: center;
+  min-height: clamp(380px, 34vw, 560px); display: grid; align-items: center;
+  padding-block: clamp(56px, 8vw, 96px);
+}
+.cta__in { display: grid; justify-items: center; gap: 18px; }
+.cta h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; max-width: 16ch; }
+.cta p { margin: 0 0 8px; color: var(--hero-ink-2); font-size: 1.08rem; max-width: 46ch; }
 
 /* FAQ */
 .faq { padding-block: clamp(56px, 8vw, 104px); }
@@ -303,6 +330,10 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 }
 @media (max-width: 560px) {
   .inc__list div { grid-template-columns: 1fr; }
+  .logo img { height: 30px; }
+  .logo { gap: 10px; }
+  .logo__app { padding-left: 10px; font-size: 0.92rem; }
+  .cta { background-image: linear-gradient(oklch(0.22 0.03 195 / 0.72), oklch(0.22 0.03 195 / 0.72)), url("img/desk-bg.jpg"); }
   .top nav a:nth-child(-n+2) { display: none; }
   fieldset { padding: 16px 14px 18px; }
 }
