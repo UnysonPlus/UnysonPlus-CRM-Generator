@@ -285,9 +285,9 @@
     var out = [];
     function p() { out.push(Array.prototype.join.call(arguments, '')); }
 
-    p('# Build a real estate CRM website for ', b.name, ' with UnysonPlus');
+    p('# Build a real estate CRM website for ', b.name, ' with Unyson+');
     p('');
-    p('You are building a complete real estate website with a built-in CRM on WordPress, using the free UnysonPlus framework. Everything I chose is in the site spec at the end of this prompt. Save it as `site-spec.json` in the project folder and treat it as the source of truth; this prompt explains the order of work and the rules.');
+    p('You are building a complete real estate website with a built-in CRM on WordPress, using the free Unyson+ framework. Everything I chose is in the site spec at the end of this prompt. Save it as `site-spec.json` in the project folder and treat it as the source of truth; this prompt explains the order of work and the rules.');
     p('');
     p('## About the business');
     p('- Name: ', b.name, ' (', { solo: 'solo agent', team: 'agent team', brokerage: 'brokerage' }[b.type] || b.type, ')');
@@ -304,7 +304,7 @@
     else if (s.wp === 'host') p('WordPress is on my web host. Ask me how you can reach it (SSH with WP-CLI is best). Never write passwords or keys into project files.');
     else p('WordPress is not installed yet. Help me set up a local WordPress install first, then continue. Use a fresh install with no other page builder.');
     p('1. Get the AI Dev Kit: clone ', KIT_URL, '. Read `AGENTS.md` first, then `docs/site-build-protocol.md`. This is a **fresh build** (there is no source site to copy), so follow the fresh-build path. Before using any element, extension or option, look it up in the kit\'s `docs/` folder instead of guessing.');
-    p('2. Install the UnysonPlus plugin from ', PLUGIN_ZIP, ' and the parent theme from ', THEME_REPO, ' (latest release; the theme folder must be named `unysonplus-theme`). Create a child theme for this site from the kit\'s child-theme starter and activate it.');
+    p('2. Install the Unyson+ plugin from ', PLUGIN_ZIP, ' and the parent theme from ', THEME_REPO, ' (latest release; the theme folder must be named `unysonplus-theme`). Create a child theme for this site from the kit\'s child-theme starter and activate it.');
     p('3. In **Unyson+ → Extensions**, enable: Post Types, Custom Fields, Forms, Newsletter CRM and SEO. Install any that are missing through the Extensions manager.');
     p('');
 
@@ -373,7 +373,7 @@
 
     p('## Rules');
     p('- Never invent facts about the business: no made-up awards, sales numbers, years in business, reviews or team members. Use clearly marked placeholders such as [Add your sales record] instead.');
-    p('- Use UnysonPlus features before adding any plugin. The only third-party plugin allowed is the IDX provider\'s, if one is chosen.');
+    p('- Use Unyson+ features before adding any plugin. The only third-party plugin allowed is the IDX provider\'s, if one is chosen.');
     p('- Ask before deleting or overwriting anything you did not create.');
     p('- If the kit\'s docs and this prompt disagree about how a feature works, the docs win; tell me what you changed.');
     p('');

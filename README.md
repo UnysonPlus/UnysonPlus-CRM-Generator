@@ -6,7 +6,7 @@ A free, browser-only tool at **https://crm.unysonplus.com/** that turns a few ch
 - **a build prompt** to paste into an AI coding agent, and
 - **`site-spec.json`**, a structured description of the site (also embedded at the end of the prompt).
 
-The agent then builds the site on WordPress with the free UnysonPlus framework and its AI Dev Kit.
+The agent then builds the site on WordPress with the free Unyson+ framework and its AI Dev Kit.
 Real estate is the first industry preset.
 
 Guide and roadmap: https://docs.unysonplus.com/guides/crm-generator
