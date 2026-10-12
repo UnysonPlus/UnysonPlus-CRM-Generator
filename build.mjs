@@ -182,11 +182,13 @@ function hero(P) {
 }
 
 function picker() {
+  const img = (i) => `<span class="ind__img"><picture><source srcset="/assets/img/industries/${i.id}.webp" type="image/webp"><img src="/assets/img/industries/${i.id}.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"></picture></span>`;
   const items = INDUSTRIES.map((i) => {
     const live = presets[i.id];
+    const body = `${img(i)}<b>${esc(i.label)}</b><span class="ind__desc">${esc(i.desc)}</span>`;
     return live
-      ? `<li class="ind ind--live"><a href="${live.path}"><b>${esc(i.label)}</b><span>${esc(i.desc)}</span><em>Open the generator</em></a></li>`
-      : `<li class="ind"><div><b>${esc(i.label)}</b><span>${esc(i.desc)}</span><em>Coming soon</em></div></li>`;
+      ? `<li class="ind ind--live"><a href="${live.path}">${body}<em>Open the generator</em></a></li>`
+      : `<li class="ind"><div>${body}<em>Coming soon</em></div></li>`;
   }).join('\n        ');
   return `<section id="industries" class="pick" aria-labelledby="pickTitle">
     <div class="wrap">

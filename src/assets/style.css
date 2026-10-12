@@ -315,15 +315,19 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .pick__head { max-width: 62ch; margin-bottom: 28px; }
 .pick__head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 800; }
 .pick__head p { color: var(--ink-2); font-size: 1.05rem; margin: 12px 0 0; }
-.pick__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line); }
-.ind > a, .ind > div { display: flex; flex-direction: column; gap: 4px; padding: 18px 18px 18px 0; border-bottom: 1px solid var(--line); height: 100%; text-decoration: none; color: var(--ink); }
+.pick__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px 22px; }
+.ind > a, .ind > div { display: flex; flex-direction: column; gap: 4px; height: 100%; text-decoration: none; color: var(--ink); }
+.ind__img { display: block; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; margin-bottom: 12px; background: var(--surface-2); border: 1px solid var(--line); }
+.ind__img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms var(--ease), filter 500ms var(--ease); }
 .ind b { font-size: 1.08rem; }
-.ind span { color: var(--ink-2); font-size: 0.93rem; }
+.ind__desc { color: var(--ink-2); font-size: 0.93rem; }
 .ind em { font-style: normal; font-size: 0.86rem; font-weight: 600; color: var(--ink-2); margin-top: auto; padding-top: 8px; }
 .ind--live > a em { color: var(--brand-ink); }
 .ind--live > a em::after { content: " →"; }
-.ind--live > a:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.ind--live > a:hover b, .ind--live > a:focus-visible b { text-decoration: underline; text-underline-offset: 3px; }
+.ind--live > a:hover .ind__img img { transform: scale(1.04); }
 .ind:not(.ind--live) b { color: var(--ink-2); }
+.ind:not(.ind--live) .ind__img img { filter: grayscale(1) opacity(0.7); }
 .pick__more { margin: 18px 0 0; color: var(--ink-2); font-size: 0.95rem; }
 
 /* Before you build */
