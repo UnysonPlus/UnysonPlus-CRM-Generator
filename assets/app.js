@@ -204,7 +204,7 @@
 
     return {
       spec_version: SPEC_VERSION,
-      generator: 'https://crm-generator.unysonplus.com/',
+      generator: 'https://crm.unysonplus.com/',
       vertical: 'real-estate',
       business: {
         name: name,

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://crm-generator.unysonplus.com/sitemap.xml
+Sitemap: https://crm.unysonplus.com/sitemap.xml

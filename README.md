@@ -1,6 +1,6 @@
 # Free CRM Website Generator
 
-A free, browser-only tool at **https://crm-generator.unysonplus.com/** that turns a few choices
+A free, browser-only tool at **https://crm.unysonplus.com/** that turns a few choices
 (industry, pages, listings, lead forms, CRM pipeline, brand) into:
 
 - **a build prompt** to paste into an AI coding agent, and
