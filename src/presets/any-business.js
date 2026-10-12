@@ -4,6 +4,7 @@ CRMGEN.register({
   id: 'any-business',
   path: '/',
   label: 'Any business',
+  heroStages: ['New', 'Quoted', 'Won'],
 
   page: {
     title: 'Free CRM Website Generator for WordPress | Unyson+',

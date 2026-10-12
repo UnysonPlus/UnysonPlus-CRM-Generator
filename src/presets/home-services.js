@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'home-services',
   path: '/home-services-crm-website/',
   label: 'Home services',
+  heroStages: ['New', 'Quoted', 'Won'],
 
   page: {
     title: 'Free Home Services CRM Website Generator for WordPress | Unyson+',

@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'fitness',
   path: '/gym-crm-website/',
   label: 'Fitness studio or gym',
+  heroStages: ['Trial', 'Attended', 'Member'],
 
   page: {
     title: 'Free Gym and Fitness Studio CRM Website Generator for WordPress | Unyson+',

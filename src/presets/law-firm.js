@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'law-firm',
   path: '/law-firm-crm-website/',
   label: 'Law firm',
+  heroStages: ['Enquiry', 'Consult', 'Retained'],
 
   page: {
     title: 'Free Law Firm CRM Website Generator for WordPress | Unyson+',

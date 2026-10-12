@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'real-estate',
   path: '/real-estate-crm-website/',
   label: 'Real estate',
+  heroStages: ['New', 'Showing', 'Closed'],
   legacyStoreKey: 'crmgen:v1', // state saved when real estate was the only preset
 
   page: {

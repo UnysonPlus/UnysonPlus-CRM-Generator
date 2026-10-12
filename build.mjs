@@ -60,7 +60,69 @@ function copyDir(a, b) {
   }
 }
 const hash = (file) => crypto.createHash('md5').update(fs.readFileSync(file)).digest('hex').slice(0, 8);
-const HERO_ART = fs.readFileSync(path.join(SRC, 'partials', 'hero-art.html'), 'utf8');
+/* Hero illustration: a mock website in a browser frame, with the CRM pipeline panel over it.
+   Industry pages show their own photo as the mock site's main image and their own stage names. */
+function heroArt(P) {
+  const stages = P.heroStages || ['New', 'Quoted', 'Won'];
+  const photo = P.path !== '/' && fs.existsSync(path.join(SRC, 'assets', 'img', 'industries', P.id + '.webp'));
+  const label = photo ? `A ${P.label.toLowerCase()} website with a lead pipeline` : 'A business website with a lead pipeline';
+  const site = photo ? `
+            <defs>
+              <clipPath id="artPhotoClip"><rect x="22" y="52" width="396" height="180" rx="8"/></clipPath>
+              <linearGradient id="artPhotoShade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1f1c" stop-opacity=".1"/><stop offset=".55" stop-color="#0b1f1c" stop-opacity=".25"/><stop offset="1" stop-color="#0b1f1c" stop-opacity=".7"/></linearGradient>
+            </defs>
+            <g class="art-tile" clip-path="url(#artPhotoClip)">
+              <rect x="22" y="52" width="396" height="180" fill="var(--art-photo1)"/>
+              <image href="/assets/img/industries/${P.id}.webp" x="22" y="52" width="396" height="180" preserveAspectRatio="xMidYMid slice"/>
+              <rect x="22" y="52" width="396" height="180" fill="url(#artPhotoShade)"/>
+            </g>
+            <rect x="40" y="166" width="150" height="12" rx="4" fill="#ffffff" opacity=".95"/>
+            <rect x="40" y="186" width="104" height="7" rx="3.5" fill="#ffffff" opacity=".75"/>
+            <rect x="40" y="202" width="80" height="18" rx="9" fill="var(--accent)"/>
+            <rect x="22" y="244" width="124" height="52" rx="6" fill="var(--art-soft2)"/>
+            <rect x="34" y="258" width="70" height="7" rx="3.5" fill="var(--art-ink)"/>
+            <rect x="34" y="273" width="48" height="6" rx="3" fill="var(--art-soft)"/>
+            <rect x="158" y="244" width="124" height="52" rx="6" fill="var(--art-soft2)"/>
+            <rect x="170" y="258" width="64" height="7" rx="3.5" fill="var(--art-ink)"/>
+            <rect x="170" y="273" width="52" height="6" rx="3" fill="var(--art-soft)"/>` : `
+            <rect x="32" y="62" width="150" height="14" rx="4" fill="var(--art-ink)"/>
+            <rect x="32" y="84" width="100" height="8" rx="4" fill="var(--art-soft)"/>
+            ${[[32, 'art-photo1'], [161, 'art-photo2'], [290, 'art-photo3']].map(([x, c]) => `<g class="art-tile">
+              <rect x="${x}" y="108" width="118" height="80" rx="8" fill="var(--${c})"/>
+              <path d="M${x + 20} 168 ${x + 42} 146l22 22z" fill="var(--art-photo-ink)" opacity=".35"/>
+              <rect x="${x}" y="196" width="80" height="8" rx="4" fill="var(--art-ink)"/>
+              <rect x="${x}" y="210" width="56" height="8" rx="4" fill="var(--accent)"/>
+            </g>`).join('\n            ')}
+            <rect x="32" y="238" width="376" height="50" rx="8" fill="var(--art-soft2)"/>
+            <rect x="46" y="256" width="110" height="14" rx="4" fill="var(--art-card)"/>
+            <rect x="166" y="256" width="110" height="14" rx="4" fill="var(--art-card)"/>
+            <rect x="290" y="252" width="104" height="22" rx="11" fill="var(--accent)"/>`;
+  return `<figure class="hero__art" aria-label="Illustration: ${esc(label)}">
+        <svg viewBox="0 0 520 420" role="img" aria-labelledby="artTitle">
+          <title id="artTitle">${esc(label)}</title>
+          <g class="art-site">
+            <rect x="10" y="10" width="420" height="300" rx="14" fill="var(--art-card)"/>
+            <rect x="10" y="10" width="420" height="34" rx="14" fill="var(--art-chrome)"/>
+            <rect x="10" y="30" width="420" height="14" fill="var(--art-chrome)"/>
+            <circle cx="32" cy="27" r="5" fill="var(--art-dot)"/><circle cx="48" cy="27" r="5" fill="var(--art-dot)"/><circle cx="64" cy="27" r="5" fill="var(--art-dot)"/>
+            <rect x="90" y="20" width="200" height="14" rx="7" fill="var(--art-card)"/>${site}
+          </g>
+          <g class="art-crm">
+            <rect x="236" y="214" width="274" height="196" rx="14" fill="var(--art-panel)"/>
+            <rect x="256" y="234" width="90" height="10" rx="5" fill="var(--art-panel-ink)"/>
+            <g font-family="inherit" font-size="10" fill="var(--art-panel-soft)">
+              <text x="256" y="268">${esc(stages[0])}</text><text x="342" y="268">${esc(stages[1])}</text><text x="428" y="268">${esc(stages[2])}</text>
+            </g>
+            <g class="art-lead"><rect x="256" y="278" width="74" height="34" rx="6" fill="var(--art-lead)"/><rect x="264" y="287" width="44" height="6" rx="3" fill="var(--art-panel-ink)"/><rect x="264" y="298" width="30" height="6" rx="3" fill="var(--art-panel-soft)"/></g>
+            <g class="art-lead"><rect x="256" y="320" width="74" height="34" rx="6" fill="var(--art-lead)"/><rect x="264" y="329" width="50" height="6" rx="3" fill="var(--art-panel-ink)"/><rect x="264" y="340" width="26" height="6" rx="3" fill="var(--art-panel-soft)"/></g>
+            <g class="art-lead art-lead--move"><rect x="342" y="278" width="74" height="34" rx="6" fill="var(--accent)"/><rect x="350" y="287" width="40" height="6" rx="3" fill="var(--accent-ink)"/><rect x="350" y="298" width="28" height="6" rx="3" fill="var(--accent-ink)" opacity=".6"/></g>
+            <g class="art-lead"><rect x="428" y="278" width="62" height="34" rx="6" fill="var(--art-lead)"/><rect x="436" y="287" width="36" height="6" rx="3" fill="var(--art-panel-ink)"/><rect x="436" y="298" width="24" height="6" rx="3" fill="var(--art-panel-soft)"/></g>
+            <rect x="256" y="370" width="234" height="20" rx="6" fill="var(--art-lead)"/>
+            <rect x="266" y="377" width="120" height="6" rx="3" fill="var(--art-panel-soft)"/>
+          </g>
+        </svg>
+      </figure>`;
+}
 
 /* ---------- page parts ---------- */
 
@@ -108,6 +170,7 @@ function jsonLd(P) {
 
 function head(P, v) {
   const url = SITE + P.path;
+  const og = fs.existsSync(path.join(SRC, 'assets', 'og', P.id + '.jpg')) ? `${SITE}/assets/og/${P.id}.jpg` : `${SITE}/assets/og-image.png`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -123,14 +186,14 @@ function head(P, v) {
 <meta property="og:title" content="${esc(P.page.h1)}">
 <meta property="og:description" content="${esc(P.page.description)}">
 <meta property="og:url" content="${url}">
-<meta property="og:image" content="${SITE}/assets/og-image.png">
+<meta property="og:image" content="${og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(P.page.ogAlt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(P.page.h1)}">
 <meta name="twitter:description" content="${esc(P.page.description)}">
-<meta name="twitter:image" content="${SITE}/assets/og-image.png">
+<meta name="twitter:image" content="${og}">
 <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/img/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -176,7 +239,7 @@ function hero(P) {
         </div>
         <p class="hero__note">${esc(P.page.note)}</p>
       </div>
-      ${HERO_ART.trim()}
+      ${heroArt(P)}
     </div>
   </section>`;
 }

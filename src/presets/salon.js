@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'salon',
   path: '/salon-spa-crm-website/',
   label: 'Salon and spa',
+  heroStages: ['Enquiry', 'Booked', 'Regular'],
 
   page: {
     title: 'Free Salon and Spa CRM Website Generator for WordPress | Unyson+',

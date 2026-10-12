@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'venue',
   path: '/event-venue-crm-website/',
   label: 'Event venue and weddings',
+  heroStages: ['Enquiry', 'Tour', 'Booked'],
 
   page: {
     title: 'Free Event and Wedding Venue CRM Website Generator for WordPress | Unyson+',

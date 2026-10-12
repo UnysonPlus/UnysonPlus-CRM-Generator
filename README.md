@@ -23,7 +23,7 @@ stored in the visitor's browser and can be shared through a link that packs them
 | `src/presets/<id>.js` | One industry: page copy, pages, content type, lead forms, pipeline, emails, rules, prompt wording |
 | `src/assets/engine.js` | Reads the form; builds the spec, the prompt, the preview and the checklist |
 | `src/assets/style.css`, `src/assets/img/` | Styles and brand images |
-| `src/partials/` | Shared HTML (the hero illustration) |
+| `src/assets/og/` | Share image per industry: a 1200x630 capture of that page's hero (regenerate after changing a hero) |
 | `src/static/` | `CNAME`, `robots.txt`, `404.html`, `.nojekyll`, copied as-is |
 | `build.mjs` | Builds `dist/`: one page per preset, the industry picker, sitemap and structured data |
 

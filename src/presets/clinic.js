@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'clinic',
   path: '/dental-clinic-crm-website/',
   label: 'Dental or medical clinic',
+  heroStages: ['New', 'Booked', 'Attended'],
 
   page: {
     title: 'Free Dental and Medical Clinic CRM Website Generator for WordPress | Unyson+',

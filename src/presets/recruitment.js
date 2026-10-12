@@ -3,6 +3,7 @@ CRMGEN.register({
   id: 'recruitment',
   path: '/recruitment-agency-crm-website/',
   label: 'Recruitment agency',
+  heroStages: ['Screened', 'Interview', 'Placed'],
 
   page: {
     title: 'Free Recruitment Agency CRM Website Generator for WordPress | Unyson+',
