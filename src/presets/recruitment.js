@@ -85,11 +85,11 @@ CRMGEN.register({
     primary: {
       blueprint: 'jobs', title: 'Job Listings', key: 'job_listing', archive: 'careers', group: 'Role Details',
       rename: { singular: 'Job', plural: 'Jobs', slug: 'jobs' },
-      after: 'In the same post type settings, turn **Exclude from search** off so live jobs appear in site search (the blueprint hides them by default because it is designed for in-house careers pages). Rename the `job_department` taxonomy\'s labels to "Sector" / "Sectors"; keep `job_type` as the contract type.',
+      after: 'In the same post type settings, turn **Exclude from search** off so live jobs appear in site search (the blueprint hides them by default because it is designed for in-house careers pages). Rename the `job_department` taxonomy\'s labels to "Sector" / "Sectors"; keep `job_type` as the contract type. The blueprint\'s Hiring manager field links to WordPress users, not team profiles, so add a `job_consultant` field (type `relation-post`, pointing at Team Members) to Role Details for the consultant handling each job.',
       baseText: 'location, salary range, closing date, hiring manager and apply URL, plus the Department and Contract Type taxonomies',
       baseFields: ['job_location', 'job_salary', 'job_closes', 'job_manager', 'job_apply_url'],
       listTitle: 'Jobs', singleName: 'job',
-      listing: 'list live jobs with the `posts` element (post type `job_listing`), newest first, with live filters by `job_department` (sector), `job_type` and work style if that taxonomy exists. Hide jobs whose closing date has passed.',
+      listing: 'list live jobs with the `posts` element (post type `job_listing`), newest first, with a live filter on `job_department` (sector; the live filter handles one taxonomy) and links to the term archives for `job_type` and work style. The `posts` element cannot hide jobs whose closing date has passed: do that with its `sc_posts_query_args` filter (plus `pre_get_posts` for search) in the child theme.',
       single: 'role summary, salary, location, contract type, closing date, responsibilities, requirements, the consultant handling it, the application form, and similar jobs. Add JobPosting structured data from these fields.'
     },
     secondary: [
@@ -121,7 +121,7 @@ CRMGEN.register({
     { id: 'contact', title: 'Contact', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Message'], where: 'Contact page and footer call to action', required: true },
     { id: 'apply', title: 'Apply for this job', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Job (hidden: page title)', 'CV (file upload: PDF or Word)', 'Short cover note', 'Consent to keep my CV for the period in the candidate privacy notice (consent, terms)'], where: 'Every single job page', on: true },
     { id: 'register', title: 'Register your CV', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Sector (choice)', 'Type of work wanted (permanent / contract / temporary)', 'CV (file upload: PDF or Word)', 'Consent to keep my CV (consent, terms)'], where: 'For candidates page and the Jobs page', audience: 'candidates' },
-    { id: 'vacancy', title: 'Register a vacancy', starter: 'Quote request', fields: ['Name', 'Company', 'Email', 'Phone', 'Role title', 'Location', 'Salary budget', 'Start date (date)', 'Details'], where: 'For employers page and the home page', audience: 'employers' },
+    { id: 'vacancy', title: 'Register a vacancy', starter: 'Quote request', fields: ['Name', 'Company', 'Email', 'Phone', 'Role title', 'Location', 'Salary budget', 'Start date (date)', 'Details'], where: 'For employers page and the home page', audience: 'employers', list: 'Employers' },
     { id: 'alerts', title: 'Job alerts signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Sectors of interest', 'Consent to receive job emails'], where: 'Jobs page and footer', on: true }
   ],
 

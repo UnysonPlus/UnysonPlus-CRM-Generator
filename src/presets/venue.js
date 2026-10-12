@@ -88,7 +88,7 @@ CRMGEN.register({
     },
     secondary: [
       { blueprint: 'Events', extra: 'open_days', purpose: 'use it for open days, wedding fairs and tastings, and show upcoming ones on the home page and the Weddings page.' },
-      { blueprint: 'Downloads', extra: 'brochure', purpose: 'add the venue brochure as a download with "Requires an email address" switched on, and offer it on the Packages page so each download becomes a lead.' }
+      { blueprint: 'Downloads', extra: 'brochure', purpose: 'add the venue brochure PDF as a download. Its "Requires an email address" switch does not capture leads by itself, so deliver the brochure link through the "Get the brochure" form instead: in its success message and in the welcome email.' }
     ],
     includedText: 'Always included: a page per space with a summary, a starting price and an icon.',
     extrasLabel: 'Extra space details',
@@ -116,7 +116,7 @@ CRMGEN.register({
 
   forms: [
     { id: 'contact', title: 'Contact', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Message'], where: 'Contact page and footer call to action', required: true },
-    { id: 'availability', title: 'Check availability', starter: 'Quote request', fields: ['Name', 'Email', 'Phone', 'Event type (choice)', 'Preferred date (date)', 'Flexible on dates? (yes / no)', 'Number of guests (number)', 'Budget range (choice)', 'Message'], where: 'Check availability page, every space page and the event pages', on: true },
+    { id: 'availability', title: 'Check availability', starter: 'Quote request', fields: ['Name', 'Email', 'Phone', 'Event type (choice)', 'Preferred date (date)', 'Flexible on dates? (yes / no)', 'Number of guests (number)', 'Budget range (choice; ask me for the bands, or use [bracketed] ones)', 'Message'], where: 'Check availability page, every space page and the event pages', on: true },
     { id: 'tour', title: 'Book a venue tour', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'Preferred date (date)', 'Event type (choice)', 'Event date if known (date)'], where: 'Home page, Spaces page and Weddings page', on: true },
     { id: 'brochure', title: 'Get the brochure', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Event type (choice)', 'Consent to receive emails'], where: 'Packages and pricing page', on: true }
   ],

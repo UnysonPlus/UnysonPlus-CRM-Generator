@@ -113,8 +113,8 @@ CRMGEN.register({
   forms: [
     { id: 'contact', title: 'Contact', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Message'], where: 'Contact page and footer call to action', required: true },
     { id: 'booking', title: 'Booking request', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'Service (choice)', 'Preferred stylist (choice, optional)', 'Preferred date (date)', 'Message'], where: 'Home page, Services and prices page and every service page', on: true },
-    { id: 'bridal', title: 'Bridal and events enquiry', starter: 'Quote request', fields: ['Name', 'Email', 'Phone', 'Event date (date)', 'Number of people', 'Services wanted', 'Message'], where: 'Bridal and events page', audience: 'bridal' },
-    { id: 'news', title: 'Offers and news signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Consent to receive emails'], where: 'Footer and the Offers page', on: true }
+    { id: 'bridal', title: 'Bridal and events enquiry', starter: 'Quote request', fields: ['Name', 'Email', 'Phone', 'Event date (date)', 'Number of people', 'Services wanted', 'Message'], where: 'Bridal and events page', audience: 'bridal', list: 'Bridal and events' },
+    { id: 'news', title: 'Offers and news signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Consent to receive emails'], where: 'Footer, and the Offers and gift cards page if it exists', on: true, list: 'Regulars' }
   ],
 
   stages: ['New enquiry', 'Booked', 'Visited', 'Rebooked', 'Regular', 'Lapsed'],

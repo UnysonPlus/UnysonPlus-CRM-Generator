@@ -268,6 +268,10 @@ function formHtml(P) {
             </div>
             ${longFields.map((f) => input(f.name, f.label, { textarea: true, placeholder: f.placeholder })).join('\n            ')}
             ${input('tagline', 'Tagline', { hint: 'optional', placeholder: B.taglinePlaceholder })}
+            <div class="row">
+              ${input('bizEmail', 'Public email', { hint: 'optional', type: 'email', placeholder: 'hello@yourdomain.com' })}
+              ${input('hours', 'Opening hours', { hint: 'optional', placeholder: 'Mon–Fri 9am–5pm, Sat 10am–2pm' })}
+            </div>
             ${shortFields.length ? `<div class="row">
               ${shortFields.map((f) => input(f.name, f.label, { hint: f.hint, placeholder: f.placeholder })).join('\n              ')}
             </div>` : ''}

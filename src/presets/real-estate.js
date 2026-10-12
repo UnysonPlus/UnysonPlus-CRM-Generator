@@ -145,16 +145,19 @@ CRMGEN.register({
       function p() { out.push(Array.prototype.join.call(arguments, '')); }
       if (L.post_type) {
         var pt = L.post_type;
-        p('Go to **Unyson+ → Post Types → Blueprints** and install **Properties**. It creates the `property` post type (archive at `/properties/`), the taxonomies `property_type`, `property_location` and `property_feature`, and a "Listing Details" field group with price, bedrooms, bathrooms, floor area, address, map location, gallery and virtual tour.');
+        var U = CRMGEN.util;
+        p('Go to **Unyson+ → Post Types → Blueprints** and install **Properties**. It creates the `property` post type, the taxonomies `property_type`, `property_location` and `property_feature`, and a "Listing Details" field group with price, bedrooms, bathrooms, floor area, address, map location, gallery and virtual tour.');
+        p('Then edit the post type in **Unyson+ → Post Types**: keep its URL slug `properties` and turn **Has archive** off, because the Properties page is the listing. Single listings then live at `/properties/<name>/`.');
         if (pt.extra_fields.length) {
           p('Add these fields to the Listing Details group with the Custom Fields extension:');
           pt.extra_fields.forEach(function (f) { p('- ', f.label, ': key `', f.key, '`, type `', f.type, '`', f.units ? ' (units: ' + f.units + ')' : ''); });
         }
         pt.extra_taxonomies.forEach(function (t) {
-          p('Add a taxonomy **', t.label, '** (`', t.key, '`) on `property` with the terms: ', t.terms.join(', '), '. It is a taxonomy, not a field, so visitors can filter by it.');
+          p('In **Unyson+ → Post Types → Add Taxonomy**, add **', t.label, '** (`', t.key, '`) on `property`, then add its terms: ', t.terms.join(', '), '. It is a taxonomy, not a field, so visitors can filter by it.');
         });
-        p('- **Properties page:** use the `posts` element with post type `property` and live filters on, filtering by ', pt.filters.map(function (f) { return '`' + f + '`'; }).join(', '), '. Check `docs/shortcodes/posts.md` for the exact options.');
-        p('- **Single listing layout:** gallery at the top, price and key facts (beds, baths, area', s.extras.indexOf('status') !== -1 ? ', status' : '', '), description, features, map, virtual tour, ', s.forms.indexOf('showing') !== -1 ? 'the "Schedule a showing" form, ' : '', 'and an agent contact card. Look up in the kit how to build a reusable single-post layout from the dynamic post elements.');
+        var others = pt.filters.filter(function (f) { return f !== 'property_type'; });
+        p('- **Properties page:** use the `posts` element with post type `property` and a live filter on `property_type` (the live filter handles one taxonomy), plus links to the term archives for ', others.map(function (f) { return '`' + f + '`'; }).join(', '), '. ', U.POSTS_NOTE);
+        p('- **Single listing layout:** gallery at the top, price and key facts (beds, baths, area', s.extras.indexOf('status') !== -1 ? ', status' : '', '), description, features, map, virtual tour, ', s.forms.indexOf('showing') !== -1 ? 'the "Schedule a showing" form, ' : '', 'and an agent contact card. ', U.singleLayoutNote('property', 'property_price'), ' The map field shows as plain text until a Google Maps API key is set.');
         if (pt.sample_listings) p('- Create ', pt.sample_listings, ' sample listings across different property types and locations so every page has content. Put "Sample" at the start of each title so I can find and replace them. Use fictional addresses and only images you have the right to use.');
         else p('- Do not create sample listings; I will add my own.');
       }
@@ -168,10 +171,10 @@ CRMGEN.register({
   forms: [
     { id: 'contact', title: 'Contact', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Message'], where: 'Contact page and footer call to action', required: true },
     { id: 'showing', title: 'Schedule a showing', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'Preferred date (date)', 'Message', 'Listing (hidden: page title)'], where: 'Every single listing page', on: true },
-    { id: 'valuation', title: 'Home valuation', starter: 'Quote request', fields: ['Name', 'Email', 'Phone', 'Property address', 'Property type', 'Bedrooms', 'Bathrooms', 'When do you plan to sell?'], where: 'Selling your home page and the home page', audience: 'sellers' },
+    { id: 'valuation', title: 'Home valuation', starter: 'Quote request', fields: ['Name', 'Email', 'Phone', 'Property address', 'Property type', 'Bedrooms', 'Bathrooms', 'When do you plan to sell?'], where: 'Selling your home page and the home page', audience: 'sellers', list: 'Sellers' },
     { id: 'consult', title: 'Buyer consultation', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'Budget range', 'Areas of interest', 'Timeline', 'Pre-approved for a mortgage? (yes / no / not yet)'], where: 'Buying a home page', audience: 'buyers' },
-    { id: 'alerts', title: 'Listing alerts signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Areas of interest', 'Consent to receive listing emails'], where: 'Properties page and blog sidebar', on: true },
-    { id: 'rental', title: 'Rental inquiry', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Move-in date (date)', 'Number of occupants', 'Listing (hidden: page title)'], where: 'Rental listings', audience: 'renters' }
+    { id: 'alerts', title: 'Listing alerts signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Areas of interest', 'Consent to receive listing emails'], where: 'Properties page and the Market updates page', on: true },
+    { id: 'rental', title: 'Rental inquiry', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Move-in date (date)', 'Number of occupants', 'Listing (hidden: page title)'], where: 'Rental listings', audience: 'renters', list: 'Renters' }
   ],
 
   stages: ['New lead', 'Contacted', 'Appointment set', 'Showing or valuation done', 'Offer or listing signed', 'Under contract', 'Closed', 'Not now'],

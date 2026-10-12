@@ -119,7 +119,7 @@ CRMGEN.register({
     { id: 'contact', title: 'Contact', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Message (with a note not to include medical details)'], where: 'Contact page and footer call to action', required: true },
     { id: 'appointment', title: 'Request an appointment', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'New or existing patient (radio)', 'Treatment of interest (choice)', 'Preferred days and times', 'How should we contact you? (phone / email)'], where: 'Home page, every treatment page and the New patients page', on: true },
     { id: 'callback', title: 'Request a callback', starter: 'Contact', fields: ['Name', 'Phone', 'Best time to call'], where: 'Emergency appointments page and the site header', audience: 'emergency' },
-    { id: 'reminders', title: 'Check-up reminders signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Consent to receive reminder emails'], where: 'Footer and the New patients page', on: true }
+    { id: 'reminders', title: 'Check-up reminders signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Consent to receive reminder emails'], where: 'Footer and the New patients page', on: true, list: 'Families' }
   ],
 
   stages: ['New request', 'Contacted', 'Booked', 'Attended', 'Treatment plan sent', 'Recall due', 'Inactive'],

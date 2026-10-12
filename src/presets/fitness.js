@@ -117,7 +117,7 @@ CRMGEN.register({
   forms: [
     { id: 'contact', title: 'Contact', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Message'], where: 'Contact page and footer call to action', required: true },
     { id: 'trial', title: 'Book a free trial', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'Class of interest (choice)', 'Preferred day (date)', 'Experience (new to training / train regularly)'], where: 'Home page, Free trial page and every class page', on: true },
-    { id: 'membership', title: 'Membership enquiry', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Membership of interest (choice)', 'Message'], where: 'Memberships and pricing page', on: true },
+    { id: 'membership', title: 'Membership enquiry', starter: 'Contact', fields: ['Name', 'Email', 'Phone', 'Membership of interest (choice)', 'Message'], where: 'Memberships and pricing page', on: true, list: 'Experienced members' },
     { id: 'pt', title: 'Personal training enquiry', starter: 'Booking / Appointment', fields: ['Name', 'Email', 'Phone', 'Goals', 'Preferred days and times'], where: 'Personal training page', type: ['pt', 'gym'] },
     { id: 'corporate', title: 'Corporate enquiry', starter: 'Quote request', fields: ['Name', 'Company', 'Email', 'Phone', 'Number of employees', 'What you are looking for'], where: 'Corporate wellness page', audience: 'corporate' },
     { id: 'news', title: 'Timetable and news signup', starter: 'Newsletter signup', fields: ['Name', 'Email', 'Consent to receive emails'], where: 'Footer and the Timetable page' }
