@@ -265,7 +265,7 @@
           if (!fields.some(function (x) { return /email/i.test(x); })) fields = fields.concat(['Email (optional; needed for the newsletter opt-in)']);
           return {
             id: f.id, title: f.title,
-            starter: f.starter === 'Newsletter signup' ? 'Newsletter signup' : 'Contact',
+            starter: f.starter === 'Newsletter signup' ? 'Newsletter signup' : (f.starter === 'Booking / Appointment' ? 'Appointment request' : 'Contact'),
             fields: fields, placement: f.where,
             subscribe_list: f.list && lists.indexOf(f.list) !== -1 ? f.list : (lists[0] || null),
             subscribe_tag: firstTag,
@@ -340,7 +340,7 @@
       p('3. Install the Unyson+ plugin from ', PLUGIN_ZIP, '. It contains only the core; the features this site needs come from the Extensions manager in step 5.');
       p('4. Install the parent theme: from ', THEME_REPO, '/releases/latest download the source zip and rename the extracted folder to `unysonplus-theme`. Copy the kit\'s `samples/sample-child-theme` as this site\'s child theme, rename it for the business, and activate it.');
       p('5. In **Unyson+ → Extensions**, download and then activate, in this order: ', spec.build.extensions.map(function (e) { return EXT_NAMES[e]; }).join(', '), '. Some are under "Show other extensions". Forms must be active before Newsletter / Subscriber CRM.');
-      p('6. Email: forms show visitors "Invalid send method" until a send method is set. In the first form\'s **Mailer** settings choose WordPress mail (or SMTP on a live host), with a From name and address, and send a test email.');
+      p('6. Email: forms send through WordPress mail out of the box. In **Mailer** settings set a From name and address (and SMTP on a live host, where plain WordPress mail often lands in spam), then send a test email.');
       p('7. WordPress already has a draft Privacy Policy page at `/privacy-policy/`: reuse it for the privacy policy. Delete the default "Sample Page" and "Hello world!" post.');
       p('');
 
@@ -367,9 +367,9 @@
 
       var n = C ? 4 : 3;
       p('## Step ', n, ': Lead capture');
-      p('Build each form with the Forms extension\'s contact form element. Start from the **Contact** starter (or **Newsletter signup** where noted) and make the fields exactly match the list below: remove every other field the starter brings, but keep its required privacy agreement box. Do not use the Booking or Quote starters; they carry restaurant and survey fields. On every form:');
+      p('Build each form with the Forms extension\'s contact form element. Start from the starter named for each form (**Contact**, **Appointment request** or **Newsletter signup**) and make the fields exactly match the list below: remove every other field the starter brings, but keep its required privacy agreement box. Do not use the Table booking (restaurant) or Quote starters; they carry restaurant and survey fields. On every form:');
       p('- keep the **Store entry** action on and send notifications to ', spec.lead_capture.notify_email, ';');
-      p('- add one optional **Consent** field (purpose: newsletter) and the **Subscribe to the newsletter** action, set to the list named below. In its Tags box enter the tag\'s slug `', spec.crm.pipeline.tag_slugs[0], '`: typing the tag\'s name creates a duplicate tag.');
+      p('- add one optional **Consent** field (purpose: newsletter) and the **Subscribe to the newsletter** action, set to the list named below. In its Tags box enter the first stage tag, "Stage: ', spec.crm.pipeline.stages[0], '".');
       p('Forms are elements placed on pages. Where a placement says footer or header button, put a button there that links to the form on its page; the footer cannot hold a form.');
       spec.lead_capture.forms.forEach(function (f) {
         p('- **', f.title, '** (starter: ', f.starter, '). Fields: ', f.fields.join(', '), '. Place on: ', f.placement, '.', f.subscribe_list ? ' Subscribe list: ' + f.subscribe_list + '.' : '');
@@ -381,7 +381,7 @@
       p('Use the **Newsletter / Subscriber CRM** extension as the CRM. Do not build custom CRM tables or a custom CRM plugin.');
       if (spec.crm.lists.length) p('- Create lists: ', spec.crm.lists.join(', '), '.');
       p('- Pipeline: under **Newsletter → Lists, Tags & Segments**, create one tag per stage: ', spec.crm.pipeline.stages.map(function (x, i) { return '"Stage: ' + x + '" (`' + spec.crm.pipeline.tag_slugs[i] + '`)'; }).join(', '), '. New leads start in "Stage: ', spec.crm.pipeline.stages[0], '". Save one segment per stage so I can open each stage in one click. To move a lead on: Newsletter → Subscribers, tick the lead, Bulk actions → "Add tag" for the next stage, then "Remove tag" for the old one. Show me this.');
-      p('- Turn **double opt-in** on (Newsletter → Settings); it is off by default.');
+      p('- Keep **double opt-in** on (Newsletter → Settings; it is on by default).');
       var welcome = spec.crm.emails.filter(function (e) { return e.id === 'welcome'; })[0];
       var campaigns = spec.crm.emails.filter(function (e) { return e.id !== 'welcome'; });
       if (welcome) p('- Welcome email: it is one setting in Newsletter → Settings, sent to everyone who confirms. Write it there in my voice (', welcome.description.toLowerCase(), ') and leave automatic sending off until I approve it.');
