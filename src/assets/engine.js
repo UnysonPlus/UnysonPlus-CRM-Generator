@@ -336,7 +336,7 @@
       else p('WordPress is not installed yet. Help me set up a local WordPress install first, then continue. Use a fresh install with no other page builder.');
       if (missing.length) p('Before you start, ask me for: ', missing.map(function (m) { return m.ask; }).join('; '), '. Use them wherever the spec has a [bracketed] placeholder.');
       p('1. Get the AI Dev Kit: clone ', KIT_URL, '. Read `AGENTS.md` first, then `docs/build-reference.md` (Part 2, "Fresh builds") and `docs/building-pages.md`. This is a **fresh build**: there is no source site, so skip the capture and conversion steps elsewhere in the kit. Look up every element, extension and option in the kit\'s `docs/` folder before using it.');
-      p('2. Install the **Classic Editor** plugin (the kit\'s setup requires it) and set **Settings → Permalinks** to "Post name".');
+      p('2. Set **Settings → Permalinks** to "Post name". Unyson+ does not need the Classic Editor plugin, so do not install it.');
       p('3. Install the Unyson+ plugin from ', PLUGIN_ZIP, '. It contains only the core; the features this site needs come from the Extensions manager in step 5.');
       p('4. Install the parent theme: from ', THEME_REPO, '/releases/latest download the source zip and rename the extracted folder to `unysonplus-theme`. Copy the kit\'s `samples/sample-child-theme` as this site\'s child theme, rename it for the business, and activate it.');
       p('5. In **Unyson+ → Extensions**, download and then activate, in this order: ', spec.build.extensions.map(function (e) { return EXT_NAMES[e]; }).join(', '), '. Some are under "Show other extensions". Forms must be active before Newsletter / Subscriber CRM.');
