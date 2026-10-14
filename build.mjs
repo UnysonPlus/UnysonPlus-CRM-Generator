@@ -28,7 +28,7 @@ const INDUSTRIES = [
 const COMMON_FAQ = [
   { q: 'Is it really free?', a: 'Yes. The generator, the Unyson+ plugin and theme, and the AI Dev Kit are free. You only pay for your own hosting and, if you use one, your AI agent subscription.' },
   { q: 'Do I need to know how to code?', a: 'No. You fill in a form and copy the result. Your AI agent does the building. After it is built, the site is edited in the WordPress admin with a visual page builder.' },
-  { q: 'Which AI agents can use the prompt?', a: 'Any agent that can read files and run commands on the machine or server hosting WordPress, such as Claude Code, Cursor or Codex. Chat-only assistants can follow the plan, but you will have to carry out the steps yourself.' }
+  { q: 'Do I need coding tools?', a: 'No. With a paid Claude plan you can build from the normal Claude app: install Unyson+ on a fresh WordPress, click Unyson+ \u2192 Connect AI \u2192 Set up this site for an AI app, add the connector it shows to Claude, and paste the prompt. Claude builds the site through the connector, with no terminal, API key or password. If you prefer a coding agent such as Claude Code, Cursor or Codex, choose it under Build setup instead.' }
 ];
 const faqOf = (P) => P.page.faq.concat(P.page.faqCommon ? COMMON_FAQ : []);
 
@@ -148,7 +148,7 @@ function jsonLd(P) {
       step: [
         { '@type': 'HowToStep', position: 1, name: 'Choose your features', text: 'Choose pages, ' + P.content.legend.toLowerCase() + ', lead forms, pipeline stages and brand colors.' },
         { '@type': 'HowToStep', position: 2, name: 'Copy the prompt and spec', text: 'Copy the build prompt, which ends with the full site spec.' },
-        { '@type': 'HowToStep', position: 3, name: 'Let your AI agent build it', text: 'Give the prompt to your AI coding agent together with the free Unyson+ AI Dev Kit. It enables WordPress features and builds the site.' }
+        { '@type': 'HowToStep', position: 3, name: 'Let Claude build it', text: 'Paste the prompt into a Claude chat with the Unyson+ connector on, or into an AI coding agent. It enables the WordPress features it needs and builds the site.' }
       ]
     },
     {
@@ -387,9 +387,16 @@ ${contentFs}
           <fieldset>
             <legend>Build setup</legend>
             <div class="row">
-              ${select('agent', 'AI agent', [{ value: 'claude-code', label: 'Claude Code', selected: true }, { value: 'cursor', label: 'Cursor' }, { value: 'codex', label: 'Codex' }, { value: 'other', label: 'Another coding agent' }])}
-              ${select('wp', 'WordPress', [{ value: 'local', label: 'On my computer (local)', selected: true }, { value: 'host', label: 'On my web host' }, { value: 'none', label: 'Not installed yet' }])}
+              ${select('track', 'How will you build?', [{ value: 'app', label: 'In the Claude app', selected: true }, { value: 'agent', label: 'With a coding agent' }])}
+              ${select('wp', 'Your fresh WordPress is', [{ value: 'host', label: 'On my web host', selected: true }, { value: 'local', label: 'On my computer (local)' }])}
             </div>
+            <div class="row" id="agentRow" hidden>
+              ${select('agent', 'AI agent', [{ value: 'claude-code', label: 'Claude Code', selected: true }, { value: 'cursor', label: 'Cursor' }, { value: 'codex', label: 'Codex' }, { value: 'other', label: 'Another coding agent' }])}
+              <div id="accessField" hidden>${select('access', 'How the agent reaches your host', [{ value: 'migrate', label: 'Build locally, move it later', selected: true }, { value: 'ssh', label: 'SSH (with WP-CLI)' }, { value: 'apppass', label: 'Only the WordPress admin' }])}</div>
+              <div id="localField" hidden>${select('localtool', 'Local WordPress tool', [{ value: 'local', label: 'Local', selected: true }, { value: 'studio', label: 'WordPress Studio' }, { value: 'xampp', label: 'XAMPP, WAMP or MAMP' }, { value: 'other', label: 'Something else' }])}</div>
+            </div>
+            <p class="note" id="trackNote" aria-live="polite"></p>
+            <p class="hint-line">Start from a <b>fresh</b> WordPress (or your host's staging copy), never a site with real content. <a href="https://docs.unysonplus.com/guides/crm-generator-setup">Need WordPress first, or help with the setup?</a></p>
           </fieldset>
 
           <section class="ready" aria-labelledby="readyTitle">
@@ -428,6 +435,7 @@ function generator(P) {
             <button type="button" class="btn btn--accent" id="copy">Copy prompt</button>
             <button type="button" class="btn btn--ghost-dark" id="download">Download prompt</button>
             <button type="button" class="btn btn--ghost-dark" id="share">Copy share link</button>
+            <button type="button" class="btn btn--ghost-dark" id="resume" hidden>Copy resume message</button>
           </div>
           <p class="out__status" id="status" role="status" aria-live="polite"></p>
         </aside>
@@ -451,7 +459,7 @@ function how(P) {
         </li>
         <li>
           <h3>Your AI agent builds the site</h3>
-          <p>Paste the prompt into Claude Code, Cursor, Codex or another coding agent. It reads the free Unyson+ AI Dev Kit, enables the right features and builds the pages, forms and CRM on your WordPress install.</p>
+          <p>Paste the prompt into a Claude chat with the Unyson+ connector on (no coding tools needed), or into Claude Code, Cursor, Codex or another coding agent. It reads the Unyson+ build docs, enables the right features and builds the pages, forms and CRM on your WordPress site.</p>
         </li>
       </ol>
     </div>
@@ -534,6 +542,15 @@ ${footer()}
 <script>window.CRMGEN_PATHS = ${JSON.stringify(PATHS)};</script>
 <script src="/assets/engine.js?v=${v.engine}" defer></script>
 <script src="/assets/presets/${P.id}.js?v=${v[P.id]}" defer></script>
+<!-- Default Statcounter code for Unyson+ CRM https://crm.unysonplus.com/ -->
+<script type="text/javascript">
+var sc_project=13359821;
+var sc_invisible=1;
+var sc_security="ed7f5fa3";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="web stats" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13359821/0/ed7f5fa3/1/" alt="web stats" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
 </body>
 </html>
 `;
