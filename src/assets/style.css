@@ -42,8 +42,10 @@
   --wrap: 1200px;
   --gutter: clamp(16px, 4vw, 40px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --font: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  /* The type system of www.unysonplus.com: Josefin Sans headings, Open Sans text, JetBrains Mono code. */
+  --font-display: "Josefin Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font: "Open Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
 
   --z-sticky: 10;
 }
@@ -57,7 +59,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img, svg { max-width: 100%; }
-h1, h2, h3 { line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
 p { text-wrap: pretty; }
 a { color: var(--brand-ink); text-underline-offset: 3px; }
 a:hover { color: var(--ink); }
@@ -112,7 +114,7 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
 }
 .hero__in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
 .hero__tag { margin: 0 0 18px; font-weight: 600; color: var(--accent); font-size: 0.95rem; }
-.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); font-weight: 800; letter-spacing: -0.035em; max-width: 13ch; }
+.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); font-weight: 700; letter-spacing: -0.01em; max-width: 15ch; }
 .hero__lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--hero-ink-2); max-width: 52ch; margin: 22px 0 30px; line-height: 1.55; }
 .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero__note { margin: 22px 0 0; font-size: 0.92rem; color: var(--hero-ink-2); }
@@ -142,7 +144,7 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
 /* Generator */
 .gen { background: var(--bg); padding-block: clamp(56px, 8vw, 104px); }
 .gen__head { max-width: 62ch; margin-bottom: 36px; }
-.gen__head h2, .how h2, .inc h2, .idx h2, .faq h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 800; }
+.gen__head h2, .how h2, .inc h2, .idx h2, .faq h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700; }
 .gen__head p { color: var(--ink-2); font-size: 1.05rem; margin: 12px 0 0; }
 .gen__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 3vw, 40px); align-items: start; }
 
@@ -301,7 +303,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 /* The step's number, large and quiet in the corner: the order is the point of this section. */
 .step__num {
   position: absolute; right: clamp(20px, 2.2vw, 28px); bottom: clamp(16px, 1.8vw, 22px); z-index: -1;
-  font-size: clamp(4.4rem, 6.4vw, 5.8rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.04em;
+  font-family: var(--font-display); font-size: clamp(4.4rem, 6.4vw, 5.8rem); font-weight: 700; line-height: 0.8; letter-spacing: -0.02em;
   color: oklch(1 0 0 / 0.06); pointer-events: none; user-select: none;
 }
 /* Arrow between steps, sitting on the seam. */
@@ -378,7 +380,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
   padding-block: clamp(56px, 8vw, 96px);
 }
 .cta__in { display: grid; justify-items: center; gap: 18px; }
-.cta h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; max-width: 16ch; }
+.cta h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.01em; max-width: 16ch; }
 .cta p { margin: 0 0 8px; color: var(--hero-ink-2); font-size: 1.08rem; max-width: 46ch; }
 
 /* Breadcrumb (industry pages) */
@@ -390,7 +392,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 /* Industry picker (home) */
 .pick { background: var(--band); padding-block: clamp(48px, 7vw, 88px); }
 .pick__head { max-width: 62ch; margin-bottom: 28px; }
-.pick__head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 800; }
+.pick__head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700; }
 .pick__head p { color: var(--ink-2); font-size: 1.05rem; margin: 12px 0 0; }
 .pick__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px 22px; }
 .ind > a, .ind > div { display: flex; flex-direction: column; gap: 4px; height: 100%; text-decoration: none; color: var(--ink); }
@@ -409,7 +411,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 
 /* Before you build */
 .ready { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); padding: 18px 20px; }
-.ready h3 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; }
+.ready h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; }
 .ready > p { margin: 6px 0 12px; color: var(--ink-2); font-size: 0.9rem; }
 .ready__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .ready__list li { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: baseline; font-size: 0.93rem; }
