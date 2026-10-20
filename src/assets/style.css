@@ -293,7 +293,10 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
   transition: text-decoration-color 180ms var(--ease), color 180ms var(--ease);
 }
 .step__link span { color: var(--accent); display: inline-block; transition: translate 200ms var(--ease); }
-.step__link:hover { text-decoration-color: currentColor; }
+.step__link:hover { color: var(--hero-ink); text-decoration-color: currentColor; }
+/* The page's global a:hover turns links dark ink, which is written for white sections. In this dark
+   band any link keeps a light colour on hover. */
+.how a:not(.btn):hover { color: var(--hero-ink); }
 .step__link:hover span { translate: 3px 0; }
 /* The step's number, large and quiet in the corner: the order is the point of this section. */
 .step__num {
