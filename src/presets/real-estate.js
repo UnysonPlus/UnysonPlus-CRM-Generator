@@ -8,9 +8,9 @@ CRMGEN.register({
 
   page: {
     title: 'Free Real Estate CRM Website Generator for WordPress | Unyson+',
-    description: 'Build a free real estate CRM website on WordPress: property listings, IDX-ready search, showing and valuation forms, and a lead pipeline. Copy the prompt for your AI agent. No sign-up.',
+    description: 'A free CRM website for realtors and real estate agents on WordPress: listings, IDX-ready search, showing and valuation forms and a lead pipeline. No sign-up.',
     h1: 'Free real estate CRM website for WordPress',
-    lede: 'Listings, showing requests, home valuations and a lead pipeline for agents, teams and brokerages. Pick what you need and copy a build prompt your AI agent turns into a working site, built on the free Unyson+ framework.',
+    lede: 'Listings, showing requests, home valuations and a lead pipeline for realtors, agent teams and brokerages. Pick what you need and copy a build prompt your AI agent turns into a working site, built on the free Unyson+ framework.',
     note: 'Works with manual listings or the IDX provider you already use.',
     ogAlt: 'The real estate CRM website generator: listings and a lead pipeline',
     genTitle: 'Build your real estate CRM website spec',
@@ -29,6 +29,7 @@ CRMGEN.register({
     },
     faq: [
       { q: 'Is the real estate CRM website generator free?', a: 'Yes. The generator, the Unyson+ plugin and theme, and the AI Dev Kit are free. You only pay for your own hosting and, if you use one, your AI agent subscription.' },
+      { q: 'Is this a good free CRM for realtors?', a: 'Yes, if you want your CRM and your website in one place you own. Every showing request, valuation and buyer consultation from your site lands in the CRM as a contact, tagged by where they are in your pipeline, with the whole enquiry on their timeline. There are no per-contact or per-seat fees, so a solo realtor and a brokerage pay the same: nothing, apart from hosting.' },
       { q: 'Does it connect to the MLS or include IDX?', a: 'MLS data requires your own IDX agreement through your brokerage and MLS. The generator supports two routes: manual listings you add yourself, or an IDX provider you already use, whose plugin or widget the agent installs. Leads from either route go into the same CRM.' },
       { q: 'Which IDX providers work?', a: 'Any provider that offers a WordPress plugin or embed code, such as IDX Broker, Showcase IDX, myRealPage, Real Geeks or iHomefinder. The agent follows that provider\'s own installation steps and asks you for your account details.' },
       { q: 'Do I need to know how to code?', a: 'No. You fill in a form and copy the result. Your AI agent does the building. After it is built, the site is edited in the WordPress admin with a visual page builder.' },
@@ -193,7 +194,7 @@ CRMGEN.register({
     friendly: 'Warm and friendly: rounded shapes, approachable type, real photos of people and neighborhoods, inviting copy.'
   },
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -226,7 +227,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a real estate CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete real estate website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- Market: ' + b.market];
       if (b.tagline) out.push('- Tagline: ' + b.tagline);

@@ -127,7 +127,7 @@ CRMGEN.register({
     { value: 'news', label: 'Seasonal offers', description: 'Seasonal offers and news (campaign template)' }
   ],
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -162,7 +162,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a salon CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete salon website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- Location: ' + b.market];
       if (b.address) out.push('- Address: ' + b.address);

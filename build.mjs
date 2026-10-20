@@ -445,21 +445,43 @@ function generator(P) {
 }
 
 function how(P) {
+  const icon = {
+    // Feature switches.
+    choose: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>',
+    // A structured file.
+    copy: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M10 12.5c-.8 0-1 .5-1 1.2s-.4 1.3-1 1.3c.6 0 1 .6 1 1.3s.2 1.2 1 1.2M14 12.5c.8 0 1 .5 1 1.2s.4 1.3 1 1.3c-.6 0-1 .6-1 1.3s-.2 1.2-1 1.2"/></svg>',
+    // A finished site.
+    build: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9 6.5h.01"/><path d="m9 14.5 2 2 4-4"/></svg>',
+  };
   return `<section id="how" class="how" aria-labelledby="howTitle">
     <div class="wrap">
-      <h2 id="howTitle">How it works</h2>
+      <div class="how__head">
+        <h2 id="howTitle">How it works</h2>
+        <p>You make the choices on this page. Your AI agent does the building, on your own WordPress site.</p>
+      </div>
       <ol class="steps">
-        <li>
+        <li class="step" style="--i:0">
+          <span class="step__icon" aria-hidden="true">${icon.choose}</span>
           <h3>Choose your features</h3>
           <p>Start from ${P.id === 'any-business' ? 'a description of your business' : 'the ' + esc(P.label.toLowerCase()) + ' preset'} and switch on the pages, ${esc(P.content.legend.toLowerCase())}, lead forms and pipeline stages you need. Pick your colors and style.</p>
+          <a class="step__link" href="#generator">Open the generator<span aria-hidden="true">&nbsp;&rarr;</span></a>
+          <span class="step__deco" aria-hidden="true"></span>
+          <span class="step__num" aria-hidden="true">01</span>
         </li>
-        <li>
+        <li class="step" style="--i:1">
+          <span class="step__icon" aria-hidden="true">${icon.copy}</span>
           <h3>Copy the prompt and spec</h3>
           <p>The prompt tells your agent what to build and in what order. <code>site-spec.json</code> holds every choice in a structured file, so the result does not depend on how the agent reads a paragraph.</p>
+          <span class="step__deco" aria-hidden="true"></span>
+          <span class="step__num" aria-hidden="true">02</span>
         </li>
-        <li>
+        <li class="step step--result" style="--i:2">
+          <span class="step__icon" aria-hidden="true">${icon.build}</span>
           <h3>Your AI agent builds the site</h3>
           <p>Paste the prompt into a Claude chat with the Unyson+ connector on (no coding tools needed), or into Claude Code, Cursor, Codex or another coding agent. It reads the Unyson+ build docs, enables the right features and builds the pages, forms and CRM on your WordPress site.</p>
+          <a class="step__link" href="#included">See what gets built<span aria-hidden="true">&nbsp;&rarr;</span></a>
+          <span class="step__deco" aria-hidden="true"></span>
+          <span class="step__num" aria-hidden="true">03</span>
         </li>
       </ol>
     </div>

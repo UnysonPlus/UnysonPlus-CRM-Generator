@@ -133,7 +133,7 @@ CRMGEN.register({
     { value: 'newsletter', label: 'Monthly timetable and news', description: 'Monthly timetable changes, events and news (campaign template)' }
   ],
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -168,7 +168,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a fitness CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete gym and fitness website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- What it offers: ' + b.offers, '- Location: ' + b.market];
       if (b.tagline) out.push('- Tagline: ' + b.tagline);

@@ -135,7 +135,7 @@ CRMGEN.register({
     { value: 'placement_checkin', label: 'Placement check-in', description: 'Check-in a few weeks after a placement (campaign template)' }
   ],
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -170,7 +170,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a recruitment agency CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete recruitment agency website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- Sectors: ' + b.sectors, '- Region: ' + b.market];
       if (b.tagline) out.push('- Tagline: ' + b.tagline);

@@ -126,7 +126,7 @@ CRMGEN.register({
     { value: 'welcome', label: 'Welcome email', description: 'Welcome email sent when someone confirms their subscription' }
   ],
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -158,7 +158,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a home services CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete home services website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- Main services: ' + b.services_offered, '- Areas covered: ' + b.market];
       if (b.tagline) out.push('- Tagline: ' + b.tagline);

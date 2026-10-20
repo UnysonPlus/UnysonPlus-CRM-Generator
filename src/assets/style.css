@@ -231,13 +231,115 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .out__actions .btn { min-height: 42px; padding: 0 18px; font-size: 0.92rem; }
 .out__status { margin: 0; padding: 0 16px 14px; font-size: 0.86rem; color: var(--accent); min-height: 1.4em; }
 
-/* How */
-.how { background: var(--band); padding-block: clamp(56px, 8vw, 104px); }
-.steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(24px, 4vw, 56px); counter-reset: step; }
-.steps li { counter-increment: step; display: grid; gap: 10px; align-content: start; }
-.steps li::before { content: counter(step); font-weight: 800; font-size: 3.2rem; line-height: 1; color: var(--brand); letter-spacing: -0.04em; }
-.steps h3 { font-size: 1.3rem; font-weight: 700; }
-.steps p { margin: 0; color: var(--ink-2); max-width: 46ch; }
+/* How: a dark band between the two white sections, three steps as cards, the result lit up. */
+.how {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding-block: clamp(64px, 9vw, 120px);
+  color: var(--hero-ink);
+  background:
+    radial-gradient(60% 70% at 8% 0%, oklch(0.42 0.07 var(--hue) / 0.55), transparent 70%),
+    radial-gradient(45% 60% at 100% 100%, oklch(0.5 0.12 52 / 0.16), transparent 70%),
+    oklch(0.2 0.03 var(--hue));
+}
+/* A faint grid, fading out, so the band has texture without noise. */
+.how::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(oklch(1 0 0 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(80% 70% at 20% 10%, #000 20%, transparent 75%);
+}
+.how h2 { color: var(--hero-ink); }
+.how__head p { margin: 16px 0 0; max-width: 52ch; font-size: clamp(1.02rem, 1.4vw, 1.14rem); line-height: 1.65; color: var(--hero-ink-2); }
+
+.steps {
+  --step-gap: 22px;
+  list-style: none; margin: clamp(36px, 5vw, 56px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--step-gap);
+}
+.step {
+  position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: flex-start;
+  padding: clamp(26px, 2.8vw, 34px) clamp(24px, 2.6vw, 32px) clamp(86px, 7.5vw, 100px);
+  border-radius: 20px;
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.07), oklch(1 0 0 / 0.025));
+  border: 1px solid oklch(1 0 0 / 0.12);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.08), 0 24px 48px -28px oklch(0.08 0.03 var(--hue) / 0.9);
+  transition: border-color 260ms var(--ease), translate 260ms var(--ease), box-shadow 260ms var(--ease);
+}
+/* Concentric rings in the corner: the same mark on every card, a different hue on the result. */
+.step__deco { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.step__deco::before {
+  content: ""; position: absolute; top: -90px; right: -90px; width: 220px; height: 220px; border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 38%, oklch(0.62 0.08 var(--hue) / 0.16) 38.5%, oklch(0.62 0.08 var(--hue) / 0.16) 39.5%, transparent 40%,
+      transparent 58%, oklch(0.62 0.08 var(--hue) / 0.12) 58.5%, oklch(0.62 0.08 var(--hue) / 0.12) 59.5%, transparent 60%),
+    radial-gradient(circle, oklch(0.55 0.08 var(--hue) / 0.28), transparent 38%);
+}
+.step:hover { border-color: oklch(1 0 0 / 0.22); translate: 0 -3px; }
+
+.step__icon {
+  display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 26px;
+  border-radius: 14px; color: oklch(0.86 0.08 var(--hue));
+  background: oklch(0.47 0.075 var(--hue) / 0.35);
+  box-shadow: inset 0 0 0 1px oklch(0.8 0.08 var(--hue) / 0.22);
+}
+.step h3 { font-size: clamp(1.24rem, 1.7vw, 1.46rem); font-weight: 700; color: var(--hero-ink); }
+.step p { margin: 12px 0 0; color: var(--hero-ink-2); max-width: 46ch; line-height: 1.65; }
+.step code { white-space: nowrap; background: oklch(1 0 0 / 0.1); color: var(--hero-ink); }
+.step__link {
+  margin-top: auto; padding-top: 24px; font-weight: 700; font-size: 0.97rem; color: var(--hero-ink);
+  text-decoration: underline; text-decoration-color: oklch(1 0 0 / 0.35); text-underline-offset: 7px; text-decoration-thickness: 1px;
+  transition: text-decoration-color 180ms var(--ease), color 180ms var(--ease);
+}
+.step__link span { color: var(--accent); display: inline-block; transition: translate 200ms var(--ease); }
+.step__link:hover { text-decoration-color: currentColor; }
+.step__link:hover span { translate: 3px 0; }
+/* The step's number, large and quiet in the corner: the order is the point of this section. */
+.step__num {
+  position: absolute; right: clamp(20px, 2.2vw, 28px); bottom: clamp(16px, 1.8vw, 22px); z-index: -1;
+  font-size: clamp(4.4rem, 6.4vw, 5.8rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.04em;
+  color: oklch(1 0 0 / 0.06); pointer-events: none; user-select: none;
+}
+/* Arrow between steps, sitting on the seam. */
+.step:not(:last-child)::after {
+  content: ""; position: absolute; z-index: 2; top: 48px; right: calc(-1 * var(--step-gap) / 2 - 17px);
+  width: 34px; height: 34px; border-radius: 50%;
+  background: oklch(0.24 0.035 var(--hue)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8a15a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat;
+  box-shadow: 0 0 0 1px oklch(1 0 0 / 0.16), 0 6px 14px -6px oklch(0.05 0.02 var(--hue) / 0.8);
+}
+
+/* The result: warm accent instead of teal, so the payoff reads as the destination. */
+.step--result {
+  border-color: oklch(0.72 0.15 52 / 0.45);
+  background: linear-gradient(180deg, oklch(0.72 0.15 52 / 0.14), oklch(0.72 0.15 52 / 0.04) 70%), oklch(0.23 0.035 var(--hue));
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.1), 0 28px 60px -30px oklch(0.6 0.15 52 / 0.55);
+}
+.step--result:hover { border-color: oklch(0.72 0.15 52 / 0.7); }
+.step--result .step__deco::before {
+  background:
+    radial-gradient(circle, transparent 38%, oklch(0.75 0.14 52 / 0.2) 38.5%, oklch(0.75 0.14 52 / 0.2) 39.5%, transparent 40%,
+      transparent 58%, oklch(0.75 0.14 52 / 0.14) 58.5%, oklch(0.75 0.14 52 / 0.14) 59.5%, transparent 60%),
+    radial-gradient(circle, oklch(0.72 0.15 52 / 0.3), transparent 38%);
+}
+.step--result .step__icon { color: var(--accent); background: oklch(0.72 0.15 52 / 0.16); box-shadow: inset 0 0 0 1px oklch(0.72 0.15 52 / 0.35); }
+.step--result .step__num { color: oklch(0.85 0.1 52 / 0.1); }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .step { animation: step-in linear both; animation-timeline: view(); animation-range: entry calc(4% + var(--i) * 6%) entry calc(46% + var(--i) * 6%); }
+  }
+}
+@keyframes step-in { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .step:hover { translate: none; }
+}
+
+@media (max-width: 900px) {
+  .steps { grid-template-columns: minmax(0, 1fr); --step-gap: 30px; }
+  .step { padding-bottom: 92px; }
+  .step:not(:last-child)::after { top: auto; right: auto; left: 50%; bottom: calc(-1 * var(--step-gap) / 2 - 17px); translate: -50% 0; rotate: 90deg; }
+}
 
 /* Included */
 .inc { background: var(--bg); padding-block: clamp(56px, 8vw, 104px); }
@@ -380,3 +482,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
 }
+
+/* Build setup: track notes */
+.note:empty { display: none; }
+.note { margin: 2px 0 0; padding: 10px 12px; border-radius: 8px; background: #fff6e8; border: 1px solid #f0d3a8; color: #5b3b0c; font-size: 0.92rem; }
+.hint-line { margin: 6px 0 0; font-size: 0.9rem; color: #4a5a56; }
+.hint-line a { color: inherit; text-decoration: underline; }

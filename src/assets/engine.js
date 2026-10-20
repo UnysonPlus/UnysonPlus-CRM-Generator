@@ -18,14 +18,23 @@
     friendly: 'Warm and friendly: rounded shapes, approachable type, real photos of people and places, inviting copy.'
   };
   var AGENTS = { 'claude-code': 'Claude Code', cursor: 'Cursor', codex: 'Codex', other: 'your coding agent' };
+  /* The Claude-app track builds through the plugin's MCP connector, which needs these versions. */
+  var MIN_PLUGIN = '3.0.47';
+  var SETUP_PAGE = 'Unyson+ → Connect AI';
+  var LOCAL_TOOLS = {
+    local: 'Local: open the site in Local and use its "Open site shell" to run WP-CLI; the site files are in the folder Local shows for the site.',
+    studio: 'WordPress Studio: find the site folder Studio created and how it runs WP-CLI; ask me if you cannot.',
+    xampp: 'XAMPP / WAMP / MAMP: the site is a folder under the web server root (htdocs or www). Install WP-CLI if it is missing.',
+    other: 'Find the site folder and how to run WP-CLI there; ask me if you cannot.'
+  };
 
   /* Extensions in the order they must be activated (Forms before the CRM, which needs it), with the
      names the Extensions manager shows. Page Builder and Theme Builder are needed by every build. */
-  var EXT_ORDER = ['page-builder', 'forms', 'post-types', 'custom-fields', 'newsletter-crm', 'seo', 'theme-builder'];
+  var EXT_ORDER = ['page-builder', 'forms', 'post-types', 'custom-fields', 'crm', 'seo', 'theme-builder'];
   var EXT_NAMES = {
     'page-builder': 'Page Builder (it brings Shortcodes, Builder and Mailer)',
     forms: 'Forms', 'post-types': 'Post Types & Taxonomies', 'custom-fields': 'Custom Fields',
-    'newsletter-crm': 'Newsletter / Subscriber CRM', seo: 'SEO', 'theme-builder': 'Theme Builder'
+    'crm': 'CRM', seo: 'SEO', 'theme-builder': 'Theme Builder'
   };
 
   /* WCAG contrast ratio between two hex colours. */
@@ -155,7 +164,7 @@
       var el = form.elements[name];
       return el && el.value != null ? String(el.value).trim() : '';
     }
-    var SIMPLE = ['businessType', 'name', 'market', 'tagline', 'bizEmail', 'hours', 'provider', 'samples', 'leadEmail', 'stages', 'primary', 'accent', 'style', 'logo', 'language', 'agent', 'wp']
+    var SIMPLE = ['businessType', 'name', 'market', 'tagline', 'bizEmail', 'hours', 'provider', 'samples', 'leadEmail', 'stages', 'primary', 'accent', 'style', 'logo', 'language', 'track', 'agent', 'wp', 'access', 'localtool']
       .concat((P.business.fields || []).map(function (f) { return f.name; }));
     var MULTI = ['audience', 'pages', 'forms', 'extras', 'emails'];
 
@@ -173,6 +182,9 @@
       if (s.listingSource && !s.source) s.source = s.listingSource;
       if (s.idxProvider && !s.provider) s.provider = s.idxProvider;
       if (s.extraFields && !s.extras) s.extras = s.extraFields;
+      // Saved before the Claude-app track existed: those people chose a coding agent.
+      if (!s.track && s.agent) s.track = 'agent';
+      if (s.wp === 'none') s.wp = 'host';
       touched = s.touched || {};
       SIMPLE.forEach(function (k) { if (s[k] != null && form.elements[k]) form.elements[k].value = s[k]; });
       MULTI.forEach(function (k) {
@@ -206,6 +218,20 @@
         if (el && !touched['forms:' + f.id]) el.checked = wanted(f);
       });
       if (providerField && C && C.provider) providerField.hidden = C.provider.when.indexOf(src) === -1;
+      syncSetup();
+    }
+
+    /* Build setup: show the questions that matter for the chosen track. */
+    function syncSetup() {
+      var app = val('track') !== 'agent';
+      var host = val('wp') === 'host';
+      document.getElementById('agentRow').hidden = app;
+      document.getElementById('accessField').hidden = app || !host;
+      document.getElementById('localField').hidden = app || (host && val('access') !== 'migrate');
+      document.getElementById('resume').hidden = !app;
+      document.getElementById('trackNote').textContent = app && !host
+        ? 'The Claude app can only reach a site with a public HTTPS address, so build on your web host (a staging copy is ideal). Building on your computer needs a coding agent.'
+        : '';
     }
 
     /* ---------- spec ---------- */
@@ -274,7 +300,7 @@
         })
       };
       spec.crm = {
-        engine: 'newsletter-crm',
+        engine: 'crm',
         pipeline: { method: 'tags', tag_prefix: 'Stage: ', stages: stages, tag_slugs: stages.map(function (x) { return 'stage-' + slug(x); }), saved_segment_per_stage: true },
         lists: lists,
         double_opt_in: true,
@@ -292,9 +318,14 @@
       };
       spec.seo = P.seo.toSpec(s);
       spec.compliance = P.compliance.toSpec(s);
+      var appTrack = s.track !== 'agent';
       spec.build = {
-        agent: s.agent,
+        track: appTrack ? 'claude-app' : 'coding-agent',
+        agent: appTrack ? null : s.agent,
         wordpress: s.wp,
+        host_access: !appTrack && s.wp === 'host' ? s.access : null,
+        local_tool: !appTrack && (s.wp === 'local' || s.access === 'migrate') ? s.localtool : null,
+        connector: appTrack ? { min_plugin: MIN_PLUGIN, setup_page: SETUP_PAGE } : null,
         ai_dev_kit: KIT_URL,
         plugin: PLUGIN_ZIP,
         parent_theme: THEME_REPO,
@@ -330,19 +361,39 @@
       p('- Site language: ', b.language);
       p('');
 
-      p('## Step 0: Setup');
-      if (s.wp === 'local') p('WordPress is installed on this computer. Find its folder and admin URL, or ask me if you cannot.');
-      else if (s.wp === 'host') p('WordPress is on my web host. Ask me how you can reach it (SSH with WP-CLI is best). Never write passwords or keys into project files.');
-      else p('WordPress is not installed yet. Help me set up a local WordPress install first, then continue. Use a fresh install with no other page builder.');
-      if (missing.length) p('Before you start, ask me for: ', missing.map(function (m) { return m.ask; }).join('; '), '. Use them wherever the spec has a [bracketed] placeholder.');
-      p('1. Get the AI Dev Kit: clone ', KIT_URL, '. Read `AGENTS.md` first, then `docs/build-reference.md` (Part 2, "Fresh builds") and `docs/building-pages.md`. This is a **fresh build**: there is no source site, so skip the capture and conversion steps elsewhere in the kit. Look up every element, extension and option in the kit\'s `docs/` folder before using it.');
-      p('2. Set **Settings → Permalinks** to "Post name". Unyson+ does not need the Classic Editor plugin, so do not install it.');
-      p('3. Install the Unyson+ plugin from ', PLUGIN_ZIP, '. It contains only the core; the features this site needs come from the Extensions manager in step 5.');
-      p('4. Install the parent theme: from ', THEME_REPO, '/releases/latest download the source zip and rename the extracted folder to `unysonplus-theme`. Copy the kit\'s `samples/sample-child-theme` as this site\'s child theme, rename it for the business, and activate it.');
-      p('5. In **Unyson+ → Extensions**, download and then activate, in this order: ', spec.build.extensions.map(function (e) { return EXT_NAMES[e]; }).join(', '), '. Some are under "Show other extensions". Forms must be active before Newsletter / Subscriber CRM.');
-      p('6. Email: forms send through WordPress mail out of the box. In **Mailer** settings set a From name and address (and SMTP on a live host, where plain WordPress mail often lands in spam), then send a test email.');
-      p('7. WordPress already has a draft Privacy Policy page at `/privacy-policy/`: reuse it for the privacy policy. Delete the default "Sample Page" and "Hello world!" post.');
-      p('');
+      var app = s.track !== 'agent';
+      var exts = spec.build.extensions.map(function (e) { return EXT_NAMES[e]; }).join(', ');
+
+      if (app) {
+        p('## How you work on this site');
+        p('You are working through the **Unyson+ connector**: every change goes through its tools (site_info, build_docs, create_page, insert_items, apply_template, update_theme_settings, forms_add, crm_save_lists and the rest). You cannot run commands or edit files. Where this prompt names a wp-admin screen, use the matching tool; if no tool covers it, ask me to do it and tell me exactly what to click. Where it says `docs/<file>`, read that file with build_docs.');
+        p('Work in **stages**, one stage per reply: Step 0, then each step below. End every stage with a short summary of what you did and what comes next, and wait for me to say "continue". If we get interrupted I will paste a short resume message; then check the site with the tools and carry on from where it actually stands.');
+        p('You cannot see the pages. After each page, check it with render_check, give me its link, and ask me to look at it on a computer and a phone and tell you anything that looks wrong.');
+        p('');
+        p('## Step 0: Check the site');
+        if (missing.length) p('Before you start, ask me for: ', missing.map(function (m) { return m.ask; }).join('; '), '. Use them wherever the spec has a [bracketed] placeholder.');
+        p('1. Call site_info. This build needs Unyson+ ', MIN_PLUGIN, ' or newer with these extensions active: ', exts, '. If Unyson+ is older, stop and ask me to update it. If an extension is missing, install it with manage_extension (it asks me first). If permalinks are "plain", ask me to open **', SETUP_PAGE, '** and run the setup again.');
+        p('2. Call build_docs with no path and read the fresh-build docs it lists. Read the doc for each element, extension and Theme Settings tab before you use it.');
+        p('3. Set the email sender with mailer_sender: the business name as the From name, and ', b.email ? b.email : 'the email for new leads', ' as the From address. Sending works through WordPress mail; on a live site I will set up SMTP myself on the Mailer screen. Never ask me for an email or hosting password.');
+        p('4. WordPress already has a draft Privacy Policy page: reuse it. Ask me to delete the default "Sample Page" and "Hello world!" post (there is no tool for deleting pages).');
+        if (s.logo === 'have') p('5. Ask me to upload my logo to the Media Library, then find it with list_media.');
+        p('');
+      } else {
+        p('## Step 0: Setup');
+        if (s.wp === 'local') p('WordPress is installed on this computer. ', LOCAL_TOOLS[s.localtool] || LOCAL_TOOLS.other);
+        else if (s.access === 'migrate') p('My site is on my web host, but build on a fresh WordPress on this computer first (', LOCAL_TOOLS[s.localtool] || LOCAL_TOOLS.other, ') and move it to my host in the last step.');
+        else if (s.access === 'ssh') p('WordPress is on my web host and you work over SSH with WP-CLI. Ask me for the SSH host and username, and help me add an SSH key for you. Never ask for or store a password, and never write keys or credentials into project files. Ask me to take a backup with my host\'s backup tool before you change anything.');
+        else p('WordPress is on my web host and you only have the WordPress admin. Ask me to create a temporary administrator named "ai-builder" and an Application Password for it (Users → Profile → Application Passwords), and use the REST API and the Unyson+ connector with it. Never ask for my own password, never write the Application Password into files, and remind me at the end to revoke it and delete the user. Where a step needs files (uploading a theme or plugin), tell me exactly what to upload in wp-admin. Ask me to take a backup with my host\'s backup tool first.');
+        if (missing.length) p('Before you start, ask me for: ', missing.map(function (m) { return m.ask; }).join('; '), '. Use them wherever the spec has a [bracketed] placeholder.');
+        p('1. Get the AI Dev Kit: clone ', KIT_URL, '. Read `AGENTS.md` first, then `docs/build-reference.md` (Part 2, "Fresh builds") and `docs/building-pages.md`. This is a **fresh build**: there is no source site, so skip the capture and conversion steps elsewhere in the kit. Look up every element, extension and option in the kit\'s `docs/` folder before using it.');
+        p('2. Set **Settings → Permalinks** to "Post name". Unyson+ does not need the Classic Editor plugin, so do not install it.');
+        p('3. Install the Unyson+ plugin from ', PLUGIN_ZIP, '. It contains only the core; the features this site needs come from the Extensions manager in step 5.');
+        p('4. Install the parent theme: from ', THEME_REPO, '/releases/latest download the source zip and rename the extracted folder to `unysonplus-theme`. Copy the kit\'s `samples/sample-child-theme` as this site\'s child theme, rename it for the business, and activate it.');
+        p('5. In **Unyson+ → Extensions**, download and then activate, in this order: ', exts, '. Some are under "Show other extensions". Forms must be active before CRM.');
+        p('6. Email: forms send through WordPress mail out of the box. In **Mailer** settings set a From name and address (and SMTP on a live host, where plain WordPress mail often lands in spam), then send a test email.');
+        p('7. WordPress already has a draft Privacy Policy page at `/privacy-policy/`: reuse it for the privacy policy. Delete the default "Sample Page" and "Hello world!" post.');
+        p('');
+      }
 
       var white = contrast('#ffffff', spec.brand.accent);
       p('## Step 1: Design system first');
@@ -351,7 +402,8 @@
       p('- Style: ', spec.brand.style_notes);
       p('- Logo: ', s.logo === 'have' ? 'ask me for my logo file.' : 'set the business name as a text logo.');
       p('- Header: put Contact in the header as its CTA Button element (button styles take a `btn-` value such as `btn-accent`), not as a menu item. Keep the main menu to 7 items or fewer: nest the rest under a parent item, and put legal pages in the footer menu.');
-      p('- Footer: if it is dark, check its headings and links stay readable; they inherit the global heading color.');
+      p('- Footer: on a dark footer background the headings turn white automatically; set Footer Layout → Heading Color only if they need a different colour.');
+      if (app) p('- Use update_theme_settings (describe_theme_settings first) and save_preset for button and box styles; never style single elements by hand.');
       p('');
 
       if (C) {
@@ -368,8 +420,13 @@
       var n = C ? 4 : 3;
       p('## Step ', n, ': Lead capture');
       p('Build each form with the Forms extension\'s contact form element. Start from the starter named for each form (**Contact**, **Appointment request** or **Newsletter signup**) and make the fields exactly match the list below: remove every other field the starter brings, but keep its required privacy agreement box. Do not use the Table booking (restaurant) or Quote starters; they carry restaurant and survey fields. On every form:');
-      p('- keep the **Store entry** action on and send notifications to ', spec.lead_capture.notify_email, ';');
-      p('- add one optional **Consent** field (purpose: newsletter) and the **Subscribe to the newsletter** action, set to the list named below. In its Tags box enter the first stage tag, "Stage: ', spec.crm.pipeline.stages[0], '".');
+      if (app) {
+        p('- place it with forms_add: email_to ', spec.lead_capture.notify_email, ', store true, and subscribe { list: the list slug below, tags: ["Stage: ', spec.crm.pipeline.stages[0], '"], name_field: "Name" };');
+        p('- include one optional **consent** field (type consent, purpose newsletter): only people who tick it join the CRM. Create the CRM lists and stage tags (the CRM step) before the forms, because a form can only subscribe people to a list that exists.');
+      } else {
+        p('- keep the **Store entry** action on and send notifications to ', spec.lead_capture.notify_email, ';');
+        p('- add one optional **Consent** field (purpose: newsletter) and the **Subscribe to the newsletter** action, set to the list named below. In its Tags box enter the first stage tag, "Stage: ', spec.crm.pipeline.stages[0], '".');
+      }
       p('Forms are elements placed on pages. Where a placement says footer or header button, put a button there that links to the form on its page; the footer cannot hold a form.');
       spec.lead_capture.forms.forEach(function (f) {
         p('- **', f.title, '** (starter: ', f.starter, '). Fields: ', f.fields.join(', '), '. Place on: ', f.placement, '.', f.subscribe_list ? ' Subscribe list: ' + f.subscribe_list + '.' : '');
@@ -378,13 +435,14 @@
       p('');
 
       p('## Step ', n + 1, ': CRM');
-      p('Use the **Newsletter / Subscriber CRM** extension as the CRM. Do not build custom CRM tables or a custom CRM plugin.');
+      p('Use the **CRM** extension. Do not build custom CRM tables or a custom CRM plugin.');
+      if (app) p('Tools: crm_save_lists (lists and stage tags in one call), crm_save_segment (one per stage: the stage tag and status subscribed), crm_settings (double opt-in and the welcome email), crm_save_campaign (drafts only), and crm_describe to check the result.');
       if (spec.crm.lists.length) p('- Create lists: ', spec.crm.lists.join(', '), '.');
-      p('- Pipeline: under **Newsletter → Lists, Tags & Segments**, create one tag per stage: ', spec.crm.pipeline.stages.map(function (x, i) { return '"Stage: ' + x + '" (`' + spec.crm.pipeline.tag_slugs[i] + '`)'; }).join(', '), '. New leads start in "Stage: ', spec.crm.pipeline.stages[0], '". Save one segment per stage so I can open each stage in one click. To move a lead on: Newsletter → Subscribers, tick the lead, Bulk actions → "Add tag" for the next stage, then "Remove tag" for the old one. Show me this.');
-      p('- Keep **double opt-in** on (Newsletter → Settings; it is on by default).');
+      p('- Pipeline: under **CRM → Lists, Tags & Segments**, create one tag per stage: ', spec.crm.pipeline.stages.map(function (x, i) { return '"Stage: ' + x + '" (`' + spec.crm.pipeline.tag_slugs[i] + '`)'; }).join(', '), '. New leads start in "Stage: ', spec.crm.pipeline.stages[0], '". Save one segment per stage so I can open each stage in one click. To move a lead on: CRM → Contacts, tick the lead, Bulk actions → "Add tag" for the next stage, then "Remove tag" for the old one. Show me this.');
+      p('- Keep **double opt-in** on (CRM → Settings; it is on by default).');
       var welcome = spec.crm.emails.filter(function (e) { return e.id === 'welcome'; })[0];
       var campaigns = spec.crm.emails.filter(function (e) { return e.id !== 'welcome'; });
-      if (welcome) p('- Welcome email: it is one setting in Newsletter → Settings, sent to everyone who confirms. Write it there in my voice (', welcome.description.toLowerCase(), ') and leave automatic sending off until I approve it.');
+      if (welcome) p('- Welcome email: it is one setting in CRM → Settings, sent to everyone who confirms. Write it there in my voice (', welcome.description.toLowerCase(), ') and leave automatic sending off until I approve it.');
       if (campaigns.length) {
         p('- Save these as **draft campaigns** in my voice, each aimed at the list or stage segment it is for. Do not send anything:');
         campaigns.forEach(function (e) { p('  - ', e.description.replace(/ \(campaign template\)$/, '')); });
@@ -392,7 +450,8 @@
       p('');
 
       p('## Step ', n + 2, ': SEO, accessibility and compliance');
-      p('- ', P.seo.promptLine(spec), ' The SEO extension\'s own structured data only offers Organization or Person, so add this type through its `fw_seo_schema_graph` filter in the child theme, and leave out unknown values rather than publishing placeholders.');
+      if (app) p('- ', P.seo.promptLine(spec), ' Use seo_update_page for titles and descriptions. The SEO extension\'s structured data offers Organization or Person: use Organization, and list the more specific business type in your report as a small job for a developer (it needs the `fw_seo_schema_graph` filter).');
+      else p('- ', P.seo.promptLine(spec), ' The SEO extension\'s own structured data only offers Organization or Person, so add this type through its `fw_seo_schema_graph` filter in the child theme, and leave out unknown values rather than publishing placeholders.');
       p('- Meet WCAG 2.2 AA: real headings in order, alt text on every image, labeled form fields, visible focus and enough contrast.');
       p('- Keep pages fast: compressed images and lazy loading below the fold. The Asset Optimizer extension can help once real photos are in.');
       p('- ', P.compliance.footerLine(b));
@@ -400,8 +459,11 @@
       p('');
 
       p('## Step ', n + 3, ': Check everything and report back');
-      p('Open every page at desktop and phone width and fix anything broken or misaligned, including sideways scrolling on phones. Submit each form once and confirm the entry appears under **Unyson+ → Form Entries**, and that a test lead who ticks the consent box appears in the CRM with the first stage tag. Then delete the test entries and subscribers. If email cannot be sent from this server, the entry is still stored but the visitor sees the failure message: tell me, because live sites need working email (SMTP).');
+      if (app) p('Run render_check on every page and fix what it reports. Then ask me to look at each page on a computer and a phone, and to submit each form once (ticking the consent box on one): no tool reads entries or subscribers, by design, so ask me to confirm the entries appear under **Unyson+ → Form Entries** and that the test lead appears under **CRM → Contacts** with the first stage tag, then to delete those test records. If a notification email fails, the visitor still sees the success message and the entry notes "Notification email: Not sent": tell me, because live sites need working email (SMTP).');
+      else p('Open every page at desktop and phone width and fix anything broken or misaligned, including sideways scrolling on phones. Submit each form once and confirm the entry appears under **Unyson+ → Form Entries**, and that a test lead who ticks the consent box appears in the CRM with the first stage tag. Then delete the test entries and subscribers. If a notification email fails, the visitor still sees the success message and the entry notes "Notification email: Not sent": tell me, because live sites need working email (SMTP).');
+      if (!app && s.wp === 'host' && s.access === 'migrate') p('Then, once I approve the local site, move it to my web host: use the Unyson+ Site Migration extension if it fits, or my host\'s own migration tool, and walk me through every step I have to do myself. Never ask for my hosting password.');
       p('Finish with a short report: what you built, what still needs me (', P.prompt.needs(s), '), and how I edit ', P.prompt.editWhat, ' in wp-admin.');
+      if (app) p('Last, remind me that I can switch the connector to read-only, or disconnect it, on the Unyson+ AI Assistant screen now that the build is done.');
       p('');
 
       p('## Rules');
@@ -409,7 +471,8 @@
       p('- Use Unyson+ features before adding any plugin. ', P.prompt.pluginRule);
       (P.prompt.rules || []).forEach(function (r) { p('- ', r); });
       p('- Ask before deleting or overwriting anything you did not create.');
-      p('- If the kit\'s docs and this prompt disagree about how a feature works, the docs win; tell me what you changed.');
+      p('- Never ask me for a password, and never ask me to paste the details of real leads or customers into this conversation.');
+      p('- If the ', app ? 'build docs' : 'kit\'s docs', ' and this prompt disagree about how a feature works, the docs win; tell me what you changed.');
       p('');
 
       p('## Site spec');
@@ -487,9 +550,17 @@
 
     function renderChecklist(s) {
       var miss = missingItems(s).map(function (m) { return m.id; });
-      var items = [
-        { label: 'Business name', done: miss.indexOf('name') === -1 }
-      ];
+      var items = s.track === 'agent'
+        ? [
+          { label: s.wp === 'host' && s.access !== 'migrate' ? 'A fresh WordPress (or staging copy) on your host, with a backup taken' : 'A fresh WordPress on your computer', prep: true },
+          { label: AGENTS[s.agent] + ', installed and signed in', prep: true }
+        ]
+        : [
+          { label: 'A fresh WordPress (or staging copy) on your web host, with HTTPS and a backup taken', prep: true },
+          { label: 'Unyson+ installed and activated, then ' + SETUP_PAGE + ' → "Set up this site for an AI app"', prep: true },
+          { label: 'In Claude: the connector added from that page, and "Sign in to your site" approved', prep: true }
+        ];
+      items.push({ label: 'Business name', done: miss.indexOf('name') === -1 });
       (P.business.fields || []).forEach(function (f) { if (f.required) items.push({ label: f.label, done: miss.indexOf(f.name) === -1 }); });
       items.push({ label: P.business.marketLabel || 'Market or city', done: miss.indexOf('market') === -1 });
       items.push({ label: 'Email for new leads', done: miss.indexOf('leadEmail') === -1 });
@@ -507,6 +578,12 @@
     /* ---------- render ---------- */
 
     var lastPrompt = '';
+    var lastResume = '';
+
+    /* A new chat after an interruption: the same prompt, led by "check what is done first". */
+    function buildResume(prompt) {
+      return ['# Resume my site build', '', 'We were interrupted while building my site through the Unyson+ connector. Do not start over. First call site_info, crm_describe and get_page on the pages that exist to see what is already done, compare it with the plan below, tell me which stage we are in and what is left, then carry on one stage per reply with the same rules.', '', '---', '', prompt].join('\n');
+    }
     var lastSpec = '';
     var saveTimer;
 
@@ -516,11 +593,12 @@
       var spec = buildSpec(s);
       lastSpec = JSON.stringify(spec, null, 2);
       lastPrompt = buildPrompt(spec, s);
+      lastResume = buildResume(lastPrompt);
       promptOut.textContent = lastPrompt;
       specOut.textContent = lastSpec;
       renderPreview(spec);
       renderChecklist(s);
-      meta.textContent = lastPrompt.split(/\s+/).length.toLocaleString() + ' words · paste into ' + AGENTS[s.agent];
+      meta.textContent = lastPrompt.split(/\s+/).length.toLocaleString() + ' words · paste into ' + target(s);
       if (flash) {
         var pre = document.querySelector('.out__panel:not([hidden]) > *');
         if (pre) { pre.classList.remove('flash'); void pre.offsetWidth; pre.classList.add('flash'); }
@@ -529,6 +607,11 @@
       saveTimer = setTimeout(function () {
         try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); } catch (e) { /* storage unavailable */ }
       }, 250);
+    }
+
+    /* Where the prompt goes, in words. */
+    function target(s) {
+      return s.track === 'agent' ? AGENTS[s.agent] : 'a Claude chat with the Unyson+ connector on';
     }
 
     function say(msg) {
@@ -608,7 +691,10 @@
 
     copyBtn.addEventListener('click', function () {
       if (activeTab === 'spec') copyText(lastSpec, 'site-spec.json copied.');
-      else copyText(lastPrompt, 'Prompt copied. Paste it into ' + AGENTS[val('agent')] + '.');
+      else copyText(lastPrompt, 'Prompt copied. Paste it into ' + target(readState()) + '.');
+    });
+    document.getElementById('resume').addEventListener('click', function () {
+      copyText(lastResume, 'Resume message copied. Paste it into a new Claude chat with the Unyson+ connector on.');
     });
     downloadBtn.addEventListener('click', function () {
       if (activeTab === 'spec') { download('site-spec.json', lastSpec, 'application/json'); say('site-spec.json downloaded.'); }

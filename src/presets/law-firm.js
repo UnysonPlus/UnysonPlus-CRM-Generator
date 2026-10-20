@@ -131,7 +131,7 @@ CRMGEN.register({
     { value: 'review_request', label: 'Review request', description: 'Request for a review after a matter closes, where the bar allows it (campaign template)' }
   ],
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -165,7 +165,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a law firm CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete law firm website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- Practice areas: ' + b.practice_areas, '- Location: ' + b.market];
       if (b.tagline) out.push('- Tagline: ' + b.tagline);

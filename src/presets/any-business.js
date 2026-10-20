@@ -26,7 +26,7 @@ CRMGEN.register({
     faq: [
       { q: 'Is the CRM website generator really free?', a: 'Yes. The generator, the Unyson+ plugin and theme, and the AI Dev Kit are free. You only pay for your own hosting and, if you use one, your AI agent subscription.' },
       { q: 'Do I need to know how to code?', a: 'No. You fill in a form and copy the result. Your AI agent does the building. After it is built, the site is edited in the WordPress admin with a visual page builder.' },
-      { q: 'Which AI agents can use the prompt?', a: 'Any agent that can read files and run commands on the machine or server hosting WordPress, such as Claude Code, Cursor or Codex. Chat-only assistants can follow the plan, but you will have to carry out the steps yourself.' },
+      { q: 'Do I need coding tools?', a: 'No. With a paid Claude plan you can build from the normal Claude app: install Unyson+ on a fresh WordPress, click Unyson+ \u2192 Connect AI \u2192 Set up this site for an AI app, add the connector it shows to Claude, and paste the prompt. Claude builds the site through the connector, with no terminal, API key or password. If you prefer a coding agent such as Claude Code, Cursor or Codex, choose it under Build setup instead.' },
       { q: 'Is the result a WordPress site?', a: 'Yes. It is a normal WordPress site built with the free Unyson+ framework, so you own it, can host it anywhere and can edit everything in the admin.' },
       { q: 'My industry is not listed. Can I still use it?', a: 'Yes. This page works for any business that runs on enquiries, quotes or bookings. Describe what you do in the form and the agent builds around it. Presets for more industries are on the roadmap.' }
     ]
@@ -136,7 +136,7 @@ CRMGEN.register({
     { value: 'review_request', label: 'Review request', description: 'Request for a review after a job is done (campaign template)' }
   ],
 
-  extensions: ['post-types', 'custom-fields', 'forms', 'newsletter-crm', 'seo'],
+  extensions: ['post-types', 'custom-fields', 'forms', 'crm', 'seo'],
 
   seo: {
     toSpec: function (s) {
@@ -164,7 +164,7 @@ CRMGEN.register({
   prompt: {
     title: function (b) { return 'Build a CRM website for ' + b.name + ' with Unyson+'; },
     intro: 'a complete business website',
-    extensionsText: 'Post Types, Custom Fields, Forms, Newsletter CRM and SEO',
+    extensionsText: 'Post Types, Custom Fields, Forms, CRM and SEO',
     aboutLines: function (b) {
       var out = ['- What it does: ' + b.description, '- Area served: ' + b.market];
       if (b.tagline) out.push('- Tagline: ' + b.tagline);
