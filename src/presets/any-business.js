@@ -2,7 +2,7 @@
    Its content type is Services (the Services blueprint). */
 CRMGEN.register({
   id: 'any-business',
-  path: '/',
+  path: '/crm/',
   label: 'Any business',
   heroStages: ['New', 'Quoted', 'Won'],
 

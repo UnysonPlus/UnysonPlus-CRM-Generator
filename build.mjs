@@ -208,18 +208,20 @@ ${jsonLd(P)}
 </head>`;
 }
 
-function topbar() {
+function topbar(o) {
+  const app = (o && o.app) || 'CRM Generator';
+  const nav = (o && o.nav) || [
+    ['#how', 'How it works'], ['/crm/#industries', 'Industries'], ['#faq', 'FAQ'],
+    ['https://docs.unysonplus.com/guides/crm-generator', 'Docs'],
+  ];
   return `<header class="top">
   <div class="wrap top__in">
-    <a class="logo" href="/" aria-label="Unyson+ CRM Generator home">
+    <a class="logo" href="/" aria-label="Unyson+ ${esc(app)} home">
       <img src="/assets/img/unysonplus-logo.png" width="174" height="40" alt="Unyson+ Framework">
-      <span class="logo__app">CRM Generator</span>
+      <span class="logo__app">${esc(app)}</span>
     </a>
     <nav aria-label="Main">
-      <a href="#how">How it works</a>
-      <a href="/#industries">Industries</a>
-      <a href="#faq">FAQ</a>
-      <a href="https://docs.unysonplus.com/guides/crm-generator">Docs</a>
+      ${nav.map(([h, t]) => `<a href="${esc(h)}">${esc(t)}</a>`).join('\n      ')}
     </nav>
   </div>
 </header>`;
@@ -521,12 +523,16 @@ function faq(P) {
   </section>`;
 }
 
-function closing() {
+function closing(o) {
+  const title = (o && o.title) || 'Your CRM website is a form away';
+  const body = (o && o.body) || 'Pick your features, copy the prompt, and let your AI agent build it on WordPress. Free, with no account to create.';
+  const cta = (o && o.cta) || 'Build my CRM site';
+  const href = (o && o.href) || '#generator';
   return `<section class="cta" aria-labelledby="ctaTitle">
     <div class="wrap cta__in">
-      <h2 id="ctaTitle">Your CRM website is a form away</h2>
-      <p>Pick your features, copy the prompt, and let your AI agent build it on WordPress. Free, with no account to create.</p>
-      <a class="btn btn--accent" href="#generator">Build my CRM site</a>
+      <h2 id="ctaTitle">${esc(title)}</h2>
+      <p>${esc(body)}</p>
+      <a class="btn btn--accent" href="${esc(href)}">${esc(cta)}</a>
     </div>
   </section>`;
 }
@@ -545,6 +551,160 @@ function footer() {
 </footer>`;
 }
 
+/* ---------- the general Site Creator home ----------
+   A different KIND of page from a generator: it explains the four ways in, routes to a family, and
+   offers the one thing a visitor with the kit installed actually wants (open it locally). It is not a
+   fifth form — the forms live per-family (/crm/) and in the kit's own Create tab. Duplicating the
+   intake here would mean two of them drifting apart.
+
+   The kit button is progressive enhancement: the page is complete and useful with the probe failing,
+   which is the normal case for someone meeting this for the first time. */
+function homePage(v) {
+  const P = {
+    id: 'site-creator',
+    path: '/',
+    label: 'Site Creator',
+    page: {
+      title: 'Free Website Generator for WordPress | Unyson+ Site Creator',
+      description: 'Describe your business and get a complete, editable WordPress site built on the free Unyson+ framework by your own AI agent \u2014 native page-builder pages, not throwaway markup.',
+      h1: 'Build a WordPress site from a description',
+      lede: 'Tell it what the business is. Get a site your agent builds on WordPress with Unyson+ \u2014 real page-builder pages, a design system you can change, and nothing invented.',
+      note: 'Free. Runs in your own AI agent, on your own machine.',
+      ogAlt: 'The Unyson+ Site Creator',
+      schemaName: 'Unyson+ Site Creator',
+      // jsonLd builds an FAQPage from these; the home page carries no FAQ of its own.
+      faq: [], faqCommon: false,
+    },
+    // jsonLd() reads content.legend to describe the generator's first step. The home page has no
+    // generator form, so it supplies the phrase directly rather than head() growing a special case.
+    content: { legend: 'what the site needs' },
+  };
+  const route = (t, d) => `<li class="ind"><div><b>${esc(t)}</b><span class="ind__desc">${esc(d)}</span></div></li>`;
+  return `${head(P, v)}
+<body>
+<a class="skip" href="#start">Skip to the start</a>
+${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM websites'], ['https://docs.unysonplus.com/create-a-site', 'Docs']] })}
+<main>
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <h1>${esc(P.page.h1)}</h1>
+        <p class="lede">${esc(P.page.lede)}</p>
+        <p class="note">${esc(P.page.note)}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="start" class="pick" aria-labelledby="startTitle">
+    <div class="wrap">
+      <div class="pick__head">
+        <h2 id="startTitle">Four ways in</h2>
+        <p>The same build, started from whatever you already have.</p>
+      </div>
+      <ul class="pick__list">
+        ${route('A description', 'Say what the business is. The only route that needs nothing else.')}
+        ${route('A reference site', 'Point at a URL. It is captured and rebuilt as editable Unyson+ pages.')}
+        ${route('A design you like', 'A screenshot or mockup. The look is read into a design system; the content is yours.')}
+        ${route('An industry template', 'Start from a template for your trade, then fill in the facts.')}
+      </ul>
+    </div>
+  </section>
+
+  <section class="pick" aria-labelledby="famTitle">
+    <div class="wrap">
+      <div class="pick__head">
+        <h2 id="famTitle">Start from your industry</h2>
+        <p>A family sets the pages, forms and the words your trade actually uses.</p>
+      </div>
+      <ul class="pick__list">
+        <li class="ind ind--live"><a href="/crm/"><b>CRM website</b><span class="ind__desc">A site with a client pipeline, lead forms and follow-up emails \u2014 salons, clinics, gyms, trades, law firms, agencies and more.</span><em>Open the generator</em></a></li>
+        <li class="ind"><div><b>Local business</b><span class="ind__desc">Shops, caf\u00e9s, studios \u2014 anywhere with an address and opening hours.</span><em>Coming soon</em></div></li>
+        <li class="ind"><div><b>Professional service</b><span class="ind__desc">Consultancies, accountants, architects, agencies.</span><em>Coming soon</em></div></li>
+        <li class="ind"><div><b>Ecommerce</b><span class="ind__desc">A shop on WooCommerce.</span><em>Coming soon</em></div></li>
+        <li class="ind"><div><b>SaaS or product</b><span class="ind__desc">Apps, developer tools, plugins.</span><em>Coming soon</em></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pick" aria-labelledby="kitTitle">
+    <div class="wrap">
+      <div class="pick__head">
+        <h2 id="kitTitle">Already have the AI Dev Kit?</h2>
+        <p>The kit runs on your own computer and does the building. If it is running now, you can go straight to it.</p>
+      </div>
+      <div id="kitBox" class="kit-box" data-state="checking">
+        <p id="kitMsg">Looking for the AI Dev Kit on this computer\u2026</p>
+        <p id="kitActions"></p>
+      </div>
+    </div>
+  </section>
+
+  ${closing({
+    title: 'Start with a description',
+    body: 'Say what the business is and let your AI agent build it on WordPress with Unyson+. Free, with no account to create.',
+    cta: 'Choose your industry',
+    href: '/crm/',
+  })}
+</main>
+${footer()}
+<script>
+/* Finds the kit the same way the Kinetic Scenes Studio does: straight from this page to the service on
+   the person's own machine, never through a server. The two states that matter are told apart on
+   purpose \u2014 "no kit" and "the browser refused to let this page reach it" look identical from here, and
+   telling someone to install software they already have is the one unhelpful outcome available. */
+(function () {
+  var BASES = ['http://localhost:8787', 'http://127.0.0.1:8787'];
+  var box = document.getElementById('kitBox');
+  var msg = document.getElementById('kitMsg');
+  var act = document.getElementById('kitActions');
+  if (!box) return;
+
+  function set(state, text, html) {
+    box.setAttribute('data-state', state);
+    msg.textContent = text;
+    act.innerHTML = html || '';
+  }
+
+  function blockedCheck() {
+    try {
+      return navigator.permissions.query({ name: 'local-network-access' })
+        .then(function (p) { return p.state; }).catch(function () { return 'unknown'; });
+    } catch (e) { return Promise.resolve('unknown'); }
+  }
+
+  var tried = 0;
+  function probe(i) {
+    if (i >= BASES.length) {
+      return blockedCheck().then(function (perm) {
+        if (perm === 'denied') {
+          set('blocked',
+            'The kit may be running, but this browser is blocking the page from reaching apps on your computer.',
+            '<a class="btn btn--accent" href="https://docs.unysonplus.com/create-a-site" target="_blank" rel="noopener">How to allow it</a>');
+        } else {
+          set('missing',
+            'The AI Dev Kit is not running on this computer.',
+            '<a class="btn btn--accent" href="https://docs.unysonplus.com/get-the-kit" target="_blank" rel="noopener">Get the kit</a> ' +
+            '<a class="btn" href="https://docs.unysonplus.com/create-a-site" target="_blank" rel="noopener">How to start</a>');
+        }
+      });
+    }
+    return fetch(BASES[i] + '/health', { signal: AbortSignal.timeout(2500) })
+      .then(function (r) {
+        if (!r.ok) throw new Error('not ok');
+        set('ready',
+          'The AI Dev Kit is running on this computer.',
+          '<a class="btn btn--accent" href="http://localhost:4600/#create">Open it in the kit</a>');
+      })
+      .catch(function () { return probe(i + 1); });
+  }
+  probe(0);
+})();
+</script>
+</body>
+</html>
+`;
+}
+
 function page(P, v) {
   return `${head(P, v)}
 <body>
@@ -552,7 +712,7 @@ function page(P, v) {
 ${topbar()}
 <main>
   ${hero(P)}
-  ${P.path === '/' ? picker() : ''}
+  ${P.path === '/crm/' ? picker() : ''}
   ${generator(P)}
   ${how(P)}
   ${included(P)}
@@ -639,6 +799,10 @@ for (const [from, to] of Object.entries(MOVED)) {
 `);
   console.log('redirect', from, '->', to);
 }
+
+fs.writeFileSync(path.join(OUT, 'index.html'), homePage(v));
+urls.push('/');
+console.log('built / (Site Creator home)');
 
 urls.sort((a, b) => a.length - b.length);
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
