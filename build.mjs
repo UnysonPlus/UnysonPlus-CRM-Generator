@@ -156,16 +156,33 @@ function jsonLd(P) {
       mainEntity: faqOf(P).map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: strip(f.a) } }))
     }
   ];
-  if (P.path !== '/') {
+  const crumbTrail = trail(P);
+  if (crumbTrail.length) {
     graph.push({
       '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'CRM Website Generator', item: SITE + '/' },
-        { '@type': 'ListItem', position: 2, name: P.label, item: url }
-      ]
+      itemListElement: crumbTrail.map((c, i) => (
+        { '@type': 'ListItem', position: i + 1, name: c.name, item: c.item }
+      )),
     });
   }
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
+}
+
+/* The breadcrumb trail, derived from the path so the markup and the JSON-LD cannot disagree.
+   Both used to hardcode "CRM Website Generator" pointing at "/", which was true while the CRM
+   generator WAS the root. It no longer is: / is the Site Creator and the CRM family lives at /crm/.
+   Left alone, the hub listed itself under its own child ("CRM Website Generator / Any business") and
+   every industry page skipped the family it belongs to. Returns [] for the home. */
+function trail(P) {
+  if (P.path === '/') return [];
+  const out = [{ name: 'Site Creator', item: SITE + '/' }];
+  if (P.path.startsWith('/crm/')) {
+    out.push({ name: 'CRM websites', item: SITE + '/crm/' });
+    // the hub IS that entry - do not list it again as its own child
+    if (P.path === '/crm/') return out;
+  }
+  out.push({ name: P.label, item: SITE + P.path });
+  return out;
 }
 
 function head(P, v) {
@@ -216,7 +233,7 @@ function topbar(o) {
   ];
   return `<header class="top">
   <div class="wrap top__in">
-    <a class="logo" href="/" aria-label="Unyson+ ${esc(app)} home">
+    <a class="logo" href="/" aria-label="Unyson+ Site Creator home">
       <img src="/assets/img/unysonplus-logo.png" width="174" height="40" alt="Unyson+ Framework">
       <span class="logo__app">${esc(app)}</span>
     </a>
@@ -228,7 +245,12 @@ function topbar(o) {
 }
 
 function hero(P) {
-  const crumbs = P.path === '/' ? '' : `<nav class="crumbs" aria-label="Breadcrumb"><a href="/">CRM Website Generator</a> <span aria-hidden="true">/</span> <span aria-current="page">${esc(P.label)}</span></nav>\n        `;
+  const t = trail(P);
+  const crumbs = !t.length ? '' : `<nav class="crumbs" aria-label="Breadcrumb">${t.map((c, i) => (
+    i === t.length - 1
+      ? `<span aria-current="page">${esc(c.name)}</span>`
+      : `<a href="${esc(c.item.replace(SITE, '') || '/')}">${esc(c.name)}</a>`
+  )).join(' <span aria-hidden="true">/</span> ')}</nav>\n        `;
   return `<section class="hero">
     <div class="wrap hero__in">
       <div class="hero__copy">
