@@ -1,7 +1,7 @@
 /* Law firm preset: solo attorneys, small and mid-size firms. */
 CRMGEN.register({
   id: 'law-firm',
-  path: '/law-firm-crm-website/',
+  path: '/crm/law-firm/',
   label: 'Law firm',
   heroStages: ['Enquiry', 'Consult', 'Retained'],
 

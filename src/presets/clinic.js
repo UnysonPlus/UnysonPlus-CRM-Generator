@@ -1,7 +1,7 @@
 /* Clinic preset: dental practices, medical clinics, therapy and specialist clinics. */
 CRMGEN.register({
   id: 'clinic',
-  path: '/dental-clinic-crm-website/',
+  path: '/crm/dental-clinic/',
   label: 'Dental or medical clinic',
   heroStages: ['New', 'Booked', 'Attended'],
 

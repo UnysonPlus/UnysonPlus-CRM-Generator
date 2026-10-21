@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(ROOT, 'src');
 const OUT = path.join(ROOT, 'dist');
-const SITE = 'https://crm.unysonplus.com';
+const SITE = 'https://create.unysonplus.com';
 const TODAY = new Date().toISOString().slice(0, 10);
 
 /* Industries shown in the picker and the industry select. A preset file makes one live. */
@@ -564,7 +564,7 @@ ${footer()}
 <script>window.CRMGEN_PATHS = ${JSON.stringify(PATHS)};</script>
 <script src="/assets/engine.js?v=${v.engine}" defer></script>
 <script src="/assets/presets/${P.id}.js?v=${v[P.id]}" defer></script>
-<!-- Default Statcounter code for Unyson+ CRM https://crm.unysonplus.com/ -->
+<!-- Default Statcounter code for Unyson+ Site Creator https://create.unysonplus.com/ -->
 <script type="text/javascript">
 var sc_project=13359821;
 var sc_invisible=1;
@@ -597,6 +597,47 @@ for (const P of Object.values(presets)) {
   fs.writeFileSync(path.join(dir, 'index.html'), page(P, v));
   urls.push(P.path);
   console.log('built', P.path);
+}
+
+/* ---------- redirect stubs for the pre-move URLs ----------
+   The industry pages used to live at /<industry>-crm-website/ on crm.unysonplus.com, back when CRM was
+   the whole site and the slug had to carry the subject. Under create.unysonplus.com the family is the
+   path segment, so the slug no longer repeats it.
+
+   GitHub Pages serves static files: there is no 301 to issue and no .htaccess to write. A stub page with
+   a zero-delay meta refresh plus a canonical is the available equivalent, and search engines treat it as
+   a redirect. These are emitted by the build, not hand-maintained, so they cannot drift from the moves
+   map — and they are cheap to delete in a year.
+
+   Deliberately NOT noindex: the canonical is what passes any equity to the new URL, and a noindex on the
+   same page fights it. */
+const MOVED = {
+  '/dental-clinic-crm-website/': '/crm/dental-clinic/',
+  '/event-venue-crm-website/': '/crm/event-venue/',
+  '/gym-crm-website/': '/crm/gym/',
+  '/home-services-crm-website/': '/crm/home-services/',
+  '/law-firm-crm-website/': '/crm/law-firm/',
+  '/real-estate-crm-website/': '/crm/real-estate/',
+  '/recruitment-agency-crm-website/': '/crm/recruitment-agency/',
+  '/salon-spa-crm-website/': '/crm/salon-spa/',
+};
+for (const [from, to] of Object.entries(MOVED)) {
+  const dir = path.join(OUT, from);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Moved \u2014 ${SITE}${to}</title>
+<link rel="canonical" href="${SITE}${to}">
+<meta http-equiv="refresh" content="0; url=${to}">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{font:16px/1.6 system-ui,sans-serif;margin:4rem auto;max-width:34rem;padding:0 1rem;color:#111}</style>
+</head><body>
+<h1>This page has moved</h1>
+<p>It now lives at <a href="${to}">${SITE}${to}</a>.</p>
+<script>location.replace(${JSON.stringify(to)});</script>
+</body></html>
+`);
+  console.log('redirect', from, '->', to);
 }
 
 urls.sort((a, b) => a.length - b.length);

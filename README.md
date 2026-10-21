@@ -1,12 +1,24 @@
-# Free CRM Website Generator
+# Unyson+ Site Creator
 
-A free, browser-only tool at **https://crm.unysonplus.com/** that turns a few choices (industry,
-pages, content, lead forms, CRM pipeline, brand) into:
+A free, browser-only tool at **https://create.unysonplus.com/** that turns a few choices into:
 
 - **a build prompt** to paste into an AI coding agent, and
 - **`site-spec.json`**, a structured description of the site (also embedded at the end of the prompt).
 
-The agent then builds the site on WordPress with the free Unyson+ framework and its AI Dev Kit.
+The agent then builds the site on WordPress with the free Unyson+ framework and its AI Dev Kit —
+as native page-builder pages you can keep editing, not as throwaway markup.
+
+## Families
+
+A **family** is a kind of site; within it, each **vertical** is an industry starting point.
+
+| Family | Where | Verticals |
+| --- | --- | --- |
+| CRM website | `/crm/` | dental clinic, event venue, gym, home services, law firm, real estate, recruitment agency, salon and spa |
+
+This repo was `UnysonPlus-CRM-Generator` until the CRM generator became the first family of a general
+site creator. The industry pages moved from `/<industry>-crm-website/` to `/crm/<industry>/`; the old
+URLs serve build-generated redirect stubs.
 
 Guide: https://docs.unysonplus.com/guides/crm-generator ·
 Roadmap: https://docs.unysonplus.com/guides/crm-generator-roadmap

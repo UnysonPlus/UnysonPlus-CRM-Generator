@@ -1,7 +1,7 @@
 /* Real estate preset: agents, teams and brokerages. Listings use the Properties blueprint. */
 CRMGEN.register({
   id: 'real-estate',
-  path: '/real-estate-crm-website/',
+  path: '/crm/real-estate/',
   label: 'Real estate',
   heroStages: ['New', 'Showing', 'Closed'],
   legacyStoreKey: 'crmgen:v1', // state saved when real estate was the only preset

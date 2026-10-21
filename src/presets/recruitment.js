@@ -1,7 +1,7 @@
 /* Recruitment preset: independent recruiters and agencies. Jobs use the Jobs blueprint. */
 CRMGEN.register({
   id: 'recruitment',
-  path: '/recruitment-agency-crm-website/',
+  path: '/crm/recruitment-agency/',
   label: 'Recruitment agency',
   heroStages: ['Screened', 'Interview', 'Placed'],
 

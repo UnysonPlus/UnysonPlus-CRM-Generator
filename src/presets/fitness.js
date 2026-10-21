@@ -1,7 +1,7 @@
 /* Fitness preset: boutique studios, gyms and personal trainers. */
 CRMGEN.register({
   id: 'fitness',
-  path: '/gym-crm-website/',
+  path: '/crm/gym/',
   label: 'Fitness studio or gym',
   heroStages: ['Trial', 'Attended', 'Member'],
 

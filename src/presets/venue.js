@@ -1,7 +1,7 @@
 /* Venue preset: wedding venues, event and party venues, conference venues. */
 CRMGEN.register({
   id: 'venue',
-  path: '/event-venue-crm-website/',
+  path: '/crm/event-venue/',
   label: 'Event venue and weddings',
   heroStages: ['Enquiry', 'Tour', 'Booked'],
 

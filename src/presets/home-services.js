@@ -1,7 +1,7 @@
 /* Home services preset: plumbers, electricians, roofers, HVAC, cleaners, landscapers. */
 CRMGEN.register({
   id: 'home-services',
-  path: '/home-services-crm-website/',
+  path: '/crm/home-services/',
   label: 'Home services',
   heroStages: ['New', 'Quoted', 'Won'],
 

@@ -1,7 +1,7 @@
 /* Salon preset: hair salons, beauty salons and spas, barbers, nail studios. */
 CRMGEN.register({
   id: 'salon',
-  path: '/salon-spa-crm-website/',
+  path: '/crm/salon-spa/',
   label: 'Salon and spa',
   heroStages: ['Enquiry', 'Booked', 'Regular'],
 
