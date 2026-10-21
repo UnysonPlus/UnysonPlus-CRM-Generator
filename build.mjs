@@ -21,8 +21,13 @@ const INDUSTRIES = [
   { id: 'fitness', label: 'Fitness studio or gym', desc: 'Trial classes and memberships' },
   { id: 'salon', label: 'Salon and spa', desc: 'Bookings and regular clients' },
   { id: 'recruitment', label: 'Recruitment agency', desc: 'Candidates, roles and placements' },
-  { id: 'venue', label: 'Event venue and weddings', desc: 'Date enquiries, tours and bookings' }
+  { id: 'venue', label: 'Event venue and weddings', desc: 'Date enquiries, tours and bookings' },
+  { id: 'professional-service', label: 'Professional service', desc: 'Consultancies, accountants, architects and agencies' }
 ];
+
+/* True when an industry ships a photograph. A new industry can be added before its art exists;
+   without this the picker asked for a missing .webp, fell back to a missing .jpg, and logged a 404. */
+const hasArt = (id) => fs.existsSync(path.join(SRC, 'assets', 'img', 'industries', id + '.webp'));
 
 /* Questions every industry page answers. Presets opt in with page.faqCommon. */
 const COMMON_FAQ = [
@@ -73,7 +78,7 @@ function heroArt(P) {
             </defs>
             <g class="art-tile" clip-path="url(#artPhotoClip)">
               <rect x="22" y="52" width="396" height="180" fill="var(--art-photo1)"/>
-              <image href="/assets/img/industries/${P.id}.webp" x="22" y="52" width="396" height="180" preserveAspectRatio="xMidYMid slice"/>
+              ${hasArt(P.id) ? `<image href="/assets/img/industries/${P.id}.webp" x="22" y="52" width="396" height="180" preserveAspectRatio="xMidYMid slice"/>` : ''}
               <rect x="22" y="52" width="396" height="180" fill="url(#artPhotoShade)"/>
             </g>
             <rect x="40" y="166" width="150" height="12" rx="4" fill="#ffffff" opacity=".95"/>
@@ -269,7 +274,7 @@ function hero(P) {
 }
 
 function picker() {
-  const img = (i) => `<span class="ind__img"><picture><source srcset="/assets/img/industries/${i.id}.webp" type="image/webp"><img src="/assets/img/industries/${i.id}.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"></picture></span>`;
+  const img = (i) => (!hasArt(i.id) ? '' : `<span class="ind__img"><picture><source srcset="/assets/img/industries/${i.id}.webp" type="image/webp"><img src="/assets/img/industries/${i.id}.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"></picture></span>`);
   const items = INDUSTRIES.map((i) => {
     const live = presets[i.id];
     const body = `${img(i)}<b>${esc(i.label)}</b><span class="ind__desc">${esc(i.desc)}</span>`;
