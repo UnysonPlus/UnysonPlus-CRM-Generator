@@ -1,6 +1,6 @@
 {
   "name": "unysonplus-site-creator",
-  "version": "1.1.26",
+  "version": "1.1.27",
   "private": true,
   "description": "Free CRM Website Generator for WordPress and Unyson+: industry presets that produce a site spec and a build prompt for an AI agent.",
   "type": "module",

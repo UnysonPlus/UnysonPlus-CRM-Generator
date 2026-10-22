@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minimalist Modern — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Minimalist Modern preset: a warm off-white canvas, a dual-font pairing, one electric blue gradient and accent-tinted shadows. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/saas/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FAFAFA">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ===========================================================================
+   MINIMALIST MODERN
+   A design preset, shown as a whole page.
+
+   Restraint in quantity, confidence in execution. Few elements, each sized
+   boldly. The discipline is in how SELDOM the gradient appears: it marks one
+   word of a headline, one class of button, one featured border. Applied to
+   everything it stops signalling importance and becomes wallpaper.
+
+   The accent is unusually well behaved for a saturated blue - 5.37:1 on the
+   canvas and 5.70:1 under white - so it is safe as both fill and text. The
+   value to watch is the muted grey at 4.50:1, which is exactly the AA
+   threshold with no margin to spend.
+   ========================================================================= */
+
+:root {
+  --canvas: #fafafa;        /* warm off-white, never pure white */
+  --ink: #0f172a;           /* deep slate - also the inverted section */
+  --muted-bg: #f1f5f9;
+  --muted: #64748b;         /* 4.50:1 - a floor, not a target */
+  --line: #e2e8f0;
+  --card: #ffffff;
+
+  --accent: #0052ff;
+  --accent-2: #4d7cff;
+  --grad: linear-gradient(to right, var(--accent), var(--accent-2));
+
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 16px;
+
+  --sh-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --sh-md: 0 4px 6px rgba(0,0,0,0.07);
+  --sh-lg: 0 10px 15px rgba(0,0,0,0.08);
+  --sh-xl: 0 20px 25px rgba(0,0,0,0.10);
+  --sh-accent: 0 4px 14px rgba(0,82,255,0.25);
+  --sh-accent-lg: 0 8px 24px rgba(0,82,255,0.35);
+
+  --display: "Calistoga", Georgia, serif;
+  --ui: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(20px, 5vw, 40px);
+  --bay: clamp(72px, 11vw, 160px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--canvas); color: var(--ink);
+  font-family: var(--ui);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2 { margin: 0; font-family: var(--display); font-weight: 400; letter-spacing: -0.02em; line-height: 1.08; text-wrap: balance; }
+h3 { margin: 0; font-family: var(--ui); font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.on-ink :focus-visible { outline-color: #fff; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--accent); color: #fff; padding: 12px 18px; border-radius: var(--r-sm); font-size: 0.8125rem; font-weight: 500; text-decoration: none; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1152px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+/* One word of a headline, filled with the gradient. Never the whole line. */
+.grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ---- the section-label badge, repeated at the head of every section -------- */
+.tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid rgba(0,82,255,0.3); background: rgba(0,82,255,0.05);
+  border-radius: 999px; padding: 7px 16px;
+  font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);
+}
+.tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
+.on-ink .tag { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); color: #fff; }
+.on-ink .tag::before { background: var(--accent-2); }
+
+.lede { color: var(--muted); font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.25rem); }
+.on-ink .lede { color: rgba(255,255,255,0.72); }
+
+/* ---- buttons --------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 48px; padding: 13px 24px; border: 0; border-radius: var(--r);
+  background: var(--muted-bg); color: var(--ink);
+  font-family: var(--ui); font-size: 0.9375rem; font-weight: 500; text-decoration: none; cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, background-color 200ms ease-out, filter 200ms ease-out;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px rgba(0,82,255,0.3), var(--sh-md); }
+.btn:active { transform: scale(0.98); }
+/* The accent-tinted shadow is what makes this read as lit rather than coloured. */
+.btn--accent { background: var(--grad); color: #fff; box-shadow: var(--sh-accent); }
+.btn--accent:hover { filter: brightness(1.1); box-shadow: var(--sh-accent-lg); transform: translateY(-2px); }
+.on-ink .btn { background: rgba(255,255,255,0.08); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
+
+/* ---- masthead --------------------------------------------------------------- */
+.masthead { position: sticky; top: 0; z-index: 30; background: rgba(250,250,250,0.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.masthead__in { display: flex; align-items: center; gap: 20px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; font-family: var(--display); font-size: 1.1875rem; }
+.brand__mark { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); box-shadow: var(--sh-accent); }
+.masthead__nav { display: none; gap: 28px; }
+.masthead__nav a { font-size: 0.9375rem; color: var(--muted); text-decoration: none; transition: color 200ms ease-out; }
+.masthead__nav a:hover { color: var(--ink); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero -------------------------------------------------------------------- */
+.hero { position: relative; overflow: hidden; padding-block: clamp(56px, 9vw, 120px) var(--bay); }
+/* a large, soft accent glow in the corner - felt rather than seen */
+.hero::before { content: ""; position: absolute; top: -140px; right: -120px; width: 520px; height: 520px; border-radius: 50%; background: rgba(0,82,255,0.06); filter: blur(90px); pointer-events: none; }
+.hero__grid { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 980px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }   /* asymmetric, never 50/50 */
+.hero h1 { font-size: clamp(2.25rem, 1.2rem + 4.6vw, 4.25rem); margin-block: 22px 0; }
+.hero .lede { margin-top: 22px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+/* the hero panel: a white card proving the shadow stack and the gradient border */
+.panel { border-radius: var(--r-lg); background: var(--grad); padding: 2px; box-shadow: var(--sh-xl); }
+.panel__in { border-radius: calc(var(--r-lg) - 2px); background: var(--card); padding: clamp(20px, 2.6vw, 30px); }
+.panel__row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.panel__row:first-of-type { border-top: 0; }
+.panel__ico { width: 34px; height: 34px; border-radius: 10px; background: var(--grad); flex: none; box-shadow: var(--sh-accent); }
+.panel__bar { flex: 1; height: 9px; border-radius: 999px; background: var(--muted-bg); }
+.panel__bar span { display: block; height: 100%; border-radius: 999px; background: var(--grad); }
+
+/* ---- stats (inverted) ---------------------------------------------------------- */
+.ink-band { position: relative; background: var(--ink); color: #fff; overflow: hidden; }
+/* the dot texture that keeps the slate from reading as a flat rectangle */
+.ink-band::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.03;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 32px 32px;
+}
+.ink-band > * { position: relative; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(22px, 3vw, 40px); }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat b { display: block; font-family: var(--display); font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); font-weight: 400; line-height: 1; }
+.stat span { display: block; margin-top: 8px; font-size: 0.875rem; color: rgba(255,255,255,0.68); }
+
+/* ---- feature cards ------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 760px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .cards { grid-template-columns: repeat(3, 1fr); } .cards .card:first-child { grid-column: span 1; } }
+.card { position: relative; overflow: hidden; border-radius: var(--r-lg); background: var(--card); box-shadow: inset 0 0 0 1px var(--line), var(--sh-md); padding: clamp(22px, 2.6vw, 32px); transition: transform 300ms ease-out, box-shadow 300ms ease-out; }
+.card:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--line), var(--sh-xl); }
+.card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(135deg, rgba(0,82,255,0.04), transparent 60%); transition: opacity 300ms ease-out; }
+.card:hover::after { opacity: 1; }
+.card__ico { width: 44px; height: 44px; border-radius: var(--r); background: var(--grad); box-shadow: var(--sh-accent); display: grid; place-items: center; color: #fff; }
+.card h3 { font-size: 1.1875rem; margin-block: 16px 8px; }
+.card p { color: var(--muted); font-size: 0.9375rem; }
+
+/* ---- pricing --------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } .tiers { padding-bottom: 20px; } }
+.tier { border-radius: var(--r-lg); background: var(--card); box-shadow: inset 0 0 0 1px var(--line), var(--sh-sm); padding: clamp(22px, 2.6vw, 32px); display: flex; flex-direction: column; }
+.tier__name { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.tier__price { font-family: var(--display); font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3rem); font-weight: 400; line-height: 1; margin-block: 14px 2px; }
+.tier__per { font-size: 0.8125rem; color: var(--muted); }
+.tier ul { list-style: none; margin: 20px 0 0; padding: 0; }
+.tier li { display: flex; gap: 10px; padding: 7px 0; font-size: 0.9375rem; color: var(--muted); }
+.tier li::before { content: ""; flex: none; width: 16px; height: 16px; margin-top: 5px; border-radius: 50%; background: rgba(0,82,255,0.12); box-shadow: inset 0 0 0 1px rgba(0,82,255,0.35); }
+.tier .btn { margin-top: 22px; }
+/* the featured tier floats above its siblings and wears a gradient border */
+.tier--lead { background: var(--grad); padding: 2px; box-shadow: var(--sh-accent-lg); }
+.tier--lead > div { background: var(--card); border-radius: calc(var(--r-lg) - 2px); padding: clamp(22px, 2.6vw, 32px); display: flex; flex-direction: column; height: 100%; }
+@media (min-width: 980px) { .tier--lead { margin-top: -20px; } }
+
+/* ---- faq ----------------------------------------------------------------------- */
+.faq { display: grid; gap: 10px; max-width: 72ch; }
+.faq details { border-radius: var(--r); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; transition: box-shadow 200ms ease-out; }
+.faq details[open] { box-shadow: inset 0 0 0 1px rgba(0,82,255,0.3), var(--sh-sm); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 20px; cursor: pointer; list-style: none; font-weight: 600; font-size: 0.9375rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg) translate(-2px,-2px); transition: transform 200ms ease-out; }
+.faq details[open] summary::after { transform: rotate(225deg) translate(-2px,-2px); border-color: var(--accent); }
+.faq details > div { padding: 0 20px 18px; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---- closing + footer ------------------------------------------------------------ */
+.closing { text-align: center; }
+.closing h2 { font-size: clamp(1.875rem, 1.2rem + 3.4vw, 3.5rem); max-width: 18ch; margin-inline: auto; }
+.closing .lede { margin: 20px auto 0; max-width: 48ch; }
+.closing .hero__acts { justify-content: center; margin-top: 28px; }
+
+.colophon { border-top: 1px solid var(--line); padding-block: clamp(28px, 4vw, 48px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 14px 30px; align-items: center; }
+.colophon p, .colophon a { font-size: 0.875rem; color: var(--muted); }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--ink); }
+
+/* ---- preview badge ---------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ink); color: #fff; border-radius: 999px;
+  box-shadow: var(--sh-lg);
+  padding: 8px 16px; font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.flag span { color: rgba(255,255,255,0.6); }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; }
+  .btn:hover, .card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/saas/"><span class="brand__mark" aria-hidden="true"></span> Minimalist Modern</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#depth">Detail</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--accent" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Minimalism that makes a <span class="grad-text">statement</span>.</h1>
+        <p class="lede">Few elements, each sized boldly. Where another system reaches for a safe grey,
+        this one uses a single electric blue — and uses it rarely enough that it still means something.</p>
+        <div class="hero__acts">
+          <a class="btn btn--accent" href="/">Build a site with this</a>
+          <a class="btn" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <div class="panel__in">
+          <div class="panel__row"><span class="panel__ico"></span><span class="panel__bar"><span style="width:72%"></span></span></div>
+          <div class="panel__row"><span class="panel__ico" style="background:var(--muted-bg);box-shadow:none"></span><span class="panel__bar"><span style="width:46%;background:var(--line)"></span></span></div>
+          <div class="panel__row"><span class="panel__ico" style="background:var(--muted-bg);box-shadow:none"></span><span class="panel__bar"><span style="width:58%;background:var(--line)"></span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="ink-band on-ink">
+    <div class="wrap" style="padding-block: clamp(48px, 7vw, 88px)">
+      <div class="stats">
+        <div class="stat"><b>2</b><span>Typefaces, one display</span></div>
+        <div class="stat"><b>1</b><span>Accent gradient</span></div>
+        <div class="stat"><b>5</b><span>Shadow levels</span></div>
+        <div class="stat"><b>200ms</b><span>Interaction</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay" id="system">
+    <div class="wrap">
+      <span class="tag">What the preset decides</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,2.75rem);margin-block:18px 36px">Restraint, then confidence</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="card__ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/></svg></div>
+          <h3>One gradient, used rarely</h3>
+          <p>It marks a single word of a headline, one class of button, one featured border. Applied
+          to everything it stops signalling importance and becomes wallpaper.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div>
+          <h3>Two voices</h3>
+          <p>A warm display face carries personality on headlines; a neutral sans does every other job
+          with clarity. The conversation between them is the identity.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18"/></svg></div>
+          <h3>Shadows that are lit</h3>
+          <p>The primary action carries an accent-tinted shadow rather than a neutral one, so it reads
+          as emitting light instead of merely being coloured.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ detail ============================ -->
+  <section class="bay" id="depth" style="background:var(--muted-bg)">
+    <div class="wrap">
+      <span class="tag">Detail</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,2.75rem);margin-block:18px 16px">Asymmetry is the <span class="grad-text">design</span></h2>
+      <p class="lede" style="max-width:56ch;margin-bottom:36px">The hero runs 1.1 to 0.9, not 50/50.
+      The featured tier floats above its siblings. Perfect symmetry is predictable; a deliberate
+      imbalance is what separates "correct" from "designed".</p>
+      <div class="cards">
+        <article class="card"><h3>1.1 / 0.9</h3><p>The text column is subtly dominant, so the eye starts where the words are rather than in the middle.</p></article>
+        <article class="card"><h3>Elevated tier</h3><p>The highlighted plan breaks the row rather than wearing a badge — position carries the emphasis.</p></article>
+        <article class="card"><h3>Corner glows</h3><p>Large, soft, 6% opacity. Felt rather than seen, and what stops a flat canvas feeling empty.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <span class="tag">Pricing, as this preset renders it</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,2.75rem);margin-block:18px 36px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <div>
+            <p class="tier__name">Studio</p>
+            <p class="tier__price">$24</p>
+            <p class="tier__per">per month</p>
+            <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+            <a class="btn btn--accent" href="/">Choose</a>
+          </div>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+      </div>
+      <p style="margin-top:20px;font-family:var(--mono);font-size:0.625rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay" id="faq">
+    <div class="wrap">
+      <span class="tag">Questions</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,2.75rem);margin-block:18px 36px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the type pairing and the surfaces. The finer detail
+          here — the gradient text, the accent-tinted shadows, the elevated tier — is still being
+          folded into the preset and is not all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why so little of the accent?</summary>
+          <div>Because its job is to signal. A gradient on every heading and button carries no
+          information — it just becomes the background. Used on one word, one button class and one
+          border, it still means "this one matters".</div>
+        </details>
+        <details>
+          <summary>Is the grey text safe?</summary>
+          <div>Just. The muted grey measures 4.50:1 on this canvas, which is exactly the AA threshold
+          with no margin at all. It is a floor rather than a target: if the canvas is warmed or the
+          grey lightened, it has to be re-measured rather than assumed.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="ink-band on-ink closing">
+    <div class="wrap" style="padding-block: var(--bay)">
+      <h2>Build a site in this preset.</h2>
+      <p class="lede">Describe the business and your own AI agent builds it on WordPress with Unyson+ —
+      real page-builder pages, with this design system applied site-wide.</p>
+      <div class="hero__acts">
+        <a class="btn btn--accent" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <p>Minimalist Modern — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

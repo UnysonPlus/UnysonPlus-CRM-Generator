@@ -700,6 +700,16 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>A visible collapsed grid, four serif and sans faces, one editorial red. <a href="/design-presets/newsprint/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/saas/">
+            <img src="/assets/img/styles/saas.png" width="1280" height="810" loading="lazy" decoding="async"
+                 alt="A minimalist modern style: a warm off-white page with a large serif headline whose last word is filled with an electric blue gradient, beside a white panel with a gradient border.">
+          </a>
+          <figcaption>
+            <b>Minimalist Modern</b>
+            <span>Warm off-white, a dual-font pairing, one electric blue gradient. <a href="/design-presets/saas/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -886,7 +896,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
