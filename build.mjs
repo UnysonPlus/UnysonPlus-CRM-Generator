@@ -910,6 +910,56 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>Pencil borders, wobbly corners, a marker red. <a href="/design-presets/sketch/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/industrial/">
+            <img src="/assets/img/styles/industrial.jpg" width="1280" height="952" loading="lazy" decoding="async"
+                 alt="An Industrial style: a bold headline embossed into a pale blue-grey chassis, beside a recessed panel of raised monospace readout slots.">
+          </a>
+          <figcaption>
+            <b>Industrial Control</b>
+            <span>A moulded chassis, two-shadow keys, one alert red. <a href="/design-presets/industrial/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/neumorphism/">
+            <img src="/assets/img/styles/neumorphism.jpg" width="1280" height="959" loading="lazy" decoding="async"
+                 alt="A Neumorphism style: a heading on a single pale blue-grey surface with soft extruded buttons and a recessed well of chips, all shaped by light and shadow.">
+          </a>
+          <figcaption>
+            <b>Neumorphism</b>
+            <span>One surface colour, extruded by light alone. <a href="/design-presets/neumorphism/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/organic/">
+            <img src="/assets/img/styles/organic.jpg" width="1280" height="994" loading="lazy" decoding="async"
+                 alt="An Organic style: a serif headline on warm rice paper beside a cluster of leaf-shaped blobs in moss, terracotta and sand.">
+          </a>
+          <figcaption>
+            <b>Organic</b>
+            <span>Moss and terracotta on rice paper, highly rounded. <a href="/design-presets/organic/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/maximalism/">
+            <img src="/assets/img/styles/maximalism.jpg" width="1280" height="1177" loading="lazy" decoding="async"
+                 alt="A Maximalism style: a huge headline in white, yellow and cyan over a near-black void, with stacked multi-coloured hard shadows on every block.">
+          </a>
+          <figcaption>
+            <b>Maximalism</b>
+            <span>Five accents over a void, stacked hard shadows. <a href="/design-presets/maximalism/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/retro/">
+            <img src="/assets/img/styles/retro.jpg" width="1280" height="758" loading="lazy" decoding="async"
+                 alt="A Retro Desktop style: a heavy black headline on a silver chassis beside a windowed notepad panel with a navy title bar and bevelled controls.">
+          </a>
+          <figcaption>
+            <b>Retro Desktop</b>
+            <span>A silver chassis, 2px bevels, navy title bars. <a href="/design-presets/retro/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -1096,7 +1146,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/', '/design-presets/minimal-dark/', '/design-presets/playful-geometric/', '/design-presets/claymorphism/', '/design-presets/professional/', '/design-presets/botanical/', '/design-presets/vaporwave/', '/design-presets/enterprise/', '/design-presets/sketch/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/', '/design-presets/minimal-dark/', '/design-presets/playful-geometric/', '/design-presets/claymorphism/', '/design-presets/professional/', '/design-presets/botanical/', '/design-presets/vaporwave/', '/design-presets/enterprise/', '/design-presets/sketch/', '/design-presets/industrial/', '/design-presets/neumorphism/', '/design-presets/organic/', '/design-presets/maximalism/', '/design-presets/retro/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

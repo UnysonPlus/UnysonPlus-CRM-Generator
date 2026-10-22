@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Neumorphism — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Neumorphism preset: one surface colour, elements extruded by light alone, and the accessibility limit that implies. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/neumorphism/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#E0E5EC">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
+<style>
+/* ===========================================================================
+   NEUMORPHISM
+   A design preset, shown as a whole page.
+
+   Soft UI: every element is EXTRUDED FROM the background rather than placed on
+   it. There is one surface colour in the whole design, and shape comes only
+   from light - a pale shadow one way, a darker one the other, inverted when
+   something is pressed.
+
+   THE TRAPS, measured, and this style has the hardest version of them, because
+   a near-white surface is the least forgiving ground there is:
+
+       spec accent #6C63FF   3.41:1 as text   4.32:1 under white
+       spec teal   #38B2AC   2.04:1 as text   2.58:1 under white
+       spec muted  #6B7280   3.82:1 as text
+
+   All three fail. This is the recurring failure of soft-UI palettes: the
+   colours are chosen against a mid grey in a design tool and then used on a
+   near-white page. Here they are #5048D6, #246B67 and #55606E.
+
+   And the structural one, which the style creates rather than inherits: an
+   extruded element has NO border and NO fill difference, so its boundary is
+   carried entirely by the shadows. Remove them - forced colours, print, a
+   high-contrast mode - and the control disappears.
+   ========================================================================= */
+
+:root {
+  --surface: #e0e5ec;
+  --ink: #3d4852;
+  --muted: #55606e;
+  --accent: #5048d6;
+  --teal: #246b67;
+  --hi: #ffffff;
+  --sh: #babecc;
+
+  --head: "Plus Jakarta Sans", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+
+  --raised: 6px 6px 14px var(--sh), -6px -6px 14px var(--hi);
+  --raised-lg: 10px 10px 22px var(--sh), -10px -10px 22px var(--hi);
+  --pressed: inset 5px 5px 10px var(--sh), inset -5px -5px 10px var(--hi);
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(64px, 9vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--surface); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.7; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(2.25rem, 1.2rem + 4.2vw, 4rem); }
+h2 { font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem); }
+h3 { font-size: 1.1875rem; font-weight: 700; }
+.dim { color: var(--muted); }
+
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--accent); color: #fff; border-radius: 16px; padding: 13px 24px; text-decoration: none; font-weight: 700; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; border-radius: 999px; background: var(--surface); box-shadow: var(--pressed); padding: 8px 18px; font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+
+/* ---- buttons: extruded, and they sink ---------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 30px; border: 0; border-radius: 16px; cursor: pointer;
+  background: var(--accent); color: #fff;          /* 6.48:1 */
+  font-family: var(--body); font-weight: 700; font-size: 0.9375rem; text-decoration: none;
+  box-shadow: var(--raised);
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+.btn:active { box-shadow: var(--pressed); transform: translateY(1px); }
+/* A control that exists only as a shadow vanishes without it. Every interactive element
+   here keeps an outline underneath the extrusion - that is the fix, not an ornament. */
+.btn--soft { background: var(--surface); color: var(--ink); outline: 1px solid rgba(61,72,82,.14); outline-offset: -1px; }
+.btn--teal { background: var(--teal); color: #fff; }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 92px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); font-family: var(--head); font-weight: 800; font-size: 1.1875rem; }
+.brand i { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 999px; background: var(--surface); box-shadow: var(--raised); color: var(--accent); font-style: normal; }
+.masthead__nav { display: none; gap: 24px; }
+.masthead__nav a { font-size: 0.9375rem; font-weight: 700; color: var(--muted); text-decoration: none; }
+.masthead__nav a:hover { color: var(--ink); }
+@media (min-width: 960px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------- */
+.hero { padding-block: clamp(40px, 6vw, 88px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.05fr 0.95fr; } }
+.hero h1 { margin-top: 20px; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p { margin-top: 24px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+
+/* the readout: a recessed well holding raised chips */
+.well { border-radius: 24px; background: var(--surface); box-shadow: var(--pressed); padding: clamp(18px, 2.2vw, 26px); display: grid; gap: 14px; }
+.chip { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-radius: 14px; background: var(--surface); box-shadow: var(--raised); padding: 14px 18px; font-size: 0.9375rem; }
+.chip span { color: var(--muted); font-size: 0.875rem; }
+.chip b { font-weight: 700; }
+.chip b.bad { color: #a4303b; }
+
+/* ---- stats ----------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border-radius: 20px; background: var(--surface); box-shadow: var(--raised); padding: clamp(20px, 2.4vw, 30px); }
+.stat b { display: block; font-family: var(--head); font-weight: 800; font-size: clamp(1.5rem, 1rem + 1.9vw, 2.25rem); line-height: 1.15; color: var(--accent); }
+.stat:nth-child(2n) b { color: var(--teal); }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+
+/* ---- cards --------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { border-radius: 20px; background: var(--surface); box-shadow: var(--raised); padding: clamp(24px, 2.8vw, 34px); transition: box-shadow 220ms ease; }
+.card:hover { box-shadow: var(--raised-lg); }
+.card__n { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 999px; background: var(--surface); box-shadow: var(--pressed); font-family: var(--head); font-weight: 800; color: var(--accent); }
+.card h3 { margin-block: 18px 10px; }
+.card p { color: var(--muted); font-size: 1rem; }
+
+/* ---- pricing ------------------------------------------------------------------------------------ */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { border-radius: 24px; background: var(--surface); box-shadow: var(--raised); padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { box-shadow: var(--raised-lg); }
+.tier__flag { display: inline-block; border-radius: 999px; background: var(--accent); color: #fff; padding: 5px 14px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; }
+.tier__name { font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+.tier__price { font-family: var(--head); font-weight: 800; font-size: clamp(2rem, 1.4rem + 2.2vw, 2.875rem); line-height: 1; margin-block: 12px 2px; }
+.tier__per { font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid rgba(61,72,82,.1); font-size: 0.9375rem; color: var(--muted); }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq --------------------------------------------------------------------------------------------- */
+.faq { max-width: 76ch; }
+.faq details { border-radius: 20px; background: var(--surface); box-shadow: var(--raised); margin-bottom: 16px; }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 20px 24px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 800; font-size: 1.0625rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); flex: none; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding: 0 24px 22px; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------------- */
+.colophon { background: var(--ink); color: #c6ccd4; padding-block: 42px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; font-weight: 500; }
+.colophon a { color: #b3aeff; text-decoration: none; }
+
+/* ---- preview badge ---------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 60; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  border-radius: 999px; background: var(--surface); color: var(--ink); box-shadow: var(--raised);
+  padding: 9px 20px; font-size: 0.8125rem; font-weight: 700;
+}
+.flag span { color: var(--muted); font-weight: 500; }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="wrap masthead">
+  <div class="masthead__in">
+    <a class="brand" href="/design-presets/neumorphism/"><i aria-hidden="true">◎</i> Softform</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--soft" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>One surface. Everything else is <em>light</em></h1>
+        <p class="dim">No layers, no outlines, no second background — a single colour, moulded. The
+        whole design is two shadows: a pale one on the lit side, a darker one opposite, inverted when
+        something is pressed. It is also the style with the sharpest accessibility limit in this set,
+        and this page says where.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--soft" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="well">
+        <p class="chip"><span>Ink on the surface</span><b>7.38:1</b></p>
+        <p class="chip"><span>This accent, as text</span><b>5.12:1</b></p>
+        <p class="chip"><span>The spec's accent, as text</span><b class="bad">3.41:1</b></p>
+        <p class="chip"><span>…and under white</span><b class="bad">4.32:1</b></p>
+        <p class="chip"><span>The spec's teal, under white</span><b class="bad">2.58:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>1</b><span>Surface colour</span></div>
+      <div class="stat"><b>2</b><span>Shadows per element</span></div>
+      <div class="stat"><b>3</b><span>Spec colours that failed</span></div>
+      <div class="stat"><b>16px</b><span>Radius</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 40px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__n">1</span>
+        <h3>A near-white ground is unforgiving</h3>
+        <p>All three of the specified colours fail on it — the accent in both directions, the teal
+        badly, the muted grey as text. Soft-UI palettes tend to be picked against a mid grey and then
+        used on a page like this one.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">2</span>
+        <h3>A shadow is not a boundary</h3>
+        <p>An extruded control has no border and no fill difference, so it exists only while its
+        shadows do. In a forced-colours mode it disappears entirely. Interactive elements here keep a
+        faint outline underneath.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">3</span>
+        <h3>The light never moves</h3>
+        <p>Top left, on every element, without exception. One element lit from the other side does
+        not look varied — it looks broken, because the eye reads the whole page as one object.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 40px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--soft" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price" style="color:var(--accent)">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--teal" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:24px">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the one surface colour, the re-measured accents, Plus Jakarta Sans
+        over DM Sans, the 16px radius and the two-shadow extrusion with its pressed state. The
+        recessed wells are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why are all three accent colours different from the specification?</summary>
+        <div>Because all three fail on the surface the specification itself defines — 3.41, 2.58 and
+        3.82 to one. That is not bad luck; it is what happens when a palette is chosen against a
+        darker mock-up and then applied to a near-white page.</div>
+      </details>
+      <details>
+        <summary>Is this style accessible at all?</summary>
+        <div>With care, and with one honest caveat. Text contrast is solvable — the values here all
+        pass. What cannot be solved by colour alone is the boundary: an element made only of shadows
+        has none. Keeping a faint outline under anything interactive costs nothing visually and is
+        the difference between a style and a trap.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="card" style="text-align:center;padding-block:clamp(40px,6vw,72px);border-radius:28px">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:20px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:30px"><a class="btn" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Neumorphism — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

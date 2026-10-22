@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Retro Desktop — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Retro preset: a silver chassis, 2px bevels, navy title bars and pure-hue links. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/retro/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#C0C0C0">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700&display=swap">
+<style>
+/* ===========================================================================
+   RETRO DESKTOP
+   A design preset, shown as a whole page.
+
+   The desktop interface of the mid-nineties, rebuilt honestly: a silver
+   chassis, bevelled controls, a navy title bar, pure-hue links and the yellow
+   notepad panel. Not a filter over a modern page - the whole interface
+   language is four border colours and a 2px bevel.
+
+   WHAT THE SPEC GETS RIGHT. It says plainly: "no grays for body text." That is
+   correct and measurable - #808080 on the silver chassis is 2.17:1. The grey
+   exists for the bevel's dark edge and for nothing else.
+
+   THE TRAPS.
+   1. Pure red #FF0000 is 2.20:1 on the chassis. It is an emphasis colour for
+      the white and yellow panels, never body text and never a link on silver.
+   2. The hyperlink blue works BOTH ways - 4.72:1 as text, 8.59:1 under white -
+      which is why it survives as the one accent role.
+   3. On the navy band a blue button separates from its background at 2.44:1.
+      The authentic control there is the silver face with black text, which is
+      both more faithful AND legible.
+   ========================================================================= */
+
+:root {
+  --chassis: #c0c0c0;
+  --ink: #000000;
+  --blue: #0000ff;
+  --navy: #000080;
+  --navy-2: #0b4f8a;
+  --red: #ff0000;
+  --yellow: #ffff00;
+  --panel: #ffffcc;
+  --bevel-hi: #ffffff;
+  --bevel-lo: #808080;
+
+  --head: "Archivo Black", system-ui, sans-serif;
+  --body: "Inter", system-ui, sans-serif;
+
+  --raised: inset 1px 1px 0 var(--bevel-hi), inset -1px -1px 0 var(--bevel-lo);
+
+  --gutter: clamp(16px, 3vw, 36px);
+  --bay: clamp(48px, 7vw, 96px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--chassis); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.55; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 400; line-height: 1.12; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 1.2rem + 3.4vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.125rem); }
+h3 { font-size: 1.125rem; }
+.dim { color: #3a3a3a; }
+
+a { color: var(--blue); }
+a:hover { color: var(--red); }
+:focus-visible { outline: 2px dotted var(--ink); outline-offset: 2px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 95; background: var(--chassis); color: var(--ink); border: 2px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi); padding: 10px 18px; text-decoration: none; font-weight: 600; }
+.skip:focus { top: 14px; }
+
+.wrap { width: 100%; max-width: 1024px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+/* ---- the window chrome - this IS the style ---------------------------------- */
+.win { background: var(--chassis); border: 2px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi); }
+/* The era's title bar is a gradient, and the stock end stop #1084D0 carries white
+   at only 4.01:1. #0B4F8A keeps the sweep and measures 8.40. The solid
+   background-color underneath is not decoration either: a gradient set through the
+   `background` shorthand leaves backgroundColor transparent, so a contrast checker
+   walks past it to the chassis and reports a number for the wrong surface. */
+.win__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background-color: var(--navy); background-image: linear-gradient(90deg, var(--navy), var(--navy-2)); color: #fff; padding: 5px 8px; font-size: 0.8125rem; font-weight: 700; }
+.win__btns { display: flex; gap: 3px; }
+.win__btns i { display: grid; place-items: center; width: 18px; height: 16px; background: var(--chassis); color: var(--ink); border: 1px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi); font-style: normal; font-size: 0.6875rem; font-weight: 700; line-height: 1; }
+.win__body { padding: clamp(16px, 2.2vw, 26px); }
+
+/* ---- buttons: the bevel, inverted on press -------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 22px; cursor: pointer; border-radius: 0;
+  border: 2px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi);
+  background: var(--chassis); color: var(--ink);
+  font-family: var(--body); font-weight: 600; font-size: 0.9375rem; text-decoration: none;
+}
+.btn:active { border-color: var(--bevel-lo) var(--bevel-hi) var(--bevel-hi) var(--bevel-lo); }
+.btn--blue { background: var(--blue); color: #fff; }        /* 8.59:1 */
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { background: var(--chassis); border-bottom: 2px solid var(--bevel-lo); box-shadow: 0 1px 0 var(--bevel-hi); }
+.masthead__in { display: flex; align-items: center; gap: 18px; min-height: 64px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-family: var(--head); font-size: 1.0625rem; }
+.brand i { display: grid; place-items: center; width: 26px; height: 26px; background: var(--navy); color: var(--yellow); border: 2px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi); font-style: normal; font-size: 0.75rem; }
+.masthead__nav { display: none; gap: 16px; }
+.masthead__nav a { font-size: 0.9375rem; font-weight: 600; text-decoration: underline; }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------- */
+.hero { padding-block: clamp(32px, 4vw, 64px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px); align-items: start; }
+@media (min-width: 980px) { .hero__in { grid-template-columns: 1.05fr 0.95fr; } }
+.hero h1 { margin-top: 14px; }
+.hero p { margin-top: 18px; max-width: 48ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+.eyebrow { display: inline-block; background: var(--navy); color: #fff; padding: 4px 12px; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.readout { display: grid; gap: 0; }
+.readout div { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding: 9px 2px; border-bottom: 1px solid var(--bevel-lo); font-size: 0.9375rem; }
+.readout div:last-child { border-bottom: 0; }
+.readout span { color: #3a3a3a; }
+.readout b { font-weight: 700; }
+.readout b.bad { color: #a30000; }
+
+/* ---- stats ----------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: var(--panel); border: 2px solid; border-color: var(--bevel-lo) var(--bevel-hi) var(--bevel-hi) var(--bevel-lo); padding: clamp(16px, 2vw, 24px); }
+.stat b { display: block; font-family: var(--head); font-size: clamp(1.375rem, 1rem + 1.6vw, 2rem); line-height: 1.1; }
+.stat span { display: block; margin-top: 8px; font-size: 0.8125rem; font-weight: 600; }
+
+/* ---- cards --------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card__body { background: #fff; padding: clamp(18px, 2.2vw, 26px); }
+.card h3 { margin-bottom: 10px; }
+/* Scoped to the body, not the whole card: `.card p` also matched the title bar and
+   outranked `.win__bar`, putting dark grey on navy at 1.35:1. */
+.card__body p { color: #3a3a3a; font-size: 0.9375rem; }
+
+/* ---- pricing ------------------------------------------------------------------------------------ */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
+@media (min-width: 940px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier__body { background: #fff; padding: clamp(18px, 2.2vw, 26px); display: flex; flex-direction: column; }
+.tier__name { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #3a3a3a; }
+.tier__price { font-family: var(--head); font-size: clamp(1.875rem, 1.3rem + 1.8vw, 2.5rem); line-height: 1; margin-block: 10px 2px; }
+.tier__per { font-size: 0.8125rem; font-weight: 600; color: #3a3a3a; }
+.tier ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.tier li { padding: 8px 0; border-top: 1px solid #d4d4d4; font-size: 0.9375rem; }
+.tier li::before { content: "\2713  "; color: #006600; font-weight: 700; }
+.tier .btn { margin-top: 20px; }
+
+/* ---- faq --------------------------------------------------------------------------------------------- */
+.faq { max-width: 74ch; display: grid; gap: 14px; }
+.faq details { background: var(--chassis); border: 2px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; cursor: pointer; list-style: none; font-weight: 700; font-size: 0.9375rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--head); font-size: 0.875rem; flex: none; }
+.faq details[open] summary { background: var(--navy); color: #fff; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { background: #fff; padding: 16px; color: #3a3a3a; font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------------- */
+.colophon { background: var(--navy); color: #fff; padding-block: 24px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center; font-size: 0.875rem; }
+.colophon a { color: var(--yellow); }
+
+/* ---- preview badge ---------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 16px; z-index: 95; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--chassis); color: var(--ink);
+  border: 2px solid; border-color: var(--bevel-hi) var(--bevel-lo) var(--bevel-lo) var(--bevel-hi);
+  padding: 7px 14px; font-size: 0.8125rem; font-weight: 700;
+}
+.flag span { font-weight: 400; color: #3a3a3a; }
+@media (max-width: 560px) { .flag { left: 14px; right: 14px; bottom: 10px; justify-content: center; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/retro/"><i aria-hidden="true">▣</i> System 95</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="eyebrow">Design preset</span>
+        <h1>Four border colours and a two-pixel bevel</h1>
+        <p class="dim">That is the whole interface language of the era, and it is a real affordance:
+        the bevel tells you what is pressable without using colour at all. White on the top and left,
+        grey on the bottom and right, inverted the moment you press.</p>
+        <div class="hero__acts">
+          <a class="btn btn--blue" href="/">Build a site with this</a>
+          <a class="btn" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="win">
+        <p class="win__bar"><span>contrast.txt — Notepad</span><span class="win__btns"><i>_</i><i>□</i><i>×</i></span></p>
+        <div class="win__body" style="background:var(--panel)">
+          <div class="readout">
+            <div><span>Black on the chassis</span><b>11.54:1</b></div>
+            <div><span>Link blue, as text</span><b>4.72:1</b></div>
+            <div><span>White on the link blue</span><b>8.59:1</b></div>
+            <div><span>Grey #808080, as text</span><b class="bad">2.17:1</b></div>
+            <div><span>Pure red, as text</span><b class="bad">2.20:1</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>2px</b><span>Bevel</span></div>
+      <div class="stat"><b>4</b><span>Border colours</span></div>
+      <div class="stat"><b>2.17:1</b><span>Grey body text</span></div>
+      <div class="stat"><b>0</b><span>Rounded corners</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="eyebrow">What the preset decides</span>
+    <h2 style="margin-block:16px 28px">Three rules</h2>
+    <div class="cards">
+      <article class="card win">
+        <p class="win__bar"><span>rule_01</span></p>
+        <div class="card__body">
+          <h3>No greys for body text</h3>
+          <p>The specification says it outright and the measurement agrees: fifty per cent grey on
+          the silver chassis is 2.17 to one. Black is the only body colour, and the grey exists for
+          the bevel's dark edge.</p>
+        </div>
+      </article>
+      <article class="card win">
+        <p class="win__bar"><span>rule_02</span></p>
+        <div class="card__body">
+          <h3>The bevel is an affordance</h3>
+          <p>Lit on the top and left, shadowed on the bottom and right, inverted on press. It says
+          "pressable" without colour, which is more than most modern buttons manage.</p>
+        </div>
+      </article>
+      <article class="card win">
+        <p class="win__bar"><span>rule_03</span></p>
+        <div class="card__body">
+          <h3>Red is for panels, not pages</h3>
+          <p>Pure red on the silver is 2.20 to one. On the white and yellow panels it is fine, which
+          is exactly where this era actually used it.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="eyebrow">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:16px 28px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier win">
+        <p class="win__bar"><span>starter.exe</span></p>
+        <div class="tier__body">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+      </div>
+      <div class="tier win">
+        <p class="win__bar"><span>studio.exe — recommended</span></p>
+        <div class="tier__body" style="background:var(--panel)">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn btn--blue" href="/">Choose</a>
+        </div>
+      </div>
+      <div class="tier win">
+        <p class="win__bar"><span>agency.exe</span></p>
+        <div class="tier__body">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+      </div>
+    </div>
+    <p class="eyebrow" style="margin-top:22px;background:var(--chassis);color:var(--ink);border:2px solid;border-color:var(--bevel-lo) var(--bevel-hi) var(--bevel-hi) var(--bevel-lo)">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="eyebrow">Questions</span>
+    <h2 style="margin-block:16px 28px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the silver chassis, black body text, the link blue, the navy band, the
+        yellow panel, zero radius and the bevel with its inverted press state. The window chrome —
+        title bars, minimise and close boxes — is markup, so a section that wants it still asks.</div>
+      </details>
+      <details>
+        <summary>Why is the button on the navy band silver rather than blue?</summary>
+        <div>Two reasons that happen to agree. A blue control on a navy ground separates from it at
+        2.44 to one, which is below the three-to-one a non-text boundary needs; and the authentic
+        control of this era was always the silver face with black text. Being faithful and being
+        legible point the same way here.</div>
+      </details>
+      <details>
+        <summary>Isn't the body text too small in this era's style?</summary>
+        <div>The originals often were, and that is the one thing not worth reproducing. Body stays at
+        sixteen pixels. Everything else — the bevels, the pure hues, the title bars — is period
+        accurate.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="win">
+      <p class="win__bar"><span>creator.exe</span><span class="win__btns"><i>_</i><i>□</i><i>×</i></span></p>
+      <div class="win__body" style="text-align:center;padding-block:clamp(30px,5vw,56px)">
+        <h2 style="max-width:20ch;margin-inline:auto">Build a site in this preset.</h2>
+        <p class="dim" style="margin-top:16px;max-width:52ch;margin-inline:auto">Describe the business
+        and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+        design system applied site-wide.</p>
+        <p style="margin-top:24px"><a class="btn btn--blue" href="/">Open the creator</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Retro Desktop — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

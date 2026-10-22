@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maximalism — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Maximalism preset: five saturated accents over a cosmic void, stacked hard shadows and poster-scale type. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/maximalism/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0D0D1A">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Unbounded:wght@700;800;900&display=swap">
+<style>
+/* ===========================================================================
+   MAXIMALISM
+   A design preset, shown as a whole page.
+
+   More, louder, and on purpose. Five saturated accents over a cosmic void,
+   stacked hard shadows in two or three colours at once, type at poster scale.
+   The void is the only quiet surface, and everything pops because it has
+   somewhere to pop FROM.
+
+   The discipline, and it is real: CHAOS IN THE DECORATION, ORDER IN THE
+   CONTRAST. The spec says so itself - white on the void for all critical text,
+   19.3:1 - and it is right.
+
+   THE TRAP, measured, and beautifully symmetrical. Of the five accents, only
+   the PURPLE carries white:
+
+       white on magenta  2.94    void on it   6.55    magenta as text   6.55
+       white on cyan     1.40    void on it  13.78    cyan as text     13.78
+       white on yellow   1.27    void on it  15.21    yellow as text   15.21
+       white on orange   2.84    void on it   6.80    orange as text    6.80
+       white on purple   5.69  <- the exception
+
+   So the rule is absolute and easy: a colour is either a FILL with the void on
+   it, or it is TYPE on the void. Never white on a fill.
+   ========================================================================= */
+
+:root {
+  --void: #0d0d1a;
+  --deep: #1a1030;
+  --muted-surface: #2d1b4e;
+  --white: #ffffff;
+  --dim: #c9b8e8;
+  --magenta: #ff3af2;
+  --cyan: #00f5d4;
+  --yellow: #ffe600;
+  --orange: #ff6b35;
+  --purple: #7b2fff;
+
+  --head: "Unbounded", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(64px, 9vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--void); color: var(--white); font-family: var(--body); font-size: 1.0625rem; line-height: 1.65; overflow-x: hidden; }
+/* the dot field - decoration, on its own layer */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.16;
+  background-image: radial-gradient(var(--magenta) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+body > * { position: relative; z-index: 1; }
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 800; letter-spacing: -0.02em; line-height: 1.02; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.1rem + 5.6vw, 5.5rem); font-weight: 900; }
+h2 { font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.875rem); }
+h3 { font-size: 1.1875rem; font-weight: 700; }
+.dim { color: var(--dim); }
+
+a { color: var(--cyan); }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 95; background: var(--yellow); color: var(--void); border: 3px solid var(--void); padding: 12px 22px; text-decoration: none; font-weight: 700; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; background: var(--yellow); color: var(--void); padding: 6px 16px; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.bar { display: block; height: 8px; background: linear-gradient(90deg, var(--magenta), var(--purple), var(--cyan), var(--yellow)); }
+
+/* ---- buttons: stacked hard shadows, void labels ---------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 56px; padding: 0 30px; cursor: pointer;
+  border: 3px solid var(--void); border-radius: 0;
+  background: var(--magenta); color: var(--void);      /* 6.55:1 - never white */
+  font-family: var(--body); font-weight: 700; font-size: 0.9375rem; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none;
+  box-shadow: 8px 8px 0 var(--purple), 16px 16px 0 var(--yellow);
+  transition: transform 120ms linear, box-shadow 120ms linear;
+}
+.btn:active { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--purple), 8px 8px 0 var(--yellow); }
+.btn--cyan { background: var(--cyan); box-shadow: 8px 8px 0 var(--magenta), 16px 16px 0 var(--purple); }
+.btn--cyan:active { box-shadow: 4px 4px 0 var(--magenta), 8px 8px 0 var(--purple); }
+/* the ONE fill that carries white */
+.btn--purple { background: var(--purple); color: #fff; box-shadow: 8px 8px 0 var(--cyan), 16px 16px 0 var(--magenta); }
+.btn--purple:active { box-shadow: 4px 4px 0 var(--cyan), 8px 8px 0 var(--magenta); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 4px solid var(--magenta); }
+.masthead__in { display: flex; align-items: center; gap: 22px; min-height: 86px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); font-family: var(--head); font-weight: 900; font-size: 1.0625rem; text-transform: uppercase; }
+.brand i { width: 20px; height: 20px; background: var(--yellow); box-shadow: 4px 4px 0 var(--cyan); font-style: normal; }
+.masthead__nav { display: none; gap: 22px; }
+.masthead__nav a { font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; color: var(--dim); text-decoration: none; }
+.masthead__nav a:hover { color: var(--yellow); }
+@media (min-width: 1000px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------- */
+.hero { padding-block: clamp(44px, 6vw, 92px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(40px, 5vw, 72px); align-items: center; }
+@media (min-width: 1040px) { .hero__in { grid-template-columns: 1.15fr 0.85fr; } }
+.hero h1 { margin-top: 20px; }
+.hero h1 .y { color: var(--yellow); }
+.hero h1 .c { color: var(--cyan); }
+.hero p { margin-top: 26px; max-width: 48ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 40px; }
+
+/* the readout slab */
+.slab { background: var(--deep); border: 4px solid var(--magenta); box-shadow: 12px 12px 0 var(--purple); padding: clamp(22px, 2.6vw, 30px); }
+.slab__row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 2px solid rgba(255,255,255,.14); font-size: 0.9375rem; font-weight: 700; }
+.slab__row:last-child { border-bottom: 0; }
+.slab__row span { color: var(--dim); font-weight: 500; }
+.slab__row b.ok { color: var(--cyan); }
+.slab__row b.bad { color: var(--orange); }
+
+/* ---- stats ----------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border: 3px solid var(--void); padding: clamp(20px, 2.4vw, 30px); color: var(--void); }
+.stat:nth-child(1) { background: var(--magenta); box-shadow: 8px 8px 0 var(--purple); }
+.stat:nth-child(2) { background: var(--cyan); box-shadow: 8px 8px 0 var(--magenta); }
+.stat:nth-child(3) { background: var(--yellow); box-shadow: 8px 8px 0 var(--orange); }
+.stat:nth-child(4) { background: var(--orange); box-shadow: 8px 8px 0 var(--yellow); }
+.stat b { display: block; font-family: var(--head); font-weight: 900; font-size: clamp(1.375rem, 0.9rem + 1.8vw, 2rem); line-height: 1.1; }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ---- cards --------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 920px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--deep); border: 3px solid var(--white); padding: clamp(24px, 2.8vw, 34px); transition: transform 160ms linear, box-shadow 160ms linear; }
+.card:nth-child(1) { box-shadow: 10px 10px 0 var(--magenta); }
+.card:nth-child(2) { box-shadow: 10px 10px 0 var(--cyan); }
+.card:nth-child(3) { box-shadow: 10px 10px 0 var(--yellow); }
+.card:hover { transform: translate(-3px, -3px); }
+.card__n { display: inline-block; background: var(--white); color: var(--void); padding: 3px 12px; font-family: var(--head); font-weight: 900; font-size: 0.875rem; }
+.card h3 { margin-block: 16px 10px; }
+.card p { color: var(--dim); font-size: 0.9375rem; }
+
+/* ---- the swatch proof ---------------------------------------------------------------------------- */
+.proof { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (min-width: 900px) { .proof { grid-template-columns: repeat(5, 1fr); } }
+.sw { border: 3px solid var(--void); padding: 20px; color: var(--void); }
+.sw b { display: block; font-family: var(--head); font-weight: 900; font-size: 1.125rem; }
+.sw span { display: block; margin-top: 6px; font-size: 0.8125rem; font-weight: 700; }
+.sw--m { background: var(--magenta); } .sw--c { background: var(--cyan); } .sw--y { background: var(--yellow); }
+.sw--o { background: var(--orange); } .sw--p { background: var(--purple); color: #fff; border-color: var(--white); }
+
+/* ---- pricing ------------------------------------------------------------------------------------ */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 30px; align-items: start; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { background: var(--deep); border: 3px solid var(--white); padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; box-shadow: 10px 10px 0 var(--purple); }
+.tier--lead { border-color: var(--yellow); box-shadow: 12px 12px 0 var(--magenta), 24px 24px 0 var(--yellow); }
+.tier__flag { display: inline-block; background: var(--yellow); color: var(--void); padding: 5px 14px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; }
+.tier__name { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); }
+.tier__price { font-family: var(--head); font-weight: 900; font-size: clamp(2rem, 1.3rem + 2.2vw, 2.875rem); line-height: 1; margin-block: 14px 2px; }
+.tier__per { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; color: var(--dim); }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 2px solid rgba(255,255,255,.14); font-size: 0.9375rem; color: var(--dim); }
+.tier .btn { margin-top: 26px; }
+
+/* ---- faq --------------------------------------------------------------------------------------------- */
+.faq { max-width: 78ch; }
+.faq details { background: var(--deep); border: 3px solid var(--white); margin-bottom: 18px; box-shadow: 6px 6px 0 var(--purple); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 22px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 700; font-size: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--yellow); font-size: 1.5rem; line-height: 1; flex: none; }
+.faq details[open] summary { background: var(--muted-surface); }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding: 20px 22px; color: var(--dim); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------------- */
+.colophon { border-top: 4px solid var(--cyan); padding-block: 40px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; color: var(--dim); }
+.colophon a { color: var(--yellow); text-decoration: none; }
+
+/* ---- preview badge ---------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 95; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--yellow); color: var(--void); border: 3px solid var(--void); box-shadow: 5px 5px 0 var(--magenta);
+  padding: 8px 18px; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase;
+}
+.flag span { font-weight: 500; }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<span class="bar" aria-hidden="true"></span>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/maximalism/"><i aria-hidden="true"></i> Overload</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--cyan" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Chaos in the <span class="y">decoration</span>, order in the <span class="c">contrast</span></h1>
+        <p class="dim">Five saturated accents over a cosmic void, shadows stacked two and three deep
+        with no blur, and type at poster scale. The void is the only quiet surface in the design, and
+        it is what makes everything else possible.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--cyan" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="slab">
+        <p class="slab__row"><span>White on the void</span><b class="ok">19.27:1</b></p>
+        <p class="slab__row"><span>White on the purple</span><b class="ok">5.69:1</b></p>
+        <p class="slab__row"><span>White on the magenta</span><b class="bad">2.94:1</b></p>
+        <p class="slab__row"><span>White on the cyan</span><b class="bad">1.40:1</b></p>
+        <p class="slab__row"><span>White on the yellow</span><b class="bad">1.27:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>5</b><span>Accents</span></div>
+      <div class="stat"><b>1</b><span>That carries white</span></div>
+      <div class="stat"><b>0</b><span>Blur, anywhere</span></div>
+      <div class="stat"><b>19.27:1</b><span>White on the void</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 40px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__n">01</span>
+        <h3>Fill or type, never both</h3>
+        <p>A colour is either a fill with the void on it, or it is type on the void. All five work
+        beautifully as type; only the purple carries a white label.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">02</span>
+        <h3>The stack has no blur</h3>
+        <p>Two or three solid offsets in different accents, so an element looks printed three times
+        in misregistration. One soft shadow and it is an ordinary card again.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">03</span>
+        <h3>The paragraph stays plain</h3>
+        <p>Everything around the body text can shout. The body text itself is white on the void at
+        nineteen to one, in a quiet face, because the noise has to be survivable.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ proof ============================ -->
+  <section class="wrap bay" id="proof" style="padding-top:0">
+    <span class="tag">The pairing, shown rather than claimed</span>
+    <h2 style="margin-block:18px 32px">All five, measured</h2>
+    <div class="proof">
+      <div class="sw sw--m"><b>6.55:1</b><span>Void on magenta</span></div>
+      <div class="sw sw--c"><b>13.78:1</b><span>Void on cyan</span></div>
+      <div class="sw sw--y"><b>15.21:1</b><span>Void on yellow</span></div>
+      <div class="sw sw--o"><b>6.80:1</b><span>Void on orange</span></div>
+      <div class="sw sw--p"><b>5.69:1</b><span>White on purple</span></div>
+    </div>
+    <p class="dim" style="margin-top:24px;max-width:66ch">Four of the five take the void. The purple
+    is the one exception, which is exactly why it is the right colour for the rare place a white
+    label is unavoidable.</p>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price" style="color:var(--cyan)">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--cyan" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price" style="color:var(--yellow)">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price" style="color:var(--magenta)">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--purple" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:34px;background:var(--cyan)">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the void, the five accents, Unbounded over DM Sans, the zero radius
+        and the stacked hard shadow. The dot field, the gradient bar and the misregistration layouts
+        are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Isn't maximalism just an excuse for bad contrast?</summary>
+        <div>It is the opposite, and the specification says so: chaos in the decoration, order in the
+        contrast. Loud colour only reads as loud if it is legible — four of these five fills carry
+        dark text, and that is what lets the page be as noisy as it is.</div>
+      </details>
+      <details>
+        <summary>Why only one dominant colour per view?</summary>
+        <div>Because five accents at equal weight produce mud rather than maximalism. Each section
+        here has one colour leading and the others supporting, which is what keeps the noise
+        composed rather than random.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="card" style="text-align:center;padding-block:clamp(44px,6vw,76px);box-shadow:14px 14px 0 var(--magenta),28px 28px 0 var(--cyan)">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:22px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:36px"><a class="btn btn--purple" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Maximalism — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
