@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terminal CLI — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Terminal preset: monospace throughout, phosphor green on near-black, pane borders, ASCII dividers and a blinking cursor. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/terminal/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* ===========================================================================
+   TERMINAL CLI
+   A design preset, shown as a whole page.
+
+   One rule is absolute: EVERY character is monospace, headline to footer link.
+   A single proportional font anywhere breaks the illusion completely, which is
+   why there is no second family defined below at all.
+
+   The register is a clean, usable shell - not falling green glyphs. The cliche
+   is the failure mode; a well-configured session is far more convincing than a
+   hacker-movie screen.
+
+   THE TRAP, measured: the dimmed green #1f521f is 2.18:1 on this ground. As a
+   BORDER it is correct. As TEXT it fails AA outright, so an "inactive" label
+   set in it is simply unreadable. Inactive states here dim the MEANING - a
+   bracketed or lower-weight phosphor - never the contrast.
+   ========================================================================= */
+
+:root {
+  --ground: #0a0a0a;    /* deep black, not pure #000 - the scanlines need something to sit on */
+  --phosphor: #33ff00;  /* 14.6:1 */
+  --amber: #ffb000;     /* 10.8:1 */
+  --dim: #1f521f;       /* 2.18:1 - RULES ONLY, never text */
+  --error: #ff3333;     /* 5.4:1 */
+
+  --mono: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+  --glow: 0 0 5px rgba(51, 255, 0, 0.5);
+
+  --gutter: clamp(16px, 4vw, 32px);
+  --bay: clamp(48px, 7vw, 88px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--phosphor);
+  /* One family. There is deliberately no second font token in this stylesheet. */
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  text-shadow: var(--glow);
+  overflow-x: hidden;
+}
+@media (min-width: 760px) { body { font-size: 15px; } }
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+/* Sizes SNAP to fixed steps - a terminal has a character grid, not fluid type. */
+h1, h2, h3 { margin: 0; font-weight: 700; text-transform: uppercase; line-height: 1.15; letter-spacing: 0.02em; }
+h1 { font-size: 28px; }
+h2 { font-size: 22px; }
+h3 { font-size: 16px; }
+@media (min-width: 760px) { h1 { font-size: 44px; } h2 { font-size: 28px; } h3 { font-size: 17px; } }
+
+/* Focus is inverted video - high visibility is inherent to the style. */
+:focus-visible { outline: 2px solid var(--phosphor); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--phosphor); color: var(--ground); text-shadow: none;
+  padding: 10px 16px; text-decoration: none; font-weight: 700; text-transform: uppercase;
+}
+.skip:focus { top: 14px; }
+
+/* ---- the CRT overlay: felt, never enough to hurt reading -------------------- */
+.crt {
+  position: fixed; inset: 0; z-index: 50; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px);
+}
+.crt::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%);
+}
+
+.wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+/* ---- ASCII dividers ---------------------------------------------------------- */
+.rule { color: var(--dim); text-shadow: none; overflow: hidden; white-space: nowrap; user-select: none; }
+
+.prompt { color: var(--amber); }
+.label { color: var(--amber); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+.muted { color: var(--phosphor); opacity: 0.72; }   /* dim the MEANING, not the contrast */
+
+/* The cursor: the heartbeat of the interface. */
+.cursor { display: inline-block; width: 0.6em; height: 1.05em; background: var(--phosphor); vertical-align: text-bottom; animation: blink 1.05s step-end infinite; }
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* ---- buttons: bracketed, inverting on hover ------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 11px 20px;
+  border: 1px solid var(--phosphor); background: transparent; color: var(--phosphor);
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  text-transform: uppercase; text-decoration: none; letter-spacing: 0.08em;
+  border-radius: 0; cursor: pointer; text-shadow: var(--glow);
+  transition: background-color 120ms linear, color 120ms linear;
+}
+.btn:hover { background: var(--phosphor); color: var(--ground); text-shadow: none; }
+.btn--amber { border-color: var(--amber); color: var(--amber); text-shadow: 0 0 5px rgba(255,176,0,0.5); }
+.btn--amber:hover { background: var(--amber); color: var(--ground); text-shadow: none; }
+
+/* ---- panes --------------------------------------------------------------------- */
+.pane { border: 1px solid var(--dim); }
+.pane__bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 14px; background: var(--phosphor); color: var(--ground); text-shadow: none; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.pane__body { padding: clamp(16px, 2.2vw, 26px); }
+
+/* ---- masthead -------------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--dim); }
+.masthead__in { display: flex; align-items: center; gap: 20px; min-height: 64px; flex-wrap: wrap; }
+.brand { font-weight: 700; text-decoration: none; margin-right: auto; text-transform: uppercase; letter-spacing: 0.04em; }
+.masthead__nav { display: none; gap: 22px; }
+.masthead__nav a { font-size: 13px; text-decoration: none; text-transform: uppercase; }
+.masthead__nav a::before { content: "./"; color: var(--dim); text-shadow: none; }
+.masthead__nav a:hover { color: var(--amber); text-shadow: 0 0 5px rgba(255,176,0,0.5); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ----------------------------------------------------------------------- */
+.hero { padding-block: clamp(36px, 6vw, 72px) var(--bay); }
+.hero h1 { margin-block: 16px 0; max-width: 22ch; }
+.hero p { margin-top: 20px; max-width: 70ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+/* ---- ASCII stat bars -------------------------------------------------------------- */
+.bars { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 760px) { .bars { grid-template-columns: 1fr 1fr; gap: 10px 36px; } }
+.bar { display: grid; grid-template-columns: 14ch 1fr auto; gap: 12px; align-items: baseline; font-size: 13px; }
+.bar__track { color: var(--phosphor); letter-spacing: 0.06em; white-space: nowrap; overflow: hidden; }
+.bar__track i { font-style: normal; color: var(--dim); text-shadow: none; }
+.bar__val { color: var(--amber); }
+
+/* ---- grid of panes ----------------------------------------------------------------- */
+.panes { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 760px) { .panes { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1060px) { .panes--3 { grid-template-columns: repeat(3, 1fr); } }
+.pane p { font-size: 13px; }
+
+/* ---- the shell block ---------------------------------------------------------------- */
+.shell-out { font-size: 13px; }
+.shell-out div { white-space: pre-wrap; word-break: break-word; }
+.shell-out .ok { color: var(--phosphor); }
+.shell-out .warn { color: var(--amber); }
+.shell-out .err { color: var(--error); text-shadow: 0 0 5px rgba(255,51,51,0.5); }
+
+/* ---- pricing ----------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier .pane__body { display: flex; flex-direction: column; height: 100%; }
+.tier__price { font-size: 30px; font-weight: 700; margin-block: 10px 2px; }
+.tier ul { list-style: none; margin: 18px 0 0; padding: 0; font-size: 13px; }
+.tier li::before { content: "[x] "; color: var(--amber); }
+.tier .btn { margin-top: 20px; }
+.tier--lead .pane { border-color: var(--amber); }
+.tier--lead .pane__bar { background: var(--amber); }
+
+/* ---- faq --------------------------------------------------------------------------- */
+.faq { max-width: 82ch; }
+.faq details { border-bottom: 1px solid var(--dim); }
+.faq summary { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; cursor: pointer; list-style: none; font-weight: 700; text-transform: uppercase; font-size: 14px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::before { content: "[+]"; color: var(--amber); flex: none; }
+.faq details[open] summary::before { content: "[-]"; }
+.faq details > div { padding: 0 0 18px 0; font-size: 13px; max-width: 76ch; opacity: 0.86; }
+
+/* ---- colophon ----------------------------------------------------------------------- */
+.colophon { border-top: 1px solid var(--dim); padding-block: clamp(22px, 3vw, 36px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: baseline; font-size: 12px; }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--amber); }
+
+/* ---- preview badge --------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 16px; z-index: 51; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ground); color: var(--phosphor); border: 1px solid var(--phosphor);
+  padding: 7px 13px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.flag span { opacity: 0.66; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+/* A cursor that blinks forever is precisely the persistent motion this rule exists for. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .cursor { animation: none; opacity: 1; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="crt" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/terminal/"><span class="prompt">~/</span>terminal</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">system</a>
+      <a href="#output">output</a>
+      <a href="#pricing">pricing</a>
+      <a href="#faq">faq</a>
+    </nav>
+    <a class="btn" href="/">[ back to creator ]</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <p class="label">design preset &mdash; loaded</p>
+    <h1>The interface is the system<span class="cursor" aria-hidden="true"></span></h1>
+    <p class="muted">Every character on this page is monospace, headline to footer link. One
+    proportional font anywhere and the whole thing collapses &mdash; which is why there is no second
+    family defined in the stylesheet at all.</p>
+    <div class="hero__acts">
+      <a class="btn" href="/">[ build a site with this ]</a>
+      <a class="btn btn--amber" href="#system">[ see the system ]</a>
+    </div>
+  </section>
+
+  <div class="wrap"><p class="rule" aria-hidden="true">============================================================================================</p></div>
+
+  <!-- ============================ stats as ASCII bars ============================ -->
+  <section class="wrap bay">
+    <p class="label">// readout</p>
+    <div class="bars" style="margin-top:22px">
+      <div class="bar"><span>monospace</span><span class="bar__track">[||||||||||||||||||||]</span><span class="bar__val">100%</span></div>
+      <div class="bar"><span>border radius</span><span class="bar__track"><i>[....................]</i></span><span class="bar__val">0</span></div>
+      <div class="bar"><span>drop shadows</span><span class="bar__track"><i>[....................]</i></span><span class="bar__val">0</span></div>
+      <div class="bar"><span>contrast</span><span class="bar__track">[||||||||||||||||||<i>..</i>]</span><span class="bar__val">14.6:1</span></div>
+    </div>
+  </section>
+
+  <div class="wrap"><p class="rule" aria-hidden="true">--------------------------------------------------------------------------------------------</p></div>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <p class="label">// what the preset decides</p>
+    <h2 style="margin-block:16px 26px">A kit of panes</h2>
+    <div class="panes panes--3">
+      <article class="pane">
+        <div class="pane__bar"><span>01 &mdash; type</span><span>ok</span></div>
+        <div class="pane__body">
+          <h3>One family</h3>
+          <p class="muted">Monospace everywhere, with sizes snapped to fixed steps rather than scaled
+          fluidly. A terminal has a character grid, so the type lands on it.</p>
+        </div>
+      </article>
+      <article class="pane">
+        <div class="pane__bar"><span>02 &mdash; structure</span><span>ok</span></div>
+        <div class="pane__body">
+          <h3>Panes, not cards</h3>
+          <p class="muted">A 1px rule and a title bar. Borders do real work here &mdash; they define
+          the windows &mdash; rather than decorating a box.</p>
+        </div>
+      </article>
+      <article class="pane">
+        <div class="pane__bar"><span>03 &mdash; colour</span><span>ok</span></div>
+        <div class="pane__body">
+          <h3>Phosphor and amber</h3>
+          <p class="muted">Green at 14.6:1, amber at 10.8:1. The dimmed green is 2.18:1 and so draws
+          rules only &mdash; never a word you are expected to read.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="wrap"><p class="rule" aria-hidden="true">--------------------------------------------------------------------------------------------</p></div>
+
+  <!-- ============================ output ============================ -->
+  <section class="wrap bay" id="output">
+    <p class="label">// session</p>
+    <h2 style="margin-block:16px 26px">Inactive is not low-contrast</h2>
+    <div class="pane">
+      <div class="pane__bar"><span>contrast --check</span><span>3 ok / 1 warn</span></div>
+      <div class="pane__body shell-out">
+        <div><span class="prompt">user@unysonplus:~$</span> contrast --check palette</div>
+        <div class="ok">[OK]   phosphor #33ff00 on #0a0a0a .......... 14.56:1</div>
+        <div class="ok">[OK]   amber    #ffb000 on #0a0a0a .......... 10.75:1</div>
+        <div class="ok">[OK]   error    #ff3333 on #0a0a0a ...........  5.44:1</div>
+        <div class="err">[FAIL] dim      #1f521f on #0a0a0a ...........  2.18:1</div>
+        <div class="warn">[WARN] dim is specified for "borders / inactive text".</div>
+        <div class="warn">       As a border it passes. As TEXT it does not.</div>
+        <div><span class="prompt">user@unysonplus:~$</span> <span class="muted">dim the meaning, not the contrast</span><span class="cursor" aria-hidden="true"></span></div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:13px;max-width:76ch">Every inactive label on this
+    page is phosphor at reduced opacity or wrapped in brackets. The dimmed green appears only as pane
+    edges, rules and the unfilled segments of the bars above.</p>
+  </section>
+
+  <div class="wrap"><p class="rule" aria-hidden="true">============================================================================================</p></div>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing">
+    <p class="label">// pricing, as this preset renders it</p>
+    <h2 style="margin-block:16px 26px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <div class="pane">
+          <div class="pane__bar"><span>starter</span><span>free</span></div>
+          <div class="pane__body">
+            <p class="tier__price">$0</p>
+            <p class="muted" style="font-size:12px">per month</p>
+            <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+            <a class="btn" href="/">[ choose ]</a>
+          </div>
+        </div>
+      </div>
+      <div class="tier tier--lead">
+        <div class="pane">
+          <div class="pane__bar"><span>studio</span><span>popular</span></div>
+          <div class="pane__body">
+            <p class="tier__price">$24</p>
+            <p class="muted" style="font-size:12px">per month</p>
+            <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+            <a class="btn btn--amber" href="/">[ choose ]</a>
+          </div>
+        </div>
+      </div>
+      <div class="tier">
+        <div class="pane">
+          <div class="pane__bar"><span>agency</span><span>team</span></div>
+          <div class="pane__body">
+            <p class="tier__price">$72</p>
+            <p class="muted" style="font-size:12px">per month</p>
+            <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+            <a class="btn" href="/">[ choose ]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="label" style="margin-top:20px">// placeholder figures &mdash; shown to exercise the layout, not an offer</p>
+  </section>
+
+  <div class="wrap"><p class="rule" aria-hidden="true">--------------------------------------------------------------------------------------------</p></div>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq">
+    <p class="label">// faq</p>
+    <h2 style="margin-block:16px 26px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole rather
+        than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a generated site
+        inherits the palette, the monospace family and the zero radius. The terminal detail here &mdash;
+        the scanlines, the blinking cursor, the ASCII bars and dividers &mdash; is still being folded
+        into the preset and is not all emitted automatically yet.</div>
+      </details>
+      <details>
+        <summary>Why is the dim green never used for text?</summary>
+        <div>Because it measures 2.18:1 on this ground. The source specification lists it for "borders
+        and inactive text", and the first half of that is right &mdash; but an inactive label set in it
+        is unreadable rather than merely quiet. Inactive states here dim the meaning instead: phosphor
+        at lower opacity, or wrapped in brackets.</div>
+      </details>
+      <details>
+        <summary>What happens with reduced motion?</summary>
+        <div>The cursor stops blinking and stays solid. A cursor pulsing forever is exactly the kind of
+        persistent motion that preference exists for, so it is switched off outright rather than
+        shortened &mdash; and nothing on the page depends on it to be understood.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="border-top:1px solid var(--dim)">
+    <h2 style="max-width:20ch">Build a site in this preset.</h2>
+    <p class="muted" style="margin-top:18px;max-width:70ch">Describe the business and your own AI agent
+    builds it on WordPress with Unyson+ &mdash; real page-builder pages, with this design system applied
+    site-wide.</p>
+    <div class="hero__acts">
+      <a class="btn" href="/">[ open the creator ]</a>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p class="muted">terminal &mdash; a design preset for Unyson+</p>
+    <a href="/">./site-creator</a>
+    <a href="https://docs.unysonplus.com/">./docs</a>
+  </div>
+</footer>
+
+</body>
+</html>
