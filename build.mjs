@@ -640,15 +640,14 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
   <section class="pick" aria-labelledby="famTitle">
     <div class="wrap">
       <div class="pick__head">
-        <h2 id="famTitle">Start from your industry</h2>
-        <p>A family sets the pages, forms and the words your trade actually uses.</p>
+        <h2 id="famTitle">Start from a kind of site</h2>
+        <p>A family sets the pages, the forms and the words your trade actually uses. Pick the one
+        that fits, then your industry inside it.</p>
       </div>
       <ul class="pick__list">
-        <li class="ind ind--live"><a href="/crm/"><b>CRM website</b><span class="ind__desc">A site with a client pipeline, lead forms and follow-up emails \u2014 salons, clinics, gyms, trades, law firms, agencies and more.</span><em>Open the generator</em></a></li>
-        <li class="ind"><div><b>Local business</b><span class="ind__desc">Shops, caf\u00e9s, studios \u2014 anywhere with an address and opening hours.</span><em>Coming soon</em></div></li>
-        <li class="ind"><div><b>Professional service</b><span class="ind__desc">Consultancies, accountants, architects, agencies.</span><em>Coming soon</em></div></li>
-        <li class="ind"><div><b>Ecommerce</b><span class="ind__desc">A shop on WooCommerce.</span><em>Coming soon</em></div></li>
-        <li class="ind"><div><b>SaaS or product</b><span class="ind__desc">Apps, developer tools, plugins.</span><em>Coming soon</em></div></li>
+        <li class="ind ind--live"><a href="/crm/"><b>CRM website</b><span class="ind__desc">A site with a client pipeline, lead forms and follow-up emails. Nine industries: salons, clinics, gyms, trades, law firms, estate agents, recruiters, venues and professional services.</span><em>Open the generator</em></a></li>
+        <li class="ind"><div><b>Ecommerce</b><span class="ind__desc">A shop on WooCommerce — products, cart and checkout, which is a different surface rather than another sitemap.</span><em>Coming soon</em></div></li>
+        <li class="ind"><div><b>SaaS or product</b><span class="ind__desc">Apps, developer tools and plugins — pricing tiers, feature pages and a trial funnel.</span><em>Coming soon</em></div></li>
       </ul>
     </div>
   </section>
