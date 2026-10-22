@@ -830,6 +830,36 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>A true void, a masked grid, orange and gold glow, pill buttons. <a href="/design-presets/web3/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/minimal-dark/">
+            <img src="/assets/img/styles/minimal-dark.jpg" width="1280" height="1165" loading="lazy" decoding="async"
+                 alt="A Minimalist Dark style: a white headline on layered near-black with a soft amber glow behind it and a translucent glass panel of figures.">
+          </a>
+          <figcaption>
+            <b>Minimalist Dark</b>
+            <span>Layered slate, one warm amber, ambient glow. <a href="/design-presets/minimal-dark/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/playful-geometric/">
+            <img src="/assets/img/styles/playful-geometric.jpg" width="1280" height="843" loading="lazy" decoding="async"
+                 alt="A Playful Geometric style: a heavy headline with a yellow highlight on warm cream, beside circles and rounded shapes with hard black offset shadows.">
+          </a>
+          <figcaption>
+            <b>Playful Geometric</b>
+            <span>Sticker shadows, mixed radii, confetti colour. <a href="/design-presets/playful-geometric/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/claymorphism/">
+            <img src="/assets/img/styles/claymorphism.jpg" width="1280" height="1061" loading="lazy" decoding="async"
+                 alt="A Claymorphism style: a rounded headline on pale lavender beside four saturated circles that bulge off the page with soft coloured shadows.">
+          </a>
+          <figcaption>
+            <b>Claymorphism</b>
+            <span>Digital clay, tinted shadows, super-rounded corners. <a href="/design-presets/claymorphism/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -1016,7 +1046,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/', '/design-presets/minimal-dark/', '/design-presets/playful-geometric/', '/design-presets/claymorphism/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

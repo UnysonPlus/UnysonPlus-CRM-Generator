@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minimalist Dark — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Minimalist Dark preset: layered slate, one warm amber, glass cards and ambient glow. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/minimal-dark/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0A0A0F">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* ===========================================================================
+   MINIMALIST DARK
+   A design preset, shown as a whole page.
+
+   Interest comes from layers of darkness rather than from saturation: deep
+   slate, a raised surface, a card surface, and one warm amber glowing in it
+   like an ember. The spacing is as much the style as the colour.
+
+   THE TRAPS, measured.
+
+   1. The spec's mutedForeground #71717A fails on BOTH of its own surfaces -
+      4.09:1 on the canvas and 3.57:1 on the card. Note the card is LIGHTER
+      than the page, so a secondary grey that scrapes by outside a card fails
+      inside one. Secondary text here is #8D8D99 (6.02 and 5.26).
+
+   2. White on the amber is 2.15:1. The spec's own accentForeground #0A0A0F is
+      right at 9.20:1 - worth saying out loud, because an amber button looks
+      dark and is not.
+
+   3. GLOW IS NOT CONTRAST. The ambient glows are the signature and they are
+      decoration; a blurred halo adds no measurable separation. Every pairing
+      here passes before the glow is applied.
+   ========================================================================= */
+
+:root {
+  --canvas: #0a0a0f;
+  --raised: #12121a;
+  --card: #1a1a24;
+  --ink: #fafafa;
+  --dim: #8d8d99;              /* NOT the spec's #71717A - that fails on both surfaces */
+  --amber: #f59e0b;
+  --amber-hi: #fbbf24;
+  --edge: rgba(255,255,255,.08);
+  --edge-hi: rgba(255,255,255,.15);
+
+  --head: "Space Grotesk", system-ui, sans-serif;
+  --body: "Inter", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(88px, 12vw, 176px);   /* generous by instruction - the breathing room IS the style */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--canvas); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.75;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.3rem + 4.8vw, 4.5rem); }
+h2 { font-size: clamp(1.875rem, 1.2rem + 2.4vw, 2.75rem); }
+h3 { font-size: 1.25rem; }
+.dim { color: var(--dim); }
+
+a { color: var(--amber); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 95; background: var(--amber); color: var(--canvas); font-family: var(--mono); font-size: 0.8125rem; text-decoration: none; padding: 12px 20px; border-radius: 8px; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.025em; color: var(--dim); }
+
+/* ---- buttons ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 26px; border: 0; border-radius: 8px; cursor: pointer;
+  background: var(--amber); color: var(--canvas);     /* 9.20:1 - white here is 2.15 */
+  font-family: var(--body); font-weight: 600; font-size: 0.9375rem; text-decoration: none;
+  transition: box-shadow 300ms ease, background-color 300ms ease, border-color 300ms ease;
+}
+.btn:hover { background: var(--amber-hi); box-shadow: 0 0 20px rgba(245,158,11,.4); }
+.btn--ghost { background: none; color: var(--ink); border: 1px solid var(--edge); }
+.btn--ghost:hover { background: none; border-color: var(--edge-hi); box-shadow: 0 0 20px rgba(255,255,255,.06); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--edge); }
+.masthead__in { display: flex; align-items: center; gap: 26px; min-height: 84px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-family: var(--head); font-weight: 700; font-size: 1.0625rem; letter-spacing: -0.02em; }
+.brand i { width: 10px; height: 10px; border-radius: 999px; background: var(--amber); box-shadow: 0 0 14px rgba(245,158,11,.7); font-style: normal; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-size: 0.875rem; color: var(--dim); text-decoration: none; transition: color 300ms ease; }
+.masthead__nav a:hover { color: var(--ink); }
+@media (min-width: 940px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------- */
+.hero { position: relative; padding-block: clamp(72px, 9vw, 148px) var(--bay); overflow: hidden; }
+/* the orb - ambient light bleeding through darkness, not a drop shadow */
+.hero::before {
+  content: ""; position: absolute; width: 620px; height: 620px; right: -180px; top: -240px;
+  border-radius: 999px; background: var(--amber); opacity: 0.12; filter: blur(130px); pointer-events: none;
+}
+.hero__in { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(40px, 5vw, 72px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.15fr 0.85fr; } }
+.hero h1 { margin-top: 22px; }
+.hero p { margin-top: 26px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; }
+.badge { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(245,158,11,.25); background: rgba(245,158,11,.15); color: var(--amber-hi); border-radius: 999px; padding: 7px 16px; font-family: var(--mono); font-size: 0.75rem; }
+
+/* glass - the fill stays LOW, because a glass panel over the orb is much lighter than over the canvas */
+.glass { border-radius: 16px; border: 1px solid var(--edge); background: rgba(26,26,36,.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: clamp(22px, 2.6vw, 30px); }
+.glass__row { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--edge); font-family: var(--mono); font-size: 0.8125rem; }
+.glass__row:last-child { border-bottom: 0; }
+.glass__row span { color: var(--dim); }
+.glass__row b { font-weight: 500; color: var(--amber); }
+.glass__row b.bad { color: #ff8a8a; }
+
+/* ---- stats ---------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border-radius: 12px; border: 1px solid var(--edge); background: var(--raised); padding: clamp(22px, 2.6vw, 32px); }
+.stat b { display: block; font-family: var(--head); font-weight: 700; font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.5rem); line-height: 1.1; color: var(--amber); }
+.stat span { display: block; margin-top: 12px; font-family: var(--mono); font-size: 0.75rem; color: var(--dim); }
+
+/* ---- cards ------------------------------------------------------------------------------ */
+.cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { border-radius: 12px; border: 1px solid var(--edge); background: var(--card); padding: clamp(26px, 3vw, 36px); transition: border-color 300ms ease, box-shadow 300ms ease; }
+.card:hover { border-color: var(--edge-hi); box-shadow: 0 0 40px rgba(245,158,11,.07); }
+.card h3 { margin-block: 16px 12px; }
+.card p { color: var(--dim); font-size: 1rem; }
+.card__n { font-family: var(--mono); font-size: 0.75rem; color: var(--amber); }
+
+/* ---- pricing -------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; border-radius: 16px; border: 1px solid var(--edge); background: var(--raised); padding: clamp(26px, 3vw, 36px); display: flex; flex-direction: column; }
+.tier--lead { border-color: rgba(245,158,11,.3); box-shadow: 0 0 60px rgba(245,158,11,.08); }
+.tier__flag { display: inline-block; border-radius: 999px; background: rgba(245,158,11,.15); color: var(--amber-hi); border: 1px solid rgba(245,158,11,.25); font-family: var(--mono); font-size: 0.6875rem; padding: 5px 12px; margin-bottom: 16px; }
+.tier__name { font-family: var(--mono); font-size: 0.8125rem; color: var(--dim); }
+.tier__price { font-family: var(--head); font-weight: 700; font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3rem); line-height: 1; margin-block: 14px 4px; }
+.tier__per { font-family: var(--mono); font-size: 0.75rem; color: var(--dim); }
+.tier ul { list-style: none; margin: 24px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid var(--edge); font-size: 0.9375rem; color: var(--dim); }
+.tier .btn { margin-top: 26px; }
+
+/* ---- faq ---------------------------------------------------------------------------------------- */
+.faq { max-width: 76ch; }
+.faq details { border-radius: 12px; border: 1px solid var(--edge); background: var(--raised); margin-bottom: 14px; }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 20px 24px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 500; font-size: 1.0625rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--amber); flex: none; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details > div { padding: 0 24px 22px; color: var(--dim); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------- */
+.colophon { border-top: 1px solid var(--edge); padding-block: 44px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-family: var(--mono); font-size: 0.8125rem; color: var(--dim); }
+.colophon a { text-decoration: none; }
+
+/* ---- preview badge ----------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 95; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  border-radius: 999px; border: 1px solid var(--edge-hi); background: rgba(26,26,36,.92); backdrop-filter: blur(10px);
+  color: var(--ink); padding: 9px 18px; font-family: var(--mono); font-size: 0.75rem;
+}
+.flag span { color: var(--dim); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/minimal-dark/"><i aria-hidden="true"></i> Emberline</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#depth">Depth</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--ghost" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="badge">Design preset</span>
+        <h1>Depth from darkness, warmth from one ember</h1>
+        <p class="dim">Four shades of slate stacked on each other, a single amber that glows rather
+        than shouts, and enough space around everything that the page feels calm instead of dense.
+        No second accent, no gradient, no colour doing the work of hierarchy.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--ghost" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="glass">
+        <p class="glass__row"><span>Ink on the canvas</span><b>18.92:1</b></p>
+        <p class="glass__row"><span>Amber on the canvas</span><b>9.20:1</b></p>
+        <p class="glass__row"><span>Canvas on the amber</span><b>9.20:1</b></p>
+        <p class="glass__row"><span>White on the amber</span><b class="bad">2.15:1</b></p>
+        <p class="glass__row"><span>Spec muted, on the card</span><b class="bad">3.57:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>4</b><span>Layers of dark</span></div>
+      <div class="stat"><b>1</b><span>Accent colour</span></div>
+      <div class="stat"><b>8px</b><span>Default radius</span></div>
+      <div class="stat"><b>3.57:1</b><span>The spec's muted, on a card</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 44px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__n">01</span>
+        <h3>The card is lighter than the page</h3>
+        <p>Which makes it the harder surface, not the easier one. The spec's secondary grey is 4.09
+        to one on the canvas and 3.57 inside a card — it fails in both places, and worse where you
+        would check last.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">02</span>
+        <h3>Glow is not contrast</h3>
+        <p>The ambient orbs and the halo on a hovered button are the signature of the style and they
+        are decoration. Every pairing here passes before any glow is applied to it.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">03</span>
+        <h3>The space is the style</h3>
+        <p>Section padding runs to 176px. Tightening it is the quickest way to lose the calm, and it
+        costs nothing to keep — unlike a colour, space is free.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ depth ============================ -->
+  <section class="wrap bay" id="depth" style="padding-top:0">
+    <span class="tag">The layers, shown rather than claimed</span>
+    <h2 style="margin-block:18px 32px">Four shades of dark</h2>
+    <div class="stats">
+      <div class="stat" style="background:#0a0a0f"><b style="color:var(--ink);font-size:1.125rem">#0A0A0F</b><span>Canvas</span></div>
+      <div class="stat" style="background:#12121a"><b style="color:var(--ink);font-size:1.125rem">#12121A</b><span>Raised</span></div>
+      <div class="stat" style="background:#1a1a24"><b style="color:var(--ink);font-size:1.125rem">#1A1A24</b><span>Card</span></div>
+      <div class="stat" style="background:rgba(26,26,36,.6);backdrop-filter:blur(12px)"><b style="color:var(--ink);font-size:1.125rem">60%</b><span>Glass</span></div>
+    </div>
+    <p class="dim" style="margin-top:24px;max-width:62ch">Each step is a few points of lightness, which
+    is why the layering reads as depth rather than as four different colours — and why a glass panel
+    has to be measured against whatever sits behind it rather than against the page.</p>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--ghost" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price" style="color:var(--amber)">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--ghost" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:24px">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 44px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the palette, the type stack and scale, the soft radius, the four
+        surfaces and the 8% borders. The glass fills, the ambient orbs and the backdrop blur are
+        markup rather than stored values, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the button text dark?</summary>
+        <div>Because white on the amber is 2.15 to one. An amber button reads as a dark object — it
+        is saturated and warm — and it is not: the canvas colour on it is 9.20. The specification
+        gets this right and it is still the first thing people change.</div>
+      </details>
+      <details>
+        <summary>Why only one accent?</summary>
+        <div>Because the contrast of the whole design is warm against cool. Add a second accent and
+        the amber stops being the ember in the dark and becomes one of two colours in a theme, which
+        is a different and much more ordinary thing.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="glass" style="text-align:center;padding-block:clamp(44px,6vw,80px)">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:22px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:32px"><a class="btn" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Minimalist Dark — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

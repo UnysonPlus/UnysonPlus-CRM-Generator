@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Claymorphism — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Claymorphism preset: digital clay, multi-layer tinted shadows, super-rounded corners and a squish on press. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/claymorphism/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F4F1FA">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap">
+<style>
+/* ===========================================================================
+   CLAYMORPHISM
+   A design preset, shown as a whole page.
+
+   Digital clay: objects that feel dense rather than hollow. A soft diffused
+   light above and to the left, deep ambient occlusion below each object, a
+   specular highlight along its upper ridge. Two states - convex (the bulge)
+   for anything interactive, concave (the press) for inputs and active states.
+
+   THE TRAP, measured. The spec's primary button is a gradient from #A78BFA to
+   #7C3AED carrying white:
+
+       white on #A78BFA (light end)   2.72:1   FAILS badly
+       white on #7C3AED (dark end)    5.70:1   passes
+
+   So white is safe on half the button and invisible on the other half. The
+   general rule, same as every gradient in this set: a gradient's contrast is
+   its WORST stop, not its average. Flat fills here use the dark end.
+
+   What the spec gets RIGHT, unusually: its two text colours, and its reason -
+   "never go lighter than this value" about the muted grey (5.58:1).
+   ========================================================================= */
+
+:root {
+  --canvas: #f4f1fa;
+  --ink: #332f3a;
+  --muted: #635f69;
+  --violet: #7c3aed;
+  --violet-lt: #a78bfa;
+  --pink: #db2777;
+  --sky: #0ea5e9;
+  --mint: #10b981;
+
+  --head: "Nunito", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+
+  /* the four layers: drop, highlight, rim, and (for press) inset */
+  --clay-card: 16px 16px 32px rgba(160,150,180,.2), -8px -8px 20px rgba(255,255,255,.9), inset 2px 2px 4px rgba(255,255,255,.6);
+  --clay-btn: 12px 12px 24px rgba(124,58,237,.3), -6px -6px 16px rgba(255,255,255,.7), inset 2px 2px 4px rgba(255,255,255,.35);
+  --clay-press: inset 10px 10px 20px rgba(94,44,180,.35), inset -8px -8px 16px rgba(255,255,255,.3);
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(72px, 10vw, 140px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--canvas); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.625; font-weight: 500;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(2.75rem, 1.3rem + 5.6vw, 5rem); }
+h2 { font-size: clamp(2rem, 1.2rem + 2.8vw, 3rem); }
+h3 { font-size: 1.375rem; font-weight: 800; }
+.dim { color: var(--muted); }
+
+a { color: var(--violet); }
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 4px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--violet); color: #fff; border-radius: 20px; box-shadow: var(--clay-btn); padding: 14px 24px; text-decoration: none; font-weight: 700; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; border-radius: 999px; background: #fff; color: var(--violet); box-shadow: var(--clay-card); padding: 9px 20px; font-size: 0.8125rem; font-weight: 700; }
+
+/* ---- buttons: convex, and they squish ---------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 54px; padding: 0 30px; border: 0; cursor: pointer;
+  border-radius: 20px;                              /* never 4-6px - that is the one forbidden value */
+  background: var(--violet); color: #fff;           /* the gradient's DARK end: 5.70:1 */
+  font-family: var(--body); font-weight: 700; font-size: 0.9375rem; text-decoration: none;
+  box-shadow: var(--clay-btn);
+  transition: transform 220ms cubic-bezier(.2,0,0,1), box-shadow 220ms cubic-bezier(.2,0,0,1);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: scale(.95); box-shadow: var(--clay-press); }
+.btn--pink { background: var(--pink); box-shadow: 12px 12px 24px rgba(219,39,119,.3), -6px -6px 16px rgba(255,255,255,.7); }
+.btn--soft { background: #fff; color: var(--ink); box-shadow: var(--clay-card); }
+
+/* ---- masthead -------------------------------------------------------------------- */
+.masthead__in { display: flex; align-items: center; gap: 20px; min-height: 92px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); font-family: var(--head); font-weight: 900; font-size: 1.25rem; }
+.brand i { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 999px; background: var(--violet); color: #fff; box-shadow: var(--clay-btn); font-style: normal; font-size: 1rem; }
+.masthead__nav { display: none; gap: 24px; }
+.masthead__nav a { font-size: 0.9375rem; font-weight: 700; color: var(--muted); text-decoration: none; transition: color 220ms ease; }
+.masthead__nav a:hover { color: var(--violet); }
+@media (min-width: 940px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------- */
+.hero { position: relative; padding-block: clamp(36px, 5vw, 80px) var(--bay); }
+/* The ambient blobs are RADIAL GRADIENTS rather than blurred circles. A blurred
+   element inside an overflow:hidden parent is clipped at its box, and the blur
+   then ends in a hard rectangular edge - a visible lavender rectangle in the
+   corner. A gradient fades to nothing on its own and has no box to clip. */
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(34% 40% at 76% 26%, rgba(124,58,237,.20), transparent 72%),
+    radial-gradient(30% 36% at 14% 84%, rgba(14,165,233,.18), transparent 72%);
+}
+.hero__in { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.1fr 0.9fr; } }
+.hero h1 { margin-top: 22px; }
+.hero p { margin-top: 24px; max-width: 44ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 34px; }
+
+/* the orb panel */
+.orbs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.orb { aspect-ratio: 1; border-radius: 999px; display: grid; place-items: center; text-align: center; color: #fff; font-family: var(--head); font-weight: 900; font-size: clamp(1.25rem, 1rem + 1.2vw, 1.75rem); }
+.orb span { display: block; font-family: var(--body); font-size: 0.75rem; font-weight: 700; opacity: .92; margin-top: 4px; }
+.orb.v { background: var(--violet); box-shadow: 14px 14px 28px rgba(124,58,237,.35), -8px -8px 20px rgba(255,255,255,.8); }
+.orb.p { background: var(--pink); box-shadow: 14px 14px 28px rgba(219,39,119,.32), -8px -8px 20px rgba(255,255,255,.8); }
+.orb.s { background: var(--sky); color: var(--ink); box-shadow: 14px 14px 28px rgba(14,165,233,.3), -8px -8px 20px rgba(255,255,255,.8); }
+.orb.m { background: var(--mint); color: var(--ink); box-shadow: 14px 14px 28px rgba(16,185,129,.3), -8px -8px 20px rgba(255,255,255,.8); }
+
+/* ---- stats ------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: #fff; border-radius: 32px; box-shadow: var(--clay-card); padding: clamp(22px, 2.6vw, 32px); }
+.stat b { display: block; font-family: var(--head); font-weight: 900; font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.5rem); line-height: 1; color: var(--violet); }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+
+/* ---- cards ----------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 26px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: #fff; border-radius: 32px; box-shadow: var(--clay-card); padding: clamp(26px, 3vw, 36px); transition: transform 240ms cubic-bezier(.2,0,0,1), box-shadow 240ms cubic-bezier(.2,0,0,1); }
+.card:hover { transform: translateY(-8px); box-shadow: 22px 22px 44px rgba(160,150,180,.26), -10px -10px 24px rgba(255,255,255,.95); }
+.card__ico { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 24px; color: #fff; font-family: var(--head); font-weight: 900; }
+.card:nth-child(1) .card__ico { background: var(--violet); box-shadow: var(--clay-btn); }
+.card:nth-child(2) .card__ico { background: var(--pink); box-shadow: 10px 10px 20px rgba(219,39,119,.3); }
+.card:nth-child(3) .card__ico { background: var(--sky); color: var(--ink); box-shadow: 10px 10px 20px rgba(14,165,233,.3); }
+.card h3 { margin-block: 18px 12px; }
+.card p { color: var(--muted); font-size: 1rem; }
+
+/* the concave panel */
+.pressed { border-radius: 32px; background: var(--canvas); box-shadow: var(--clay-press); padding: clamp(26px, 3vw, 40px); }
+
+/* ---- pricing ------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; background: #fff; border-radius: 32px; box-shadow: var(--clay-card); padding: clamp(26px, 3vw, 38px); display: flex; flex-direction: column; }
+.tier--lead { box-shadow: 20px 20px 40px rgba(124,58,237,.25), -10px -10px 24px rgba(255,255,255,.95); }
+.tier__flag { display: inline-block; border-radius: 999px; background: var(--violet); color: #fff; padding: 6px 16px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; box-shadow: var(--clay-btn); }
+.tier__name { font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+.tier__price { font-family: var(--head); font-weight: 900; font-size: clamp(2.5rem, 1.6rem + 2.6vw, 3.5rem); line-height: 1; margin-block: 12px 2px; }
+.tier__per { font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+.tier ul { list-style: none; margin: 24px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 2px solid rgba(99,95,105,.12); font-size: 0.9375rem; color: var(--muted); }
+.tier .btn { margin-top: 26px; }
+
+/* ---- faq --------------------------------------------------------------------------------------- */
+.faq { display: grid; gap: 18px; max-width: 76ch; }
+.faq details { border-radius: 24px; background: #fff; box-shadow: var(--clay-card); overflow: hidden; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 26px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 800; font-size: 1.0625rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--violet); font-size: 1.5rem; line-height: 1; flex: none; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding: 0 26px 24px; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------- */
+.colophon { padding-block: 44px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; font-weight: 700; color: var(--muted); }
+.colophon a { text-decoration: none; }
+
+/* ---- preview badge ------------------------------------------------------------------------------------ */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 60; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: #fff; color: var(--ink); border-radius: 999px; box-shadow: var(--clay-card);
+  padding: 10px 20px; font-size: 0.75rem; font-weight: 700;
+}
+.flag span { font-weight: 500; color: var(--muted); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover, .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="wrap masthead">
+  <div class="masthead__in">
+    <a class="brand" href="/design-presets/claymorphism/"><i aria-hidden="true">●</i> Kiln</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#physics">Physics</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--soft" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Objects made of clay, not of paper</h1>
+        <p class="dim">A fixed light above and to the left, deep occlusion beneath each object and a
+        highlight along its upper ridge. Buttons bulge out and squish when pressed; inputs are
+        pressed into the surface. The shadows are tinted with the object's own colour, because a grey
+        shadow here is neumorphism — the thing this style defines itself against.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--soft" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="orbs" aria-hidden="true">
+        <div class="orb v">20px<span>Buttons</span></div>
+        <div class="orb p">32px<span>Cards</span></div>
+        <div class="orb s">48px<span>Containers</span></div>
+        <div class="orb m">0<span>Grey shadows</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>2.72:1</b><span>White on the gradient's light end</span></div>
+      <div class="stat"><b>5.70:1</b><span>White on its dark end</span></div>
+      <div class="stat"><b>4</b><span>Shadow layers</span></div>
+      <div class="stat"><b>5.58:1</b><span>The spec's muted grey — correct</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:20px 44px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__ico">1</span>
+        <h3>A gradient is its worst stop</h3>
+        <p>White on the specified button gradient is 5.70 at the dark end and 2.72 at the light end —
+        safe on half the button and invisible on the other half. Flat fills here use the dark end.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">2</span>
+        <h3>Never four pixels</h3>
+        <p>The specification forbids a small radius outright, and it is right: 20px on buttons, 32 on
+        cards, 48 and up on containers. One 4px corner and the material turns back into a generic
+        rounded rectangle.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">3</span>
+        <h3>Shadows take the object's hue</h3>
+        <p>A violet button drops a violet shadow. Swap it for grey and the page stops being clay and
+        becomes soft-UI, which is a different and much colder style.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ physics ============================ -->
+  <section class="wrap bay" id="physics" style="padding-top:0">
+    <div class="pressed">
+      <span class="tag">The physics</span>
+      <h2 style="margin-block:20px 18px;max-width:20ch">Convex bulges. Concave presses.</h2>
+      <p class="dim" style="max-width:58ch">This panel is concave — it is pressed into the surface,
+      with the shadow on its top edge and the light caught along its bottom lip. The buttons below
+      are convex and do the opposite. Press one and it scales to 95% and inverts its own shadow,
+      which is the entire feedback mechanism of the style.</p>
+      <p style="margin-top:28px"><a class="btn" href="#pricing">Press me</a>
+      <a class="btn btn--pink" style="margin-left:14px" href="#faq">And this one</a></p>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:20px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--soft" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price" style="color:var(--violet)">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--soft" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:28px">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:20px 44px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the palette, Nunito over DM Sans, the 20px button radius and the
+        convex clay shadow with its squish. The four-layer stack on cards, the gradient orbs and the
+        blurred background blobs are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the button a flat colour rather than the gradient?</summary>
+        <div>Because white on the gradient's light end measures 2.72 to one. The gradient is not the
+        problem — the assumption that one text colour works along its whole length is. A flat fill at
+        the dark end carries white at 5.70 and loses nothing that mattered.</div>
+      </details>
+      <details>
+        <summary>How is this different from neumorphism?</summary>
+        <div>Colour. Neumorphism extrudes everything from one grey surface with grey shadows;
+        claymorphism gives each object its own hue and tints the shadow to match, so objects look
+        like separate pieces of material sitting on a surface rather than bulges in it.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="card" style="text-align:center;padding-block:clamp(44px,6vw,80px);border-radius:48px">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:22px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:32px"><a class="btn" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="wrap colophon">
+  <div class="colophon__in">
+    <span>Claymorphism — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

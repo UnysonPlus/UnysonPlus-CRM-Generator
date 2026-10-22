@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Playful Geometric — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Playful Geometric preset: a stable grid under wild decoration, sticker shadows, mixed radii and confetti colour. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/playful-geometric/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FFFDF5">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap">
+<style>
+/* ===========================================================================
+   PLAYFUL GEOMETRIC
+   A design preset, shown as a whole page.
+
+   One structural idea: STABLE GRID, WILD DECORATION. The content stays in
+   clean readable areas while the world around it is alive with shape. Memphis
+   energy without Memphis chaos.
+
+   THE TRAP, measured - and it is the brand colour itself. The spec pairs
+   accent #8B5CF6 with accentForeground #FFFFFF:
+
+      white on #8B5CF6      4.23:1   FAILS
+      slate ink on it       3.45:1   FAILS
+      #8B5CF6 as text       4.16:1   FAILS
+
+   The fill fails in BOTH directions, so no label rescues it. One step darker,
+   #7C3AED, fixes all three at once: 5.70 under white, 5.60 as text on cream.
+   The bright violet is still in the style - as decoration - just not as a role.
+
+   The three confetti colours all fail under white and pass under the slate:
+   pink 2.65 / 5.52, amber 1.67 / 8.76, mint 1.92 / 7.61. Anything carrying
+   text on one of them carries the slate.
+   ========================================================================= */
+
+:root {
+  --cream: #fffdf5;
+  --slate: #1e293b;
+  --violet: #7c3aed;        /* the role - NOT the spec's #8B5CF6 */
+  --violet-lt: #8b5cf6;     /* decoration only */
+  --pink: #f472b6;
+  --amber: #fbbf24;
+  --mint: #34d399;
+  --muted: #475569;
+  --panel: #f1f5f9;
+
+  --head: "Outfit", system-ui, sans-serif;
+  --body: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --pop: 4px 4px 0 0 var(--slate);
+  --pop-hi: 6px 6px 0 0 var(--slate);
+  --pop-lo: 2px 2px 0 0 var(--slate);
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(64px, 9vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--cream); color: var(--slate);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.65;
+  overflow-x: hidden;
+}
+/* The dot grid goes on its OWN layer rather than into the body background: mixed
+   into background-image it reads to a contrast checker as a slate surface under
+   slate text (1:1), and it is harder to tune besides. */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(var(--slate) 1.2px, transparent 1.3px);
+  background-size: 26px 26px;
+  opacity: 0.09;
+}
+body > * { position: relative; z-index: 1; }
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.3rem + 4.8vw, 4.75rem); }
+h2 { font-size: clamp(1.875rem, 1.2rem + 2.6vw, 2.75rem); }
+h3 { font-size: 1.375rem; }
+
+a { color: var(--violet); }
+:focus-visible { outline: 3px solid var(--slate); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--amber); color: var(--slate); border: 2px solid var(--slate); box-shadow: var(--pop); padding: 12px 20px; text-decoration: none; font-weight: 700; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; border: 2px solid var(--slate); background: var(--amber); color: var(--slate); box-shadow: var(--pop-lo); padding: 6px 14px; border-radius: 999px; font-size: 0.8125rem; font-weight: 700; }
+
+/* ---- buttons: stickers, not cards ------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 26px; cursor: pointer;
+  border: 2px solid var(--slate); border-radius: 16px;
+  background: var(--violet); color: #fff;          /* 5.70:1 */
+  font-family: var(--body); font-weight: 700; font-size: 0.9375rem; text-decoration: none;
+  box-shadow: var(--pop);
+  transition: box-shadow 120ms ease-out, transform 120ms ease-out;
+}
+.btn:hover { box-shadow: var(--pop-hi); }
+.btn:active { box-shadow: var(--pop-lo); transform: translate(2px, 2px); }
+.btn--pink { background: var(--pink); color: var(--slate); }    /* 5.52:1 - never white */
+.btn--white { background: #fff; color: var(--slate); }
+
+/* ---- masthead ------------------------------------------------------------------ */
+.masthead { border-bottom: 2px solid var(--slate); background: var(--cream); }
+.masthead__in { display: flex; align-items: center; gap: 20px; min-height: 84px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--slate); font-family: var(--head); font-weight: 800; font-size: 1.1875rem; letter-spacing: -0.03em; }
+.brand i { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--slate); background: var(--mint); box-shadow: var(--pop-lo); border-radius: 999px 999px 999px 0; font-style: normal; font-size: 1rem; }
+.masthead__nav { display: none; gap: 22px; }
+.masthead__nav a { font-size: 0.9375rem; font-weight: 700; color: var(--slate); text-decoration: none; }
+.masthead__nav a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; text-decoration-color: var(--pink); }
+@media (min-width: 940px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ---------------------------------------------------------------------- */
+.hero { position: relative; padding-block: clamp(44px, 6vw, 96px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.1fr 0.9fr; } }
+.hero h1 { margin-top: 20px; }
+.hero h1 u { text-decoration: none; background: var(--amber); box-shadow: 0 0 0 6px var(--amber); border-radius: 4px; }
+.hero p { margin-top: 26px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+
+/* the confetti pile - decoration, kept OUT of the content column */
+.confetti { position: relative; min-height: 300px; }
+.shape { position: absolute; border: 2px solid var(--slate); box-shadow: var(--pop); }
+.shape.a { width: 120px; height: 120px; border-radius: 999px; background: var(--pink); top: 4%; left: 6%; }
+.shape.b { width: 150px; height: 90px; border-radius: 24px 24px 24px 0; background: var(--amber); top: 34%; right: 4%; }
+.shape.c { width: 100px; height: 100px; border-radius: 999px 999px 0 0; background: var(--mint); bottom: 6%; left: 26%; }
+.shape.d { width: 86px; height: 86px; border-radius: 16px; background: var(--violet-lt); top: 12%; right: 28%; transform: rotate(12deg); }
+
+/* ---- stats ------------------------------------------------------------------------ */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border: 2px solid var(--slate); border-radius: 24px; box-shadow: var(--pop); padding: clamp(20px, 2.4vw, 30px); background: #fff; }
+.stat:nth-child(2) { background: var(--amber); border-radius: 24px 24px 24px 0; }
+.stat:nth-child(3) { background: var(--mint); }
+.stat:nth-child(4) { background: var(--pink); border-radius: 0 24px 24px 24px; }
+.stat b { display: block; font-family: var(--head); font-weight: 800; font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.5rem); line-height: 1; }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; font-weight: 700; }
+
+/* ---- cards ------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: #fff; border: 2px solid var(--slate); border-radius: 24px; box-shadow: var(--pop); padding: clamp(24px, 2.8vw, 34px); transition: box-shadow 160ms ease-out, transform 160ms ease-out; }
+.card:hover { box-shadow: var(--pop-hi); transform: translate(-2px, -2px); }
+.card__ico { display: grid; place-items: center; width: 46px; height: 46px; border: 2px solid var(--slate); border-radius: 999px; font-family: var(--head); font-weight: 800; }
+.card:nth-child(1) .card__ico { background: var(--pink); }
+.card:nth-child(2) .card__ico { background: var(--amber); }
+.card:nth-child(3) .card__ico { background: var(--mint); }
+.card h3 { margin-block: 16px 10px; }
+.card p { color: var(--muted); font-size: 1rem; }
+
+/* ---- the swatch proof ----------------------------------------------------------------- */
+.proof { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .proof { grid-template-columns: repeat(3, 1fr); } }
+.sw { border: 2px solid var(--slate); border-radius: 20px; box-shadow: var(--pop); padding: 22px; color: var(--slate); }
+.sw b { display: block; font-family: var(--head); font-weight: 800; font-size: 1.375rem; }
+.sw span { display: block; margin-top: 6px; font-size: 0.875rem; font-weight: 500; }
+.sw--pink { background: var(--pink); } .sw--amber { background: var(--amber); } .sw--mint { background: var(--mint); }
+
+/* ---- pricing ----------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; background: #fff; border: 2px solid var(--slate); border-radius: 24px; box-shadow: var(--pop); padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { background: var(--amber); box-shadow: var(--pop-hi); }
+.tier__flag { position: absolute; top: -16px; right: -10px; border: 2px solid var(--slate); background: var(--mint); box-shadow: var(--pop-lo); border-radius: 999px; padding: 5px 14px; font-size: 0.75rem; font-weight: 700; transform: rotate(6deg); }
+.tier__name { font-size: 0.8125rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.tier--lead .tier__name { color: var(--slate); }
+.tier__price { font-family: var(--head); font-weight: 800; font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3.25rem); line-height: 1; margin-block: 12px 2px; }
+.tier__per { font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+.tier--lead .tier__per { color: var(--slate); }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 10px 0; border-top: 2px solid var(--slate); font-size: 0.9375rem; }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq -------------------------------------------------------------------------------------- */
+.faq { display: grid; gap: 16px; max-width: 76ch; }
+.faq details { border: 2px solid var(--slate); border-radius: 20px; box-shadow: var(--pop-lo); background: #fff; overflow: hidden; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 22px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 800; font-size: 1.0625rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 1.5rem; line-height: 1; flex: none; }
+.faq details[open] summary { background: var(--mint); border-bottom: 2px solid var(--slate); }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding: 20px 22px; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------ */
+.colophon { background: var(--slate); color: var(--cream); padding-block: 40px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; font-weight: 500; }
+.colophon a { color: var(--amber); text-decoration: none; }
+.colophon a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---- preview badge ----------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: #fff; color: var(--slate); border: 2px solid var(--slate); border-radius: 999px; box-shadow: var(--pop-lo);
+  padding: 8px 18px; font-size: 0.75rem; font-weight: 700;
+}
+.flag span { font-weight: 500; color: var(--muted); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/playful-geometric/"><i aria-hidden="true">◆</i> Confetti</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--white" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Stable grid, <u>wild</u> decoration</h1>
+        <p>The content sits in clean readable areas and the world around it is full of shape. Hard
+        offset shadows with no blur, two-pixel borders, and corners that are rounded on three sides
+        and square on the fourth.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--white" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="confetti" aria-hidden="true">
+        <span class="shape a"></span>
+        <span class="shape b"></span>
+        <span class="shape c"></span>
+        <span class="shape d"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>4.23:1</b><span>White on the spec's violet</span></div>
+      <div class="stat"><b>5.70:1</b><span>White on this one</span></div>
+      <div class="stat"><b>2px</b><span>Border, everywhere</span></div>
+      <div class="stat"><b>0</b><span>Blur, ever</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 40px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__ico">1</span>
+        <h3>The brand colour had to move</h3>
+        <p>White on the specification's violet is 4.23 to one and the slate on it is 3.45 — it fails
+        in both directions, so no label rescues it. One step darker fixes the fill, the link and the
+        text colour at the same time.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">2</span>
+        <h3>Slate on every confetti colour</h3>
+        <p>Pink, amber and mint all fail under white and all pass comfortably under the slate. They
+        are fills behind shapes, and when they do carry text, the text is dark.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">3</span>
+        <h3>The decoration stays outside</h3>
+        <p>Shapes live beside the content column, never across it. That is the whole difference
+        between this and a page that merely looks busy.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ proof ============================ -->
+  <section class="wrap bay" id="proof" style="padding-top:0">
+    <span class="tag">The pairing, shown rather than claimed</span>
+    <h2 style="margin-block:18px 32px">Slate on confetti</h2>
+    <div class="proof">
+      <div class="sw sw--pink"><b>5.52:1</b><span>Slate on #F472B6 — white is 2.65</span></div>
+      <div class="sw sw--amber"><b>8.76:1</b><span>Slate on #FBBF24 — white is 1.67</span></div>
+      <div class="sw sw--mint"><b>7.61:1</b><span>Slate on #34D399 — white is 1.92</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--white" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--pink" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:26px;background:#fff">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the palette, the type pairing, the mixed radii and the sticker shadow
+        from the start. The confetti shapes, the squiggles and the dot grid are markup, so a section
+        that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the violet not the one in the specification?</summary>
+        <div>Because that violet is the rare case where a fill fails in both directions at once:
+        4.23 to one under white and 3.45 under the slate. There is no text colour that saves it. One
+        step darker and the same value works as a fill, as a link and as body emphasis.</div>
+      </details>
+      <details>
+        <summary>Why no soft shadows?</summary>
+        <div>Because a blurred shadow makes an element look like a card lying on a page, and a hard
+        offset makes it look like a sticker stuck to one. The second is the entire feeling of this
+        style, and it is one CSS value away from being lost.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="card" style="text-align:center;padding-block:clamp(40px,6vw,72px);background:var(--mint)">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <!-- the muted grey is 3.94:1 on the mint; on a colour fill the text takes the slate ink -->
+      <p style="margin-top:20px;max-width:50ch;margin-inline:auto;color:var(--slate)">Describe the business and your own
+      AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this design system
+      applied site-wide.</p>
+      <p style="margin-top:30px"><a class="btn" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Playful Geometric — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
