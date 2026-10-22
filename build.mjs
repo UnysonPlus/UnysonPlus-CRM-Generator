@@ -860,6 +860,56 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>Digital clay, tinted shadows, super-rounded corners. <a href="/design-presets/claymorphism/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/professional/">
+            <img src="/assets/img/styles/professional.jpg" width="1280" height="907" loading="lazy" decoding="async"
+                 alt="A Professional Editorial style: a Playfair Display headline in black and gold on warm ivory, with a ruled standfirst column and hairline-separated figures.">
+          </a>
+          <figcaption>
+            <b>Professional Editorial</b>
+            <span>Warm ivory, fine hairlines, one burnished gold. <a href="/design-presets/professional/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/botanical/">
+            <img src="/assets/img/styles/botanical.jpg" width="1280" height="1018" loading="lazy" decoding="async"
+                 alt="A Botanical style: a serif headline on warm rice paper beside an arch-topped plate holding a sage leaf shape.">
+          </a>
+          <figcaption>
+            <b>Botanical</b>
+            <span>Rice paper, forest ink, sage surfaces, pills. <a href="/design-presets/botanical/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/vaporwave/">
+            <img src="/assets/img/styles/vaporwave.jpg" width="1280" height="1067" loading="lazy" decoding="async"
+                 alt="A Vaporwave style: a wide uppercase headline in white and magenta over a purple-black void, with a gradient sun and a perspective grid below.">
+          </a>
+          <figcaption>
+            <b>Vaporwave</b>
+            <span>A purple void, magenta and cyan tubes, a receding grid. <a href="/design-presets/vaporwave/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/enterprise/">
+            <img src="/assets/img/styles/enterprise.jpg" width="1280" height="961" loading="lazy" decoding="async"
+                 alt="An Enterprise SaaS style: a bold headline with one gradient phrase on a cool near-white page, beside a white dashboard card of contrast figures.">
+          </a>
+          <figcaption>
+            <b>Enterprise SaaS</b>
+            <span>Indigo gradient, blurred orbs, 12px cards. <a href="/design-presets/enterprise/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/sketch/">
+            <img src="/assets/img/styles/sketch.jpg" width="1280" height="1070" loading="lazy" decoding="async"
+                 alt="A Sketchbook style: a handwritten headline on warm paper beside a tilted note panel, both drawn with thick pencil borders and uneven corners.">
+          </a>
+          <figcaption>
+            <b>Sketchbook</b>
+            <span>Pencil borders, wobbly corners, a marker red. <a href="/design-presets/sketch/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -1046,7 +1096,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/', '/design-presets/minimal-dark/', '/design-presets/playful-geometric/', '/design-presets/claymorphism/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/', '/design-presets/minimal-dark/', '/design-presets/playful-geometric/', '/design-presets/claymorphism/', '/design-presets/professional/', '/design-presets/botanical/', '/design-presets/vaporwave/', '/design-presets/enterprise/', '/design-presets/sketch/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

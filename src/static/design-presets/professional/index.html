@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Professional Editorial — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Professional preset: warm ivory, fine hairlines, Playfair Display and one burnished gold. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/professional/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* ===========================================================================
+   PROFESSIONAL EDITORIAL
+   A design preset, shown as a whole page.
+
+   Editorial gravitas: Playfair Display at regular weight, structure made of
+   fine rules rather than boxes, and one burnished gold used sparingly. The
+   hairlines are WARMER than a neutral grey, and that single detail is what
+   stops the ivory reading as a cheap off-white.
+
+   THE TRAP, measured. The spec pairs accent #B8860B with accentForeground
+   #FFFFFF, and the gold fails in BOTH directions:
+
+       #B8860B as text on the ivory    3.11:1   FAILS
+       white on #B8860B               3.25:1   FAILS
+
+   A single-accent style needs one value to serve the link, the rule AND the
+   button fill, so there is no label that rescues it. #8C6A0A - the same
+   burnished gold a few steps down - is 4.81 as text and 5.02 under white.
+   The lighter #D4A84B stays for gradients and hover, where nothing has to be
+   read on it.
+   ========================================================================= */
+
+:root {
+  --ivory: #fafaf8;
+  --ink: #1a1a1a;
+  --grey: #6b6b6b;
+  --muted: #f5f3f0;
+  --card: #ffffff;
+  --rule: #e8e4df;        /* warm, never neutral */
+  --gold: #8c6a0a;        /* NOT the spec's #B8860B */
+  --gold-lt: #d4a84b;     /* decoration only */
+
+  --head: "Playfair Display", Georgia, serif;
+  --body: "Source Sans 3", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(72px, 10vw, 144px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--ivory); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.7; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.3rem + 4.8vw, 4.75rem); }
+h2 { font-size: clamp(1.875rem, 1.2rem + 2.4vw, 2.75rem); }
+h3 { font-size: 1.4375rem; }
+.dim { color: var(--grey); }
+
+a { color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--gold); color: #fff; border-radius: 6px; padding: 12px 22px; text-decoration: none; font-weight: 600; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1080px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+.tag { display: block; font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); }
+
+/* ---- buttons ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 28px; border: 0; border-radius: 6px; cursor: pointer;
+  background: var(--gold); color: #fff;          /* 5.02:1 */
+  font-family: var(--body); font-weight: 600; font-size: 0.9375rem; letter-spacing: 0.02em; text-decoration: none;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+.btn:hover { background: #7a5c08; }
+.btn--out { background: none; color: var(--ink); border: 1px solid var(--ink); }
+.btn--out:hover { background: var(--ink); color: var(--ivory); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--rule); }
+.masthead__in { display: flex; align-items: center; gap: 26px; min-height: 86px; }
+.brand { margin-right: auto; text-decoration: none; color: var(--ink); font-family: var(--head); font-size: 1.3125rem; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--grey); text-decoration: none; transition: color 220ms ease; }
+.masthead__nav a:hover { color: var(--gold); }
+@media (min-width: 940px) { .masthead__nav { display: flex; } }
+
+/* ---- hero -------------------------------------------------------------------------- */
+.hero { padding-block: clamp(48px, 7vw, 108px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); }
+@media (min-width: 980px) { .hero__in { grid-template-columns: 1.3fr 0.7fr; align-items: end; } }
+.hero h1 { margin-top: 20px; }
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero p { margin-top: 24px; max-width: 48ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+/* the standfirst: a ruled column, the way a leader is set */
+.stand { border-top: 3px solid var(--ink); padding-top: 18px; }
+.stand p { font-size: 0.9375rem; color: var(--grey); }
+.stand p + p { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
+
+/* ---- stats: ruled, not boxed ---------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--rule); }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { padding: clamp(24px, 3vw, 38px) clamp(14px, 2vw, 28px) clamp(24px, 3vw, 38px) 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 860px) { .stat + .stat { border-left: 1px solid var(--rule); padding-left: clamp(18px, 2.2vw, 32px); } }
+.stat b { display: block; font-family: var(--head); font-weight: 400; font-size: clamp(2rem, 1.3rem + 2.4vw, 3rem); line-height: 1; color: var(--gold); }
+.stat span { display: block; margin-top: 10px; font-family: var(--mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--grey); }
+
+/* ---- cards: a rule above, not a box around ---------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--card); border: 1px solid var(--rule); border-top: 3px solid var(--gold); border-radius: 0 0 6px 6px; padding: clamp(24px, 2.8vw, 34px); }
+.card h3 { margin-bottom: 12px; }
+.card p { color: var(--grey); font-size: 1rem; }
+
+/* ---- pull quote -------------------------------------------------------------------------- */
+.quote { background: var(--muted); }
+.quote blockquote { margin: 0; max-width: 26ch; font-family: var(--head); font-style: italic; font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.75rem); line-height: 1.25; }
+.quote figcaption { margin-top: 26px; font-family: var(--mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--grey); }
+
+/* ---- pricing ------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+@media (min-width: 940px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { background: var(--card); border: 1px solid var(--rule); border-top: 3px solid var(--rule); border-radius: 0 0 6px 6px; padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { border-top-color: var(--gold); }
+.tier__name { font-family: var(--mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--grey); }
+.tier__price { font-family: var(--head); font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3.25rem); line-height: 1; margin-block: 14px 2px; }
+.tier__per { font-family: var(--mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--grey); }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid var(--rule); font-size: 0.9375rem; color: var(--grey); }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq --------------------------------------------------------------------------------------- */
+.faq { max-width: 72ch; }
+.faq details { border-bottom: 1px solid var(--rule); }
+.faq details:first-of-type { border-top: 1px solid var(--rule); }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 22px; padding: 22px 0; cursor: pointer; list-style: none; font-family: var(--head); font-size: 1.25rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--gold); font-family: var(--mono); flex: none; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding-bottom: 24px; color: var(--grey); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------- */
+.colophon { background: var(--ink); color: #d9d5d0; padding-block: 40px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; }
+.colophon a { color: var(--gold-lt); text-decoration: none; }
+
+/* ---- preview badge ------------------------------------------------------------------------------------ */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 60; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--card); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  padding: 9px 16px; font-family: var(--mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.12em;
+}
+.flag span { color: var(--grey); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/professional/">The Quire</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#rules">Rules</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Structure made of <em>rules</em>, not of boxes</h1>
+        <p class="dim">Playfair Display at regular weight, a warm ivory page, and hairlines that are
+        a shade warmer than a neutral grey. One burnished gold, used sparingly enough that it still
+        means something when it appears.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--out" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="stand">
+        <p><b>The gold had to move.</b> The specification pairs its accent with white, and the pair
+        fails in both directions — 3.11 to one as text, 3.25 under white.</p>
+        <p>A single-accent style needs one value for the link, the rule and the fill, so there is no
+        label that saves it. Three steps darker does.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>3.11:1</b><span>The spec's gold, as text</span></div>
+      <div class="stat"><b>4.81:1</b><span>This one</span></div>
+      <div class="stat"><b>6px</b><span>Radius</span></div>
+      <div class="stat"><b>1px</b><span>Warm hairline</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 44px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <h3>One gold, dark enough</h3>
+        <p>It has to read as a link on the ivory and carry a white label as a fill. The specified
+        value does neither; this one does both at a little under five to one.</p>
+      </article>
+      <article class="card">
+        <h3>Warm hairlines</h3>
+        <p>A neutral grey rule beside a warm ivory page makes the page look like a mistake. The
+        border colour is tinted to match, which is the sort of detail nobody notices and everybody
+        feels.</p>
+      </article>
+      <article class="card">
+        <h3>Playfair stays regular</h3>
+        <p>The face already has presence — the stroke contrast is doing the work. Bolding it turns
+        gravitas into shouting and flattens the thin strokes that made it elegant.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ quote ============================ -->
+  <section class="quote" id="rules">
+    <div class="wrap bay">
+      <figure style="margin:0">
+        <blockquote>Fine lines create structure without visual weight.</blockquote>
+        <figcaption>The premise of the style</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <p class="tier__name">Studio</p>
+        <p class="tier__price">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:26px;color:var(--grey)">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the ivory, the gold, Playfair over Source Sans, the 6px radius and
+        the warm hairlines. The ruled layouts here — a standfirst column, a rule above a card
+        instead of a box around it — are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the gold different from the specification?</summary>
+        <div>Because the specified gold fails as text at 3.11 to one and under white at 3.25. That
+        is the particular trap of a single-accent palette: the one colour has to do three jobs, so
+        it has to pass in both directions rather than in one.</div>
+      </details>
+      <details>
+        <summary>Why is almost nothing boxed?</summary>
+        <div>Because a box is a heavy way to say what a rule says lightly. Cards here carry a rule
+        above them rather than a border around them, which puts the weight at the top of the element
+        the way a rule above a column does in print.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <hr class="rule">
+    <h2 style="margin-top:40px;max-width:18ch">Build a site in this preset.</h2>
+    <p class="dim" style="margin-top:20px;max-width:52ch">Describe the business and your own AI agent
+    builds it on WordPress with Unyson+ — real page-builder pages, with this design system applied
+    site-wide.</p>
+    <p style="margin-top:30px"><a class="btn" href="/">Open the creator</a></p>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Professional Editorial — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

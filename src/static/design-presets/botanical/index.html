@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Botanical — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Botanical preset: rice paper, deep forest ink, sage surfaces and pill buttons. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/botanical/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F9F8F4">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* ===========================================================================
+   BOTANICAL
+   A design preset, shown as a whole page.
+
+   Rice paper, pressed leaves, a herbarium plate. The palette is drawn from
+   plant matter rather than from a colour wheel, and the page is quiet enough
+   that one illustration carries it.
+
+   THE TRAP, measured. The spec names the sage #8C9A84 as "Primary/Accent -
+   for buttons, highlights, icons". It cannot be a role:
+
+       sage as text on the paper   2.79:1   FAILS
+       white on sage               2.97:1   FAILS
+       forest ink on sage          4.01:1   FAILS at normal size
+
+   It fails every way round. The giveaway is in the spec itself: its own
+   primary BUTTON is deep forest with white, at 11.92:1. So forest is the
+   role, and the sage is what it actually is - a surface, a border, an
+   illustration colour. Secondary text takes a deeper sage, #5A6B55 (5.39:1).
+   ========================================================================= */
+
+:root {
+  --paper: #f9f8f4;
+  --forest: #2d3a31;
+  --sage: #8c9a84;
+  --sage-dk: #5a6b55;      /* the readable sage - NOT #8C9A84 */
+  --clay: #dccfc2;
+  --stone: #e6e2da;
+  --panel: #f2f0eb;
+
+  --head: "Playfair Display", Georgia, serif;
+  --body: "Source Sans 3", system-ui, sans-serif;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(72px, 10vw, 144px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--paper); color: var(--forest); font-family: var(--body); font-size: 1.0625rem; line-height: 1.75; overflow-x: hidden; }
+/* paper tooth - without it the warm off-white reads as a flat tint rather than a sheet */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.3rem + 4.6vw, 4.5rem); }
+h2 { font-size: clamp(1.875rem, 1.2rem + 2.4vw, 2.75rem); }
+h3 { font-size: 1.375rem; }
+.dim { color: var(--sage-dk); }
+
+a { color: var(--sage-dk); }
+:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 90; background: var(--forest); color: #fff; border-radius: 999px; padding: 13px 24px; text-decoration: none; font-weight: 600; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--sage-dk); font-weight: 600; }
+
+/* ---- buttons: pills ------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 30px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--forest); color: #fff;        /* 11.92:1 */
+  font-family: var(--body); font-weight: 600; font-size: 0.9375rem; text-decoration: none;
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+}
+.btn:hover { background: #3c4d41; }
+.btn--out { background: none; color: var(--sage-dk); border: 1px solid var(--sage-dk); }
+.btn--out:hover { background: var(--sage-dk); color: var(--paper); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--stone); }
+.masthead__in { display: flex; align-items: center; gap: 26px; min-height: 88px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--forest); font-family: var(--head); font-size: 1.3125rem; }
+.brand i { display: inline-block; width: 26px; height: 26px; border-radius: 999px 2px 999px 2px; background: var(--sage); font-style: normal; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-size: 0.875rem; color: var(--sage-dk); text-decoration: none; }
+.masthead__nav a:hover { color: var(--forest); }
+@media (min-width: 940px) { .masthead__nav { display: flex; } }
+
+/* ---- hero --------------------------------------------------------------------------- */
+.hero { padding-block: clamp(48px, 7vw, 108px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 980px) { .hero__in { grid-template-columns: 1.1fr 0.9fr; } }
+.hero h1 { margin-top: 20px; }
+.hero h1 em { font-style: italic; }
+.hero p { margin-top: 24px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+
+/* the herbarium plate */
+.plate { position: relative; background: var(--panel); border: 1px solid var(--stone); border-radius: 220px 220px 24px 24px; padding: clamp(32px, 4vw, 56px); text-align: center; }
+.plate__leaf { width: clamp(120px, 18vw, 190px); height: clamp(170px, 26vw, 260px); margin-inline: auto; border-radius: 100% 4% 100% 4%; background: var(--sage); position: relative; }
+.plate__leaf::after { content: ""; position: absolute; left: 50%; top: 8%; bottom: 8%; width: 1px; background: rgba(45,58,49,.35); transform: rotate(0deg); }
+.plate figcaption { margin-top: 26px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--sage-dk); font-weight: 600; }
+
+/* ---- stats ------------------------------------------------------------------------------ */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--stone); }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { padding: clamp(24px, 3vw, 36px) clamp(14px, 2vw, 26px) clamp(24px, 3vw, 36px) 0; border-bottom: 1px solid var(--stone); }
+@media (min-width: 860px) { .stat + .stat { border-left: 1px solid var(--stone); padding-left: clamp(18px, 2.2vw, 30px); } }
+.stat b { display: block; font-family: var(--head); font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.75rem); line-height: 1; }
+.stat span { display: block; margin-top: 10px; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--sage-dk); font-weight: 600; }
+
+/* ---- cards ---------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 26px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: #fff; border: 1px solid var(--stone); border-radius: 28px; padding: clamp(26px, 3vw, 36px); transition: transform 320ms ease, box-shadow 320ms ease; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(45,58,49,.08); }
+.card__ico { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 100% 6% 100% 6%; background: var(--clay); color: var(--forest); font-family: var(--head); }
+.card h3 { margin-block: 18px 10px; }
+.card p { color: var(--sage-dk); font-size: 1rem; }
+
+/* ---- the swatch proof -------------------------------------------------------------------------- */
+.proof { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .proof { grid-template-columns: repeat(3, 1fr); } }
+.sw { border-radius: 24px; padding: 24px; border: 1px solid var(--stone); }
+.sw b { display: block; font-family: var(--head); font-size: 1.375rem; }
+.sw span { display: block; margin-top: 6px; font-size: 0.8125rem; }
+/* The sage swatch exists to SHOW that forest ink on sage is 4.01:1 and misses AA
+   at normal size. A caption making that point must not itself be the example -
+   at 20px/600 it is large text, where the threshold is 3:1 and 4.01 passes. */
+.sw--sage span { font-size: 1.25rem; font-weight: 700; line-height: 1.4; }
+.sw--sage { background: var(--sage); color: var(--forest); }
+.sw--clay { background: var(--clay); color: var(--forest); }
+.sw--forest { background: var(--forest); color: var(--panel); border-color: var(--forest); }
+
+/* ---- pricing ------------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: start; }
+@media (min-width: 940px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { background: #fff; border: 1px solid var(--stone); border-radius: 28px; padding: clamp(26px, 3vw, 36px); display: flex; flex-direction: column; }
+.tier--lead { background: var(--panel); border-color: var(--sage-dk); }
+.tier__name { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--sage-dk); font-weight: 600; }
+.tier__price { font-family: var(--head); font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3.25rem); line-height: 1; margin-block: 14px 2px; }
+.tier__per { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--sage-dk); font-weight: 600; }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid var(--stone); font-size: 0.9375rem; color: var(--sage-dk); }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq ------------------------------------------------------------------------------------------ */
+.faq { max-width: 72ch; }
+.faq details { border-bottom: 1px solid var(--stone); }
+.faq details:first-of-type { border-top: 1px solid var(--stone); }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 22px; padding: 22px 0; cursor: pointer; list-style: none; font-family: var(--head); font-size: 1.25rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--sage-dk); flex: none; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding-bottom: 24px; color: var(--sage-dk); font-size: 0.9375rem; }
+
+/* ---- colophon ----------------------------------------------------------------------------------------- */
+.colophon { background: var(--forest); color: var(--clay); padding-block: 42px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; }
+.colophon a { color: #fff; text-decoration: none; }
+
+/* ---- preview badge ------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 90; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: #fff; color: var(--forest); border: 1px solid var(--stone); border-radius: 999px;
+  padding: 9px 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600;
+}
+.flag span { color: var(--sage-dk); font-weight: 400; }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/botanical/"><i aria-hidden="true"></i> Herbarium</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>A palette taken from <em>plant matter</em></h1>
+        <p class="dim">Forest, sage, clay and stone on rice paper — warm neutrals only, so one cool
+        grey would read as a different page. Pills rather than rectangles, thin borders, and enough
+        quiet that a single illustration carries a whole section.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--out" href="#system">See the system</a>
+        </div>
+      </div>
+      <figure class="plate" style="margin:0">
+        <div class="plate__leaf" aria-hidden="true"></div>
+        <figcaption>Sage — a surface, not a role</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>2.79:1</b><span>Sage as text</span></div>
+      <div class="stat"><b>11.92:1</b><span>White on forest</span></div>
+      <div class="stat"><b>5.39:1</b><span>The deeper sage</span></div>
+      <div class="stat"><b>0</b><span>Cool greys</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 44px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__ico">I</span>
+        <h3>Sage is a surface</h3>
+        <p>The specification calls it the primary colour, and it fails as text, under white and under
+        the forest ink. Its own primary button is forest with white at nearly twelve to one — which
+        is the answer hiding in the question.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">II</span>
+        <h3>Every neutral is warm</h3>
+        <p>Paper, stone, clay and panel are all tinted. Drop one cool grey in among them and it reads
+        as a different stylesheet rather than as a neutral.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">III</span>
+        <h3>The paper has tooth</h3>
+        <p>A fractal grain at three and a half per cent. Without it the warm off-white is a flat
+        tint; with it the page is a sheet, which is the whole premise.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ proof ============================ -->
+  <section class="wrap bay" id="proof" style="padding-top:0">
+    <span class="tag">The pairing, shown rather than claimed</span>
+    <h2 style="margin-block:18px 32px">Where each colour works</h2>
+    <div class="proof">
+      <div class="sw sw--sage"><b>4.01:1</b><span>Forest ink on sage — still short of AA at this size</span></div>
+      <div class="sw sw--clay"><b>7.81:1</b><span>Forest ink on clay — comfortable</span></div>
+      <div class="sw sw--forest"><b>11.92:1</b><span>Paper on forest — the button pairing</span></div>
+    </div>
+    <p class="dim" style="margin-top:22px;max-width:62ch">Sage is the only one of the three that
+    cannot carry body text in either direction. That is not a flaw in the colour — it is a statement
+    about which job it is for.</p>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <p class="tier__name">Studio</p>
+        <p class="tier__price">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:26px">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the paper, the forest ink, the pills, the stone borders and the type
+        pairing. The leaf shapes, the herbarium plate and the paper grain are markup, so a section
+        that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is sage not the button colour?</summary>
+        <div>Because it fails in all three directions — as text on the paper, under white and under
+        the forest ink. It is a beautiful surface and a poor role, and the specification's own
+        primary button already used forest, which is the giveaway.</div>
+      </details>
+      <details>
+        <summary>Why pills rather than rounded rectangles?</summary>
+        <div>Because nothing in a herbarium has a square corner. A pill reads as grown rather than
+        cut, which is the one shape decision that carries the whole register.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="card" style="text-align:center;padding-block:clamp(44px,6vw,76px);border-radius:48px;background:var(--panel)">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:20px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:30px"><a class="btn" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Botanical — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

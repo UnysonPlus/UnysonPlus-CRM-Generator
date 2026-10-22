@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Enterprise SaaS — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Enterprise preset: a cool near-white, an indigo-to-violet gradient, blurred orbs and 12px cards. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/enterprise/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F8FAFC">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap">
+<style>
+/* ===========================================================================
+   ENTERPRISE SaaS
+   A design preset, shown as a whole page.
+
+   Professional authority with modern warmth. Depth comes from large blurred
+   gradient orbs behind the content and from one indigo-to-violet gradient used
+   on the things that matter.
+
+   WHAT THIS PALETTE GETS RIGHT, and the one thing to watch. Indigo and violet
+   both work as fills AND as text - 6.01 and 5.45 on the page, 6.29 and 5.70
+   under white - which is unusual in this set and is what makes a gradient
+   button safe here.
+
+   The EMERALD does not: white on it is 2.54:1 while the slate ink is 7.04:1.
+   It is a success indicator, not a button role.
+
+   Muted text at 4.55:1 sits on the AA line with nothing to spare, so it is
+   darkened to #556175 - a tint change to the page must not be able to push it
+   under.
+   ========================================================================= */
+
+:root {
+  --page: #f8fafc;
+  --panel: #f1f5f9;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #556175;
+  --indigo: #4f46e5;
+  --violet: #7c3aed;
+  --emerald: #10b981;
+  --edge: #e2e8f0;
+  --grad: linear-gradient(90deg, #4f46e5, #7c3aed);
+
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(72px, 10vw, 140px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--font); font-size: 1.0625rem; line-height: 1.7; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+h1 { font-size: clamp(2.375rem, 1.3rem + 4.4vw, 4.25rem); }
+h2 { font-size: clamp(1.875rem, 1.2rem + 2.4vw, 2.75rem); }
+h3 { font-size: 1.25rem; }
+.dim { color: var(--muted); }
+
+a { color: var(--indigo); }
+:focus-visible { outline: 2px solid var(--indigo); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--indigo); color: #fff; border-radius: 999px; padding: 12px 24px; text-decoration: none; font-weight: 600; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #ddd6fe; background: #eef2ff; color: var(--indigo); border-radius: 999px; padding: 6px 14px; font-size: 0.8125rem; font-weight: 600; }
+.tag::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--indigo); }
+
+/* the gradient on one headline phrase, never a whole heading */
+.grad-text { color: var(--indigo); }
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+}
+
+/* ---- buttons ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 28px; border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--grad); color: #fff;          /* both stops carry white: 6.29 and 5.70 */
+  font-family: var(--font); font-weight: 600; font-size: 0.9375rem; text-decoration: none;
+  box-shadow: 0 6px 18px rgba(79,70,229,.25);
+  transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(79,70,229,.32); }
+.btn--out { background: var(--card); color: var(--ink); border: 1px solid var(--edge); box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+.btn--out:hover { border-color: #c7d2fe; box-shadow: 0 6px 16px rgba(15,23,42,.07); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--edge); background: rgba(248,250,252,.9); }
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 84px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-weight: 800; font-size: 1.125rem; letter-spacing: -0.02em; }
+.brand i { width: 30px; height: 30px; border-radius: 10px; background: var(--grad); font-style: normal; box-shadow: 0 4px 12px rgba(79,70,229,.3); }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-size: 0.9375rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color 220ms ease; }
+.masthead__nav a:hover { color: var(--ink); }
+@media (min-width: 960px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------ */
+.hero { position: relative; padding-block: clamp(48px, 7vw, 104px) var(--bay); }
+/* the orbs: radial gradients, so there is no box edge to clip */
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(36% 42% at 82% 18%, rgba(79,70,229,.16), transparent 72%),
+    radial-gradient(32% 38% at 10% 86%, rgba(124,58,237,.14), transparent 72%);
+}
+.hero__in { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.1fr 0.9fr; } }
+.hero h1 { margin-top: 20px; }
+.hero p { margin-top: 24px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+
+/* the dashboard card */
+.dash { background: var(--card); border: 1px solid var(--edge); border-radius: 16px; box-shadow: 0 18px 40px rgba(15,23,42,.08); padding: clamp(20px, 2.4vw, 26px); }
+.dash__head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--edge); font-size: 0.875rem; font-weight: 600; }
+.dash__row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--edge); font-size: 0.9375rem; }
+.dash__row:last-child { border-bottom: 0; }
+.dash__row span { color: var(--muted); }
+.pill { display: inline-flex; align-items: center; gap: 7px; border-radius: 999px; background: #ecfdf5; color: #065f46; padding: 4px 12px; font-size: 0.8125rem; font-weight: 600; }
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--emerald); }
+
+/* ---- stats ------------------------------------------------------------------------------ */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: var(--card); border: 1px solid var(--edge); border-radius: 12px; padding: clamp(20px, 2.4vw, 30px); }
+.stat b { display: block; font-size: clamp(1.625rem, 1.1rem + 2vw, 2.375rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--indigo); }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; font-weight: 600; color: var(--muted); }
+
+/* ---- cards ---------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--card); border: 1px solid var(--edge); border-radius: 12px; padding: clamp(24px, 2.8vw, 34px); transition: transform 220ms ease, box-shadow 220ms ease; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(15,23,42,.08); }
+.card__ico { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--grad); color: #fff; font-weight: 800; box-shadow: 0 6px 16px rgba(79,70,229,.28); }
+.card h3 { margin-block: 18px 10px; }
+.card p { color: var(--muted); font-size: 1rem; }
+
+/* ---- pricing ----------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; background: var(--card); border: 1px solid var(--edge); border-radius: 16px; padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { border-color: #c7d2fe; box-shadow: 0 18px 44px rgba(79,70,229,.14); }
+.tier__flag { display: inline-block; border-radius: 999px; background: var(--grad); color: #fff; padding: 5px 14px; font-size: 0.75rem; font-weight: 600; margin-bottom: 16px; }
+.tier__name { font-size: 0.8125rem; font-weight: 600; color: var(--muted); }
+.tier__price { font-size: clamp(2.125rem, 1.4rem + 2.2vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-block: 12px 2px; }
+.tier__per { font-size: 0.8125rem; font-weight: 600; color: var(--muted); }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid var(--edge); font-size: 0.9375rem; color: var(--muted); }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq --------------------------------------------------------------------------------------------- */
+.faq { max-width: 76ch; }
+.faq details { background: var(--card); border: 1px solid var(--edge); border-radius: 12px; margin-bottom: 14px; }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 20px 24px; cursor: pointer; list-style: none; font-weight: 800; font-size: 1.0625rem; letter-spacing: -0.02em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--indigo); flex: none; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding: 0 24px 22px; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------------- */
+.colophon { background: var(--ink); color: #94a3b8; padding-block: 42px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; font-weight: 500; }
+.colophon a { color: #c7d2fe; text-decoration: none; }
+
+/* ---- preview badge ---------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 60; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--card); color: var(--ink); border: 1px solid var(--edge); border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(15,23,42,.1);
+  padding: 9px 20px; font-size: 0.8125rem; font-weight: 600;
+}
+.flag span { color: var(--muted); font-weight: 500; }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover, .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/enterprise/"><i aria-hidden="true"></i> Meridian</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Authority, with <span class="grad-text">one gradient</span> that earns it</h1>
+        <p class="dim">A cool near-white page, white cards, hairline borders and large blurred orbs
+        that tint a section rather than draw attention. The indigo-to-violet sweep appears on primary
+        actions and on one headline phrase — everywhere else it would be wallpaper.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--out" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="dash">
+        <p class="dash__head"><span>Contrast report</span><span class="pill">All passing</span></p>
+        <p class="dash__row"><span>Ink on the page</span><b>17.06:1</b></p>
+        <p class="dash__row"><span>Indigo as text</span><b>6.01:1</b></p>
+        <p class="dash__row"><span>White on indigo</span><b>6.29:1</b></p>
+        <p class="dash__row"><span>White on violet</span><b>5.70:1</b></p>
+        <p class="dash__row"><span>White on emerald</span><b style="color:#b91c1c">2.54:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>6.29:1</b><span>White on the gradient's start</span></div>
+      <div class="stat"><b>5.70:1</b><span>And on its end</span></div>
+      <div class="stat"><b>2.54:1</b><span>White on the emerald</span></div>
+      <div class="stat"><b>12px</b><span>Card radius</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 40px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__ico">1</span>
+        <h3>The gradient is safe here</h3>
+        <p>Both stops carry white above five to one, which is unusual — most of the gradients in this
+        set fail at their light end. That is what makes a gradient button reasonable in this style
+        and reckless in several others.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">2</span>
+        <h3>The emerald is a status, not a button</h3>
+        <p>White on it is 2.54 to one and the slate ink is 7.04. It belongs on a tick, a dot or a
+        pill with dark text — never as a fill with a white label.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">3</span>
+        <h3>Muted text needs margin</h3>
+        <p>The specified value is 4.55 to one — exactly the AA line. Darkening it slightly costs
+        nothing and means a later change to the page tint cannot quietly push it under.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 40px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price grad-text">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="dim" style="margin-top:24px;font-size:0.875rem">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the page tint, the indigo, Plus Jakarta Sans at three weights, the
+        12px radius and the hairline borders. The gradient fills, the blurred orbs and the dashboard
+        card are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the emerald never a button?</summary>
+        <div>Because white on it is 2.54 to one. It is the right colour for a success state and the
+        wrong colour for anything carrying a white label, which is exactly how the specification
+        uses it — the failure only appears when someone promotes it to an accent.</div>
+      </details>
+      <details>
+        <summary>Why so few gradients?</summary>
+        <div>Because a gradient signals importance by being rare. On the primary action and one
+        headline phrase it reads as emphasis; on every heading and card it becomes the background
+        noise it was meant to rise above.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="card" style="text-align:center;padding-block:clamp(44px,6vw,76px);border-radius:24px">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:20px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:30px"><a class="btn" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Enterprise SaaS — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

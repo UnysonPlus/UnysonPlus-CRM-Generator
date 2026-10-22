@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vaporwave — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Vaporwave preset: a purple-black void, magenta and cyan light tubes, a receding grid and chrome type. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/vaporwave/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#090014">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap">
+<style>
+/* ===========================================================================
+   VAPORWAVE
+   A design preset, shown as a whole page.
+
+   An infinite purple-black space in which everything floats: chrome text, neon
+   tubes, a grid receding to a horizon. Magenta and cyan are not accents here,
+   they are the light sources.
+
+   THE TRAP, measured. Both hero colours are BRIGHT:
+
+       white on #FF00FF   3.14:1      void on it   6.55:1
+       white on #00FFFF   1.25:1      void on it  16.39:1
+
+   And as TEXT on the void they measure the same 6.55 and 16.39 - so the same
+   two values serve links and fills, which is convenient, because this style
+   uses them for both. The rule is simply: a neon fill carries the VOID.
+
+   Borders here are light tubes rather than dividers, which is a statement
+   about WIDTH as much as colour. A hairline cannot read as a tube.
+   ========================================================================= */
+
+:root {
+  --void: #090014;
+  --panel: #1a103c;
+  --chrome: #e0e0e0;
+  --dim: #a79bc8;
+  --magenta: #ff00ff;
+  --cyan: #00ffff;
+  --sunset: #ff9900;
+  --edge: #2d1b4e;
+
+  --head: "Orbitron", ui-monospace, monospace;
+  --body: "Share Tech Mono", ui-monospace, monospace;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(64px, 9vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body { margin: 0; background: var(--void); color: var(--chrome); font-family: var(--body); font-size: 1.0625rem; line-height: 1.7; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); text-transform: uppercase; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(2.125rem, 1rem + 4.6vw, 4.25rem); font-weight: 900; letter-spacing: 0.04em; }
+h2 { font-size: clamp(1.625rem, 1.1rem + 2.2vw, 2.625rem); font-weight: 700; letter-spacing: 0.05em; }
+h3 { font-size: 1.1875rem; font-weight: 700; letter-spacing: 0.06em; color: var(--cyan); text-shadow: 0 0 8px rgba(0,255,255,.45); }
+
+a { color: var(--cyan); }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 95; background: var(--cyan); color: var(--void); padding: 12px 22px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.14em; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.24em; color: var(--magenta); }
+.bar { display: block; height: 3px; width: 120px; background: linear-gradient(90deg, var(--magenta), var(--cyan)); margin-bottom: 18px; }
+
+/* ---- buttons: the void on every neon --------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 28px; border: 0; border-radius: 0; cursor: pointer;
+  background: var(--magenta); color: var(--void);       /* 6.55:1 - never white */
+  font-family: var(--body); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.16em; text-decoration: none;
+  box-shadow: 0 0 18px rgba(255,0,255,.5);
+  transition: box-shadow 200ms ease, filter 200ms ease, transform 200ms ease;
+}
+.btn:hover { box-shadow: 0 0 28px rgba(255,0,255,.8); filter: brightness(1.1); }
+.btn:active { transform: translateY(1px); }
+.btn--cyan { background: var(--cyan); box-shadow: 0 0 18px rgba(0,255,255,.5); }
+.btn--cyan:hover { box-shadow: 0 0 28px rgba(0,255,255,.8); }
+/* an outline button is a TUBE: 3px, not a hairline */
+.btn--tube { background: transparent; color: var(--cyan); border: 3px solid var(--cyan); box-shadow: 0 0 14px rgba(0,255,255,.35), inset 0 0 10px rgba(0,255,255,.18); }
+.btn--tube:hover { background: rgba(0,255,255,.1); box-shadow: 0 0 24px rgba(0,255,255,.6), inset 0 0 14px rgba(0,255,255,.25); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 3px solid var(--edge); }
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 84px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--chrome); font-family: var(--head); font-weight: 900; font-size: 1.0625rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.brand i { width: 14px; height: 14px; background: var(--magenta); box-shadow: 0 0 14px var(--magenta); font-style: normal; }
+.masthead__nav { display: none; gap: 24px; }
+.masthead__nav a { font-size: 0.9375rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--dim); text-decoration: none; transition: color 200ms ease, text-shadow 200ms ease; }
+.masthead__nav a:hover { color: var(--cyan); text-shadow: 0 0 10px rgba(0,255,255,.6); }
+@media (min-width: 960px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ----------------------------------------------------------------------------- */
+.hero { position: relative; padding-block: clamp(48px, 7vw, 100px) var(--bay); overflow: hidden; }
+/* the receding grid + the sun */
+.hero::before {
+  content: ""; position: absolute; left: -10%; right: -10%; bottom: 0; height: 46%;
+  background-image: linear-gradient(rgba(255,0,255,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,.28) 1px, transparent 1px);
+  background-size: 64px 40px;
+  transform: perspective(380px) rotateX(62deg); transform-origin: bottom center;
+  pointer-events: none;
+}
+.hero::after {
+  content: ""; position: absolute; width: 420px; height: 420px; right: 6%; top: -90px; border-radius: 999px;
+  background: linear-gradient(180deg, var(--sunset), var(--magenta));
+  opacity: .22; filter: blur(2px); pointer-events: none;
+}
+.hero__in { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.15fr 0.85fr; } }
+.hero h1 { margin-top: 20px; }
+.hero h1 .m { color: var(--magenta); text-shadow: 0 0 22px rgba(255,0,255,.55); }
+.hero p { margin-top: 24px; max-width: 46ch; color: var(--dim); }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+
+/* the readout panel - glass over the grid */
+.panel { background: rgba(26,16,60,.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 3px solid var(--edge); padding: clamp(22px, 2.6vw, 30px); }
+.panel__row { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--edge); font-size: 0.9375rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.panel__row:last-child { border-bottom: 0; }
+.panel__row span { color: var(--dim); }
+.panel__row b { font-weight: 400; color: var(--cyan); }
+.panel__row b.bad { color: #ff6b8a; }
+
+/* ---- stats ------------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: var(--panel); border: 3px solid var(--edge); padding: clamp(20px, 2.4vw, 30px); }
+.stat b { display: block; font-family: var(--head); font-weight: 900; font-size: clamp(1.5rem, 1rem + 1.9vw, 2.25rem); line-height: 1.1; color: var(--magenta); }
+.stat:nth-child(2) b, .stat:nth-child(4) b { color: var(--cyan); }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--dim); }
+
+/* ---- cards ------------------------------------------------------------------------------------ */
+.cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--panel); border: 3px solid var(--edge); padding: clamp(24px, 2.8vw, 34px); transition: border-color 200ms ease, box-shadow 200ms ease; }
+.card:hover { border-color: var(--cyan); box-shadow: 0 0 22px rgba(0,255,255,.3); }
+.card h3 { margin-block: 12px 10px; }
+.card p { color: var(--dim); font-size: 0.9375rem; }
+
+/* ---- the swatch proof ------------------------------------------------------------------------------ */
+.proof { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .proof { grid-template-columns: repeat(3, 1fr); } }
+.sw { padding: 24px; color: var(--void); }
+.sw b { display: block; font-family: var(--head); font-weight: 700; font-size: 1.25rem; }
+.sw span { display: block; margin-top: 6px; font-size: 0.875rem; }
+.sw--m { background: var(--magenta); } .sw--c { background: var(--cyan); } .sw--o { background: var(--sunset); }
+
+/* ---- pricing ----------------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { background: var(--panel); border: 3px solid var(--edge); padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { border-color: var(--magenta); box-shadow: 0 0 26px rgba(255,0,255,.28); }
+.tier__flag { display: inline-block; background: var(--magenta); color: var(--void); padding: 5px 14px; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 14px; }
+.tier__name { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--dim); }
+.tier__price { font-family: var(--head); font-weight: 900; font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem); line-height: 1; margin-block: 14px 2px; }
+.tier__per { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--dim); }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 10px 0; border-top: 1px solid var(--edge); font-size: 0.9375rem; color: var(--dim); }
+.tier li::before { content: "> "; color: var(--cyan); }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq ------------------------------------------------------------------------------------------------ */
+.faq { max-width: 76ch; }
+.faq details { background: var(--panel); border: 3px solid var(--edge); margin-bottom: 14px; }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 18px 22px; cursor: pointer; list-style: none; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "[+]"; color: var(--cyan); flex: none; }
+.faq details[open] summary::after { content: "[-]"; }
+.faq details > div { padding: 0 22px 22px; color: var(--dim); font-size: 0.9375rem; }
+
+/* ---- colophon ------------------------------------------------------------------------------------------- */
+.colophon { border-top: 3px solid var(--edge); padding-block: 40px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); }
+.colophon a { text-decoration: none; }
+
+/* ---- preview badge ---------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 95; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--panel); border: 3px solid var(--edge); color: var(--chrome);
+  padding: 8px 16px; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.14em;
+}
+.flag span { color: var(--dim); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/vaporwave/"><i aria-hidden="true"></i> Neon Drift</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Access</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--tube" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="bar" aria-hidden="true"></span>
+        <span class="tag">Design preset</span>
+        <h1>The neon is <span class="m">the light</span>, not the paint</h1>
+        <p>A purple-black void, a grid receding to a horizon, and two colours bright enough that they
+        illuminate what they touch. Radius zero everywhere, and borders with enough width to read as
+        tubes rather than as dividers.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--tube" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="panel__row"><span>Chrome on void</span><b>15.57:1</b></p>
+        <p class="panel__row"><span>Void on magenta</span><b>6.55:1</b></p>
+        <p class="panel__row"><span>Void on cyan</span><b>16.39:1</b></p>
+        <p class="panel__row"><span>White on magenta</span><b class="bad">3.14:1</b></p>
+        <p class="panel__row"><span>White on cyan</span><b class="bad">1.25:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>1.25:1</b><span>White on the cyan</span></div>
+      <div class="stat"><b>16.39:1</b><span>Void on the same</span></div>
+      <div class="stat"><b>3px</b><span>Tube, not hairline</span></div>
+      <div class="stat"><b>0</b><span>Radius</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">// What the preset decides</span>
+    <h2 style="margin-block:16px 38px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="tag" style="color:var(--dim)">01</span>
+        <h3>The void on every neon</h3>
+        <p>White on the cyan is one and a quarter to one — the two colours are nearly the same
+        luminance. The background colour on it is sixteen.</p>
+      </article>
+      <article class="card">
+        <span class="tag" style="color:var(--dim)">02</span>
+        <h3>Borders have width</h3>
+        <p>A neon tube is a physical object with a diameter. A one-pixel line in the same colour is a
+        divider pretending to be one, and the difference is immediately visible.</p>
+      </article>
+      <article class="card">
+        <span class="tag" style="color:var(--dim)">03</span>
+        <h3>The black is purple</h3>
+        <p>Nine, zero, twenty. A neutral black makes the neon read as paint on a surface; the purple
+        tint makes it read as light in a space.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ proof ============================ -->
+  <section class="wrap bay" id="proof" style="padding-top:0">
+    <span class="tag">// The pairing, shown rather than claimed</span>
+    <h2 style="margin-block:16px 30px">Void on neon</h2>
+    <div class="proof">
+      <div class="sw sw--m"><b>6.55:1</b><span>Void on #FF00FF</span></div>
+      <div class="sw sw--c"><b>16.39:1</b><span>Void on #00FFFF</span></div>
+      <div class="sw sw--o"><b>9.60:1</b><span>Void on #FF9900</span></div>
+    </div>
+    <p style="margin-top:22px;color:var(--dim);max-width:62ch">The same three fills carrying white
+    would measure 3.14, 1.25 and 2.14. The colours are not the problem — the instinct that a glowing
+    surface must be a dark one is.</p>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">// Pricing, as this preset renders it</span>
+    <h2 style="margin-block:16px 38px">Access tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Drifter</p>
+        <p class="tier__price" style="color:var(--cyan)">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--tube" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Operator</p>
+        <p class="tier__price" style="color:var(--magenta)">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Syndicate</p>
+        <p class="tier__price" style="color:var(--sunset)">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--tube" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:22px;color:var(--dim)">// Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">// Questions</span>
+    <h2 style="margin-block:16px 38px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the void, the two neons, Orbitron over Share Tech Mono, the zero
+        radius and the tube-width borders. The receding grid, the gradient sun and the glass panels
+        are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the button text dark?</summary>
+        <div>Because white on the cyan measures one and a quarter to one — the two are nearly the
+        same luminance, so the label is simply not there. The void colour on it is sixteen. A neon
+        surface feels dark because it is saturated, and it is not.</div>
+      </details>
+      <details>
+        <summary>Why is nothing rounded?</summary>
+        <div>Because the whole visual language is angular — a grid, a horizon, a tube. One rounded
+        corner and the page stops being a space and becomes a card layout with bright colours.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <span class="bar" aria-hidden="true"></span>
+    <h2 style="margin-top:22px;max-width:16ch">Build a site in this preset.</h2>
+    <p style="margin-top:20px;color:var(--dim);max-width:52ch">Describe the business and your own AI
+    agent builds it on WordPress with Unyson+ — real page-builder pages, with this design system
+    applied site-wide.</p>
+    <p style="margin-top:30px"><a class="btn btn--cyan" href="/">Open the creator</a></p>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Vaporwave — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

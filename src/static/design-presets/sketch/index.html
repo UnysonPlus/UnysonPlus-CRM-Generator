@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sketchbook — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Sketchbook preset: warm paper, pencil borders, wobbly corners and a correction-marker red. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/sketch/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FDFBF7">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap">
+<style>
+/* ===========================================================================
+   SKETCHBOOK
+   A design preset, shown as a whole page.
+
+   A page torn from a notebook: warm paper, a soft pencil line, a correction
+   marker and a blue ballpoint. Nothing is machine-straight - borders are thick
+   and variable, corners wobble, cards sit a degree off true. The discipline is
+   that the CONTENT stays perfectly readable while the CONTAINER looks hand-made.
+
+   THE TRAP, measured. The marker red #FF4D4D fails three ways at normal size:
+
+       as text on the paper   3.16:1   FAILS
+       white on it            3.27:1   FAILS
+       pencil ink on it       4.21:1   FAILS
+
+   No combination works, which is the signature of a colour chosen for vibrancy
+   on screen and never measured. #D63333 keeps the marker quality - the
+   saturation stays, the lightness comes down - at 4.64 as text and 4.79 under
+   white.
+   ========================================================================= */
+
+:root {
+  --paper: #fdfbf7;
+  --paper-2: #f5f1e8;
+  --pencil: #2d2d2d;
+  --erased: #e5e0d8;
+  --marker: #d63333;      /* NOT #FF4D4D */
+  --pen: #2d5da1;
+  --grey: #5c5c5c;
+
+  --head: "Kalam", cursive;
+  --body: "Patrick Hand", cursive;
+
+  /* no two corners match, and they swap on hover so the line looks redrawn */
+  --wob: 14px 22px 16px 20px;
+  --wob-2: 20px 14px 22px 16px;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(64px, 9vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--paper); color: var(--pencil);
+  font-family: var(--body); font-size: 1.1875rem; line-height: 1.65;   /* a size up: a hand face at 16px is hard work */
+  overflow-x: hidden;
+}
+/* ruled-paper feint, kept very light */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0.5;
+  background-image: repeating-linear-gradient(0deg, transparent 0 31px, rgba(45,93,161,.07) 31px 32px);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 700; line-height: 1.2; text-wrap: balance; }
+h1 { font-size: clamp(2.25rem, 1.2rem + 4.2vw, 4rem); }
+h2 { font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.625rem); }
+h3 { font-size: 1.5rem; }
+.dim { color: var(--grey); }
+
+a { color: var(--pen); }
+:focus-visible { outline: 3px solid var(--pen); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 90; background: var(--marker); color: #fff; border: 2px solid var(--pencil); border-radius: var(--wob); padding: 12px 22px; text-decoration: none; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1080px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; border: 2px solid var(--pencil); background: var(--erased); border-radius: var(--wob-2); padding: 5px 16px; font-size: 1rem; }
+
+/* ---- buttons ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 28px; cursor: pointer;
+  border: 2px solid var(--pencil); border-radius: var(--wob);
+  background: var(--marker); color: #fff;            /* 4.79:1 */
+  font-family: var(--body); font-size: 1.125rem; text-decoration: none;
+  transition: border-radius 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+.btn:hover { border-radius: var(--wob-2); transform: rotate(-1deg); }
+.btn--pen { background: var(--pen); }
+.btn--plain { background: var(--erased); color: var(--pencil); }
+.btn--plain:hover { background: var(--pen); color: #fff; }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 3px solid var(--pencil); }
+.masthead__in { display: flex; align-items: center; gap: 22px; min-height: 86px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--pencil); font-family: var(--head); font-weight: 700; font-size: 1.5rem; }
+.brand i { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--pencil); border-radius: var(--wob); background: var(--marker); color: #fff; font-style: normal; font-size: 1rem; }
+.masthead__nav { display: none; gap: 22px; }
+.masthead__nav a { font-size: 1.0625rem; color: var(--pencil); text-decoration: none; }
+.masthead__nav a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: var(--marker); }
+@media (min-width: 940px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ---------------------------------------------------------------------------- */
+.hero { padding-block: clamp(44px, 6vw, 92px) var(--bay); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 60px); align-items: center; }
+@media (min-width: 980px) { .hero__in { grid-template-columns: 1.1fr 0.9fr; } }
+.hero h1 { margin-top: 18px; }
+.hero h1 u { text-decoration: none; border-bottom: 4px solid var(--marker); border-radius: 2px; }
+.hero p { margin-top: 22px; max-width: 44ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+
+/* the margin-note panel, pinned at an angle */
+.note { position: relative; border: 3px solid var(--pencil); border-radius: var(--wob); background: #fff; padding: clamp(24px, 3vw, 34px); transform: rotate(-1.2deg); }
+.note > * { transform: rotate(1.2deg); }   /* content stays upright inside a rotated container */
+.note__row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 2px dashed var(--erased); font-size: 1.0625rem; }
+.note__row:last-child { border-bottom: 0; }
+.note__row span { color: var(--grey); }
+.note__row b { font-weight: 400; color: var(--pen); }
+.note__row b.bad { color: var(--marker); }
+
+/* ---- stats ------------------------------------------------------------------------------ */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border: 2px solid var(--pencil); border-radius: var(--wob); background: #fff; padding: clamp(20px, 2.4vw, 30px); }
+.stat:nth-child(2n) { border-radius: var(--wob-2); background: var(--paper-2); }
+.stat b { display: block; font-family: var(--head); font-weight: 700; font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.5rem); line-height: 1.1; }
+.stat span { display: block; margin-top: 8px; font-size: 1rem; color: var(--grey); }
+
+/* ---- cards --------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { border: 2px solid var(--pencil); border-radius: var(--wob); background: #fff; padding: clamp(24px, 2.8vw, 34px); transition: transform 220ms ease, border-radius 220ms ease; }
+.card:nth-child(2) { border-radius: var(--wob-2); }
+.card:hover { transform: rotate(1deg); border-radius: var(--wob-2); }
+.card:nth-child(2):hover { transform: rotate(-1deg); }
+.card > * { transition: transform 220ms ease; }
+.card:hover > * { transform: rotate(-1deg); }
+.card:nth-child(2):hover > * { transform: rotate(1deg); }
+.card__n { display: grid; place-items: center; width: 42px; height: 42px; border: 2px solid var(--pencil); border-radius: 999px; font-family: var(--head); font-weight: 700; }
+.card h3 { margin-block: 16px 8px; }
+.card p { color: var(--grey); font-size: 1.0625rem; }
+
+/* ---- pricing ----------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+@media (min-width: 940px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; border: 2px solid var(--pencil); border-radius: var(--wob); background: #fff; padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { border-width: 4px; border-radius: var(--wob-2); background: var(--paper-2); }
+.tier__flag { position: absolute; top: -18px; right: -6px; border: 2px solid var(--pencil); border-radius: var(--wob); background: var(--marker); color: #fff; padding: 4px 14px; font-size: 0.9375rem; transform: rotate(4deg); }
+.tier__name { font-size: 1rem; color: var(--grey); }
+.tier__price { font-family: var(--head); font-weight: 700; font-size: clamp(2.25rem, 1.5rem + 2.2vw, 3rem); line-height: 1; margin-block: 10px 2px; }
+.tier__per { font-size: 1rem; color: var(--grey); }
+.tier ul { list-style: none; margin: 20px 0 0; padding: 0; }
+.tier li { padding: 9px 0; border-top: 2px dashed var(--erased); font-size: 1.0625rem; }
+.tier li::before { content: "\2713  "; color: var(--pen); }
+.tier .btn { margin-top: 22px; }
+
+/* ---- faq ------------------------------------------------------------------------------------------- */
+.faq { display: grid; gap: 16px; max-width: 70ch; }
+.faq details { border: 2px solid var(--pencil); border-radius: var(--wob); background: #fff; overflow: hidden; }
+.faq details:nth-child(2n) { border-radius: var(--wob-2); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 22px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 700; font-size: 1.25rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--marker); font-size: 1.5rem; line-height: 1; flex: none; }
+.faq details[open] summary { background: var(--erased); border-bottom: 2px solid var(--pencil); }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > div { padding: 18px 22px; color: var(--grey); font-size: 1.0625rem; }
+
+/* ---- colophon -------------------------------------------------------------------------------------- */
+.colophon { background: var(--pencil); color: var(--erased); padding-block: 40px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; font-size: 1.0625rem; }
+.colophon a { color: #ff9b9b; text-decoration: none; }
+
+/* ---- preview badge ------------------------------------------------------------------------------------ */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 90; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: #fff; color: var(--pencil); border: 2px solid var(--pencil); border-radius: var(--wob);
+  padding: 7px 18px; font-size: 1rem; transform: rotate(-1deg);
+}
+.flag span { color: var(--grey); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover, .card:hover > *, .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/sketch/"><i aria-hidden="true">✎</i> Margin Notes</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--plain" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>Hand-made containers, <u>machine-readable</u> content</h1>
+        <p class="dim">Thick pencil borders, four different corner radii so no two match, and cards
+        that sit a degree off true. The text inside them stays upright and plain, because that is the
+        only part of a hand-drawn interface that must not be hand-drawn.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--plain" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="note">
+        <p class="note__row"><span>Pencil on paper</span><b>13.33:1</b></p>
+        <p class="note__row"><span>Ballpoint on paper</span><b>6.37:1</b></p>
+        <p class="note__row"><span>This marker red</span><b>4.64:1</b></p>
+        <p class="note__row"><span>The spec's red, as text</span><b class="bad">3.16:1</b></p>
+        <p class="note__row"><span>…and under white</span><b class="bad">3.27:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>4</b><span>Corner radii, all different</span></div>
+      <div class="stat"><b>2px</b><span>Minimum border</span></div>
+      <div class="stat"><b>3.16:1</b><span>The spec's marker red</span></div>
+      <div class="stat"><b>1°</b><span>Rotation, containers only</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 40px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__n">1</span>
+        <h3>The marker had to come down</h3>
+        <p>Three point one six as text, three point two seven under white, four point two one under
+        the pencil. It fails in every direction — a colour picked for how it looks and never
+        measured.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">2</span>
+        <h3>No two corners match</h3>
+        <p>Four radius values per element, swapping on hover so the line appears redrawn. One uniform
+        radius and this is an ordinary card with a funny font.</p>
+      </article>
+      <article class="card">
+        <span class="card__n">3</span>
+        <h3>Rotate the box, not the words</h3>
+        <p>A container tilts a degree; its contents counter-rotate so they sit straight. Tilted body
+        text is harder to read and buys nothing.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 44px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--plain" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--pen" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:26px;background:#fff">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings, and a
+        generated site carries the paper, the pencil ink, the two handwriting faces, the larger body
+        size and the two-pixel border with its irregular radius. The rotations, the dashed rules and
+        the ruled feint are markup, so a section that wants them still asks for them.</div>
+      </details>
+      <details>
+        <summary>Why is the red darker than the specification?</summary>
+        <div>Because the specified red is the rare colour that fails in all three directions at
+        once. Keeping the saturation and lowering the lightness holds the marker quality and moves
+        it to four and a half to one in both of the directions that matter.</div>
+      </details>
+      <details>
+        <summary>Why is the body text so large?</summary>
+        <div>Because a handwriting face at sixteen pixels is harder work than a text face at the same
+        size — the letterforms are less regular, so the eye does more. A point or two up costs
+        nothing and is the difference between charming and tiring.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="note" style="text-align:center;transform:rotate(.8deg)">
+      <div style="transform:rotate(-.8deg)">
+        <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+        <p class="dim" style="margin-top:18px;max-width:50ch;margin-inline:auto">Describe the business
+        and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+        design system applied site-wide.</p>
+        <p style="margin-top:28px"><a class="btn" href="/">Open the creator</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Sketchbook — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
