@@ -660,15 +660,17 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         whole site rather than to each element. You can change any of it afterwards in WordPress.</p>
       </div>
       <figure class="stylep">
+        <a class="stylep__link" href="/design-presets/monochrome/">
         <img src="/assets/img/styles/monochrome.png" width="1280" height="967" loading="lazy" decoding="async"
              alt="A monochrome editorial style: a large serif headline in near-black on white, a square-cornered black button, and a pale grey band below it.">
+        </a>
         <figcaption>
           <b>Monochrome editorial</b>
-          <span>Near-black on white, a serif headline over a sans body, square corners, and a three-step
-          surface rhythm. Built on a real WordPress install — this is a screenshot of the output, not a mock-up.</span>
+          <span>Pure black on white, serif display type, square corners and a three-step surface
+          rhythm. <a href="/design-presets/monochrome/">See the whole preset as a page →</a></span>
         </figcaption>
       </figure>
-      <p class="stylep__note">More styles are being added. Until then the creator uses this one unless you ask for something else.</p>
+      <p class="stylep__note">More presets are being added. Until then the creator uses this one unless you ask for something else.</p>
     </div>
   </section>
 
@@ -851,6 +853,10 @@ urls.push('/');
 console.log('built / (Site Creator home)');
 
 urls.sort((a, b) => a.length - b.length);
+// Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
+// `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
+urls.push('/design-presets/monochrome/');
+
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url>

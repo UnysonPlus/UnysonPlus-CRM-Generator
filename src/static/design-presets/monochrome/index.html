@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monochrome editorial — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Monochrome editorial preset: pure black and white, serif display type, zero radius, line-based structure and inversion for emphasis. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/monochrome/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ===========================================================================
+   MONOCHROME EDITORIAL
+   A design preset, shown as a whole page rather than a swatch. The point of the
+   style is that it has nowhere to hide: no accent colour, no gradient, no
+   shadow. Scale, contrast, rule weight and negative space do all the work, so
+   the only way to judge it is at full length.
+
+   Everything here is defined as a token first and used second, because that is
+   also how the preset is stored in WordPress - as Theme Settings the whole site
+   inherits, not as styling attached to each element.
+   ========================================================================= */
+
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: #f5f5f5;
+  --muted-fg: #525252;
+  --line-light: #e5e5e5;
+
+  /* Rule weights. The style's structure is lines, so these are design tokens
+     in their own right rather than arbitrary border values. */
+  --rule-hair: 1px;
+  --rule-thin: 1px;
+  --rule-med: 2px;
+  --rule-thick: 4px;
+  --rule-ultra: 8px;
+
+  --display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --measure: 68ch;
+  --gutter: clamp(20px, 5vw, 48px);
+  --bay: clamp(64px, 10vw, 160px);   /* vertical section rhythm */
+
+  /* ZERO. Repeated as a token so a future component cannot quietly invent a
+     radius of its own - the sharp corner is the style, not a default. */
+  --radius: 0;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  /* 18px preferred body size, easing up on wide screens. */
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height: 1.625;
+  font-synthesis-weight: none;
+}
+
+/* The page carries a faint horizontal line texture. Without it the large empty
+   areas read as unfinished rather than as deliberate space - this is the one
+   thing that separates "minimal" from "flat". It is decorative only, so it is
+   painted on a pseudo-element and hidden from assistive tech. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, #000 1px, #000 2px);
+  background-size: 100% 4px;
+  opacity: 0.015;
+}
+body > * { position: relative; z-index: 1; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; }
+
+a { color: inherit; }
+
+/* ---- focus: a 3px rule, offset, and only for keyboard users -------------- */
+:focus-visible {
+  outline: 3px solid var(--fg);
+  outline-offset: 3px;
+}
+.on-dark :focus-visible { outline-color: var(--bg); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px;
+  background: var(--fg); color: var(--bg);
+  padding: 14px 20px; z-index: 50;
+  font-family: var(--mono); font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+}
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1152px; margin-inline: auto; padding-inline: var(--gutter); }
+
+/* ---- the eyebrow chip: a bordered label with a small filled square -------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: var(--rule-thin) solid var(--fg);
+  padding: 9px 16px;
+  font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.chip::before { content: ""; width: 7px; height: 7px; background: var(--fg); flex: none; }
+.on-dark .chip { border-color: var(--bg); }
+.on-dark .chip::before { background: var(--bg); }
+
+/* ---- the section label: tracked mono, then a hairline running right ------- */
+.label {
+  display: flex; align-items: center; gap: 20px;
+  font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+.label::after { content: ""; flex: 1; height: var(--rule-hair); background: var(--fg); }
+.on-dark .label::after { background: var(--bg); }
+
+/* ---- buttons: inversion on hover, and effectively instant ----------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 48px;                 /* a comfortable touch target */
+  padding: 15px 30px;
+  border: var(--rule-med) solid var(--fg);
+  background: var(--fg); color: var(--bg);
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+  cursor: pointer;
+  transition: background-color 100ms linear, color 100ms linear;
+}
+.btn:hover { background: var(--bg); color: var(--fg); }
+.btn--out { background: transparent; color: var(--fg); }
+.btn--out:hover { background: var(--fg); color: var(--bg); }
+.btn__arrow { font-family: var(--body); font-size: 1rem; line-height: 1; }
+
+.on-dark .btn { border-color: var(--bg); background: var(--bg); color: var(--fg); }
+.on-dark .btn:hover { background: transparent; color: var(--bg); }
+
+/* ---- sections, divided by heavy rules ------------------------------------ */
+.bay { padding-block: var(--bay); border-top: var(--rule-thick) solid var(--fg); }
+.bay--first { border-top: 0; }
+
+.ink {
+  background: var(--fg); color: var(--bg);
+  border-top: var(--rule-thick) solid var(--fg);
+}
+/* On the inverted bands the texture flips to white lines, otherwise the band
+   reads as a dead rectangle next to the textured page. */
+.ink { position: relative; }
+.ink::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 1px, #fff 1px, #fff 2px);
+  background-size: 4px 100%;
+  opacity: 0.03;
+}
+.ink > * { position: relative; z-index: 1; }
+
+/* ======================= masthead ======================================== */
+.masthead { border-bottom: var(--rule-thin) solid var(--fg); }
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 76px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; margin-right: auto; }
+.brand__mark {
+  width: 34px; height: 34px; flex: none;
+  border: var(--rule-med) solid var(--fg);
+  display: grid; place-items: center;
+  font-family: var(--display); font-size: 1.05rem; line-height: 1;
+}
+.brand__name { font-family: var(--display); font-size: 1.2rem; letter-spacing: -0.01em; }
+.masthead__nav { display: none; gap: 34px; }
+.masthead__nav a {
+  font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+  border-bottom: var(--rule-med) solid transparent; padding-block: 4px;
+  transition: border-color 100ms linear;
+}
+.masthead__nav a:hover, .masthead__nav a:focus-visible { border-bottom-color: var(--fg); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ======================= hero ============================================ */
+.hero { padding-block: clamp(56px, 9vw, 128px) var(--bay); }
+.hero h1 {
+  /* The headline is the graphic. It runs to 9rem on a wide screen and still
+     fits a phone, because the clamp floor is sized for 320px rather than for
+     how impressive it looks on a laptop. */
+  font-size: clamp(2.75rem, 1.1rem + 8.4vw, 9rem);
+  margin-block: clamp(28px, 4vw, 48px) 0;
+  max-width: 16ch;
+}
+/* Punctuation under the headline: a short thick rule and a small open square. */
+.hero__mark { display: flex; align-items: center; gap: 16px; margin-top: clamp(28px, 4vw, 44px); }
+.hero__mark i { display: block; width: 128px; height: var(--rule-thick); background: var(--fg); }
+.hero__mark s { display: block; width: 11px; height: 11px; border: var(--rule-med) solid var(--fg); }
+.hero__lede {
+  margin-top: clamp(28px, 4vw, 44px);
+  max-width: 54ch;
+  color: var(--muted-fg);
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+}
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: clamp(36px, 5vw, 56px); }
+
+/* ======================= stats =========================================== */
+.stats { display: grid; grid-template-columns: 1fr; gap: 0; }
+.stat { padding: clamp(28px, 4vw, 44px) 0; border-top: var(--rule-thin) solid rgba(255,255,255,0.28); }
+.stat:first-child { border-top: 0; }
+.stat b { display: block; font-family: var(--display); font-size: clamp(2.75rem, 1.4rem + 5vw, 5rem); font-weight: 500; line-height: 1; letter-spacing: -0.03em; }
+.stat span { display: block; margin-top: 14px; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.72; }
+@media (min-width: 760px) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  .stat { border-top: 0; border-left: var(--rule-thin) solid rgba(255,255,255,0.28); padding: 0 clamp(20px, 3vw, 36px); }
+  .stat:first-child { padding-left: 0; border-left: 0; }
+}
+
+/* ======================= feature cards =================================== */
+.cards { display: grid; grid-template-columns: 1fr; gap: 0; border: var(--rule-thin) solid var(--fg); }
+.card {
+  padding: clamp(28px, 4vw, 44px);
+  border-top: var(--rule-thin) solid var(--fg);
+  transition: background-color 100ms linear, color 100ms linear;
+}
+.card:first-child { border-top: 0; }
+.card:hover { background: var(--fg); color: var(--bg); }
+.card__n { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; }
+.card h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin-block: 20px 14px; }
+.card p { color: var(--muted-fg); }
+.card:hover p { color: var(--bg); }
+@media (min-width: 860px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .card { border-top: 0; border-left: var(--rule-thin) solid var(--fg); }
+  .card:first-child { border-left: 0; }
+}
+
+/* ======================= type specimen =================================== */
+.spec { display: grid; gap: clamp(36px, 5vw, 64px); }
+@media (min-width: 900px) { .spec { grid-template-columns: 1fr 1fr; } }
+.spec__rows > * + * { margin-top: clamp(20px, 3vw, 32px); padding-top: clamp(20px, 3vw, 32px); border-top: var(--rule-hair) solid var(--line-light); }
+.spec__row { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.spec__row em { font-family: var(--mono); font-size: 0.625rem; font-style: normal; letter-spacing: 0.14em; color: var(--muted-fg); text-transform: uppercase; flex: none; }
+.spec__prose p + p { margin-top: 1.1em; }
+/* A bordered drop cap: the first letter boxed rather than merely enlarged. */
+.dropcap::first-letter {
+  float: left; font-family: var(--display); font-size: 3.4em; line-height: 0.78;
+  margin: 0.06em 0.18em 0 0; padding: 0.12em 0.16em;
+  border: var(--rule-med) solid var(--fg);
+}
+
+/* ======================= pull quote ====================================== */
+.quote { position: relative; max-width: var(--measure); }
+.quote__mark {
+  font-family: var(--display); font-size: clamp(6rem, 3rem + 11vw, 13rem);
+  line-height: 0.72; display: block; margin-bottom: -0.18em;
+}
+.quote blockquote {
+  margin: 0; font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.5rem, 1rem + 2.4vw, 2.75rem); line-height: 1.22; letter-spacing: -0.02em;
+}
+.quote figcaption { margin-top: clamp(24px, 3vw, 36px); padding-top: 18px; border-top: var(--rule-med) solid var(--fg); font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; }
+
+/* ======================= pricing ========================================= */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 0; border: var(--rule-thin) solid var(--fg); }
+.tier { padding: clamp(28px, 4vw, 40px); border-top: var(--rule-thin) solid var(--fg); display: flex; flex-direction: column; transition: background-color 100ms linear, color 100ms linear; }
+.tier:first-child { border-top: 0; }
+.tier:hover { background: var(--fg); color: var(--bg); }
+.tier__name { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.tier__price { font-family: var(--display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); font-weight: 500; line-height: 1; letter-spacing: -0.03em; margin-block: 20px 6px; }
+.tier__per { font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-fg); }
+.tier:hover .tier__per { color: var(--bg); }
+.tier ul { list-style: none; margin: clamp(22px, 3vw, 32px) 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: var(--rule-hair) solid var(--line-light); font-size: 0.95rem; }
+.tier:hover li { border-top-color: rgba(255,255,255,0.28); }
+.tier .btn { margin-top: clamp(24px, 3vw, 32px); }
+.tier--lead { background: var(--fg); color: var(--bg); }
+.tier--lead .tier__per, .tier--lead li { color: var(--bg); }
+.tier--lead li { border-top-color: rgba(255,255,255,0.28); }
+.tier--lead .btn { border-color: var(--bg); background: var(--bg); color: var(--fg); }
+.tier--lead .btn:hover { background: transparent; color: var(--bg); }
+.tier--lead:hover { background: var(--fg); }
+@media (min-width: 900px) {
+  .tiers { grid-template-columns: repeat(3, 1fr); }
+  .tier { border-top: 0; border-left: var(--rule-thin) solid var(--fg); }
+  .tier:first-child { border-left: 0; }
+  /* The lead tier breaks the grid line rather than wearing a badge. */
+  .tier--lead { margin-block: calc(var(--rule-thick) * -6); padding-block: calc(clamp(28px, 4vw, 40px) + var(--rule-thick) * 6); }
+}
+
+/* ======================= faq ============================================= */
+.faq { border-top: var(--rule-med) solid var(--fg); max-width: var(--measure); }
+.faq details { border-bottom: var(--rule-thin) solid var(--fg); }
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: clamp(20px, 3vw, 28px) 0; cursor: pointer; list-style: none;
+  font-family: var(--display); font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--body); font-size: 1.5rem; line-height: 1; flex: none; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq p { padding-bottom: clamp(20px, 3vw, 28px); color: var(--muted-fg); max-width: 58ch; }
+
+/* ======================= closing ========================================= */
+.closing { text-align: center; }
+.closing h2 { font-size: clamp(2.25rem, 1.2rem + 5vw, 5rem); max-width: 18ch; margin-inline: auto; }
+.closing p { margin-top: clamp(22px, 3vw, 32px); margin-inline: auto; max-width: 52ch; opacity: 0.78; }
+.closing .hero__acts { justify-content: center; }
+
+/* ======================= colophon ======================================== */
+.colophon { border-top: var(--rule-ultra) solid var(--fg); padding-block: clamp(36px, 5vw, 64px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: baseline; }
+.colophon p { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-fg); }
+.colophon a { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: var(--rule-thin) solid var(--fg); text-decoration: none; padding-bottom: 3px; }
+
+/* A plain-language note about what this page is. Set quietly, because it is
+   housekeeping rather than part of the design being shown. */
+.note { border: var(--rule-thin) solid var(--line-light); background: var(--muted); padding: clamp(20px, 3vw, 28px); max-width: var(--measure); }
+.note p { font-size: 0.9375rem; color: var(--muted-fg); }
+.note p + p { margin-top: 0.8em; }
+.note b { color: var(--fg); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/monochrome/">
+      <span class="brand__mark" aria-hidden="true">M</span>
+      <span class="brand__name">Monochrome</span>
+    </a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#structure">Structure</a>
+      <a href="#type">Type</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="chip">Design preset</span>
+      <h1>Black, white, and nowhere to hide.</h1>
+      <div class="hero__mark" aria-hidden="true"><i></i><s></s></div>
+      <p class="hero__lede">A preset with no accent colour, no gradient and no shadow. Scale, rule
+      weight and negative space carry the whole design, which is why it has to be judged at full
+      length rather than as a swatch.</p>
+      <div class="hero__acts">
+        <a class="btn" href="/">Build a site with this <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--out" href="#structure">See how it is built</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="ink on-dark">
+    <div class="wrap" style="padding-block: var(--bay)">
+      <div class="stats">
+        <div class="stat"><b>2</b><span>Colours</span></div>
+        <div class="stat"><b>0</b><span>Border radius</span></div>
+        <div class="stat"><b>5</b><span>Rule weights</span></div>
+        <div class="stat"><b>21:1</b><span>Text contrast</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== structure ========================== -->
+  <section class="bay" id="structure">
+    <div class="wrap">
+      <p class="label">What the preset decides</p>
+      <div class="cards">
+        <article class="card">
+          <p class="card__n">01</p>
+          <h3>Palette</h3>
+          <p>True black on true white. Grey appears only for secondary text and hairlines, so every
+          element has to earn its place through position and weight instead of hue.</p>
+        </article>
+        <article class="card">
+          <p class="card__n">02</p>
+          <h3>Structure</h3>
+          <p>Lines rather than boxes. Hairlines divide, 2px borders enclose, 4px rules separate
+          sections and 8px closes the page — structure with no mass behind it.</p>
+        </article>
+        <article class="card">
+          <p class="card__n">03</p>
+          <h3>Emphasis</h3>
+          <p>Inversion instead of colour. Where another preset would reach for an accent, this one
+          swaps black and white — as this card does when you hover it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ type ============================ -->
+  <section class="bay" id="type">
+    <div class="wrap">
+      <p class="label">Type</p>
+      <div class="spec">
+        <div class="spec__rows">
+          <div class="spec__row"><h2 style="font-size:clamp(2.5rem,1.4rem+4vw,4.5rem)">Display</h2><em>72 / 1.0</em></div>
+          <div class="spec__row"><h3 style="font-size:clamp(1.75rem,1.2rem+2vw,2.5rem)">Section title</h3><em>40 / 1.1</em></div>
+          <div class="spec__row"><h4 style="font-size:1.25rem">Subheading</h4><em>20 / 1.3</em></div>
+          <div class="spec__row"><p style="font-family:var(--mono);font-size:0.6875rem;letter-spacing:0.18em;text-transform:uppercase">Label</p><em>11 / mono</em></div>
+        </div>
+        <div class="spec__prose">
+          <p class="dropcap">Two serifs do the work: a high-contrast display face for anything large,
+          and a text face sized for reading at length. The pairing is what makes the style read as
+          editorial rather than merely plain — a single sans would have made the same page look like
+          a wireframe of itself.</p>
+          <p>The measure is set in characters rather than pixels, so a line holds roughly the same
+          number of words whatever the screen. That is the part most often lost when a design is
+          rebuilt from a screenshot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== quote ============================ -->
+  <section class="bay">
+    <div class="wrap">
+      <figure class="quote">
+        <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote>Restraint is only convincing at length. A monochrome swatch tells you nothing;
+        a monochrome page tells you whether the restraint was a decision or an absence.</blockquote>
+        <figcaption>On judging a design system</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========================== pricing =========================== -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <p class="label">Pricing, as this preset renders it</p>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+      </div>
+      <p style="margin-top:clamp(20px,3vw,28px);font-family:var(--mono);font-size:0.625rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-fg)">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================= -->
+  <section class="bay" id="faq">
+    <div class="wrap">
+      <p class="label">Questions</p>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <p>This page is hand-built to the preset's specification, so you can see the style at full
+          length. The preset itself is a set of WordPress Theme Settings — the note at the foot of
+          the page says exactly which parts a built site carries today.</p>
+        </details>
+        <details>
+          <summary>Can I change it afterwards?</summary>
+          <p>Yes. A preset only sets Theme Settings, and every one of them stays editable in
+          WordPress. Changing the palette moves every button and link that references it, because
+          they point at the role rather than carrying a colour of their own.</p>
+        </details>
+        <details>
+          <summary>Why serif, and why no accent colour?</summary>
+          <p>The serif is what keeps a two-colour page from reading as a wireframe, and the missing
+          accent is the constraint that makes the rest work: with nothing to highlight with, scale
+          and inversion have to carry emphasis, which is a more durable hierarchy than a coloured
+          button.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== closing ========================== -->
+  <section class="ink on-dark closing">
+    <div class="wrap" style="padding-block: var(--bay)">
+      <h2>Build a site in this preset.</h2>
+      <p>Describe the business and your own AI agent builds it on WordPress with Unyson+ — real
+      page-builder pages, with this design system applied site-wide.</p>
+      <div class="hero__acts">
+        <a class="btn" href="/">Open the creator <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ note ============================ -->
+  <section class="bay">
+    <div class="wrap">
+      <div class="note">
+        <p><b>What this page is.</b> A specimen of the Monochrome editorial preset, hand-built to its
+        specification so the style can be seen whole rather than as a thumbnail.</p>
+        <p><b>What a built site carries today.</b> The preset applies the palette, the type scale and
+        pairing, zero radius, the three surfaces and the inversion-on-dark rule as Theme Settings, so
+        those arrive on every page of a generated site. The finer editorial details on this page — the
+        boxed drop cap, the pull-quote mark, the elevated pricing tier, the line textures — are being
+        folded into the preset and are not all emitted automatically yet.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Monochrome editorial — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

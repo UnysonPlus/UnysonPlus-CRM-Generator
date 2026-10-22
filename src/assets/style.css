@@ -504,3 +504,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .stylep figcaption b { font-size: 1.08rem; }
 .stylep figcaption span { color: var(--ink-2); font-size: 0.93rem; }
 .stylep__note { color: var(--ink-2); font-size: 0.93rem; margin: 16px 0 0; }
+.stylep__link { display: block; }
+.stylep__link:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
+.stylep figcaption a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
