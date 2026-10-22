@@ -163,6 +163,9 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; line-heig
   position: absolute; right: 14px; bottom: 18px; display: none;
   writing-mode: vertical-rl; text-orientation: mixed;
   font-size: 0.5625rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--paper);
+  /* The plate it sits on is a gradient whose top-left is near-white, so a bare white label is
+     only safe where it happens to be dark. A scrim makes it safe wherever it lands. */
+  padding: 10px 4px; background: rgba(26,26,26,0.92);
 }
 @media (min-width: 1024px) { .plate__vert { display: block; } }
 

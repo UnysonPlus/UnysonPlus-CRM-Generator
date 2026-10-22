@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Art Deco — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Art Deco preset: obsidian and gold, stepped corners, rotated diamonds, Roman numerals and glows instead of shadows. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/art-deco/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Josefin+Sans:wght@300;400;600&display=swap">
+<style>
+/* ===========================================================================
+   ART DECO
+   A design preset, shown as a whole page.
+
+   Maximalist restraint: every element is ornamental, and every ornament is
+   precisely placed. Where most presets in this gallery prize asymmetry, this
+   one is deliberately SYMMETRICAL - content radiating from a centre line, like
+   the facade of a cinema palace.
+
+   THE TRAP here is a border rather than a colour. The text pairings are all
+   comfortable (gold 9.4:1, cream 17.3:1, pewter 5.6:1). But the source spec
+   puts a card's RESTING border at gold-at-30%, which composited over the
+   charcoal card is about 2:1 - below the 3:1 minimum for a non-text indicator.
+   A card whose only resting affordance is that border is effectively unbordered
+   until hovered. Resting gold borders here are 60% (~3.95:1); the brightening
+   on hover is an enhancement, not the thing that first makes it visible.
+   ========================================================================= */
+
+:root {
+  --ground: #0a0a0a;
+  --card: #141414;
+  --cream: #f2f0e4;    /* 17.3:1 */
+  --gold: #d4af37;     /* 9.4:1  */
+  --gold-lt: #f2e8c4;
+  --pewter: #888888;   /* 5.6:1  */
+  --midnight: #1e3d59;
+
+  /* 60%, not 30% - see the note above. */
+  --gold-rest: rgba(212, 175, 55, 0.6);
+  --gold-glow: 0 0 15px rgba(212, 175, 55, 0.2);
+
+  --display: "Marcellus", Georgia, serif;
+  --body: "Josefin Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --bay: clamp(72px, 10vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--ground); color: var(--cream);
+  font-family: var(--body); font-weight: 400;
+  font-size: clamp(1rem, 0.96rem + 0.3vw, 1.125rem);
+  line-height: 1.75;
+  overflow-x: hidden;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 22px, rgba(212,175,55,0.03) 22px, rgba(212,175,55,0.03) 23px),
+                    repeating-linear-gradient(-45deg, transparent, transparent 22px, rgba(212,175,55,0.03) 22px, rgba(212,175,55,0.03) 23px);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: 0.2em; line-height: 1.2; text-wrap: balance; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--gold); color: var(--ground); padding: 13px 20px;
+  font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+}
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+.mid { text-align: center; }
+
+.label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+.muted { color: var(--pewter); }
+
+/* ---- a measured divider: short rules flanking, never full width ---------------- */
+.div-orn { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.div-orn i { display: block; width: clamp(40px, 7vw, 88px); height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.div-orn i:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+.div-orn span { color: var(--gold); font-size: 0.75rem; }
+
+/* ---- buttons ------------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 14px 32px;
+  border: 2px solid var(--gold); background: transparent; color: var(--gold);
+  font-family: var(--body); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+  border-radius: 0; cursor: pointer; box-shadow: var(--gold-glow);
+  transition: background-color 300ms ease-out, color 300ms ease-out, box-shadow 300ms ease-out;
+}
+.btn:hover { background: var(--gold); color: var(--ground); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+/* the metallic sheen: the one gradient this style permits */
+.btn--solid { background: linear-gradient(180deg, var(--gold-lt), var(--gold) 50%, #b8953f); color: var(--ground); }
+.btn--solid:hover { background: linear-gradient(180deg, #fff6dd, var(--gold-lt) 50%, var(--gold)); color: var(--ground); }
+.btn--ghost { border-color: var(--gold-rest); box-shadow: none; }
+.btn--ghost:hover { background: var(--midnight); color: var(--cream); border-color: var(--gold); }
+
+/* ---- masthead -------------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--gold-rest); }
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 86px; }
+.brand { font-family: var(--display); font-size: 1.25rem; letter-spacing: 0.26em; text-transform: uppercase; text-decoration: none; margin-right: auto; }
+.masthead__nav { display: none; gap: 30px; }
+.masthead__nav a { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; transition: color 300ms ease-out; }
+.masthead__nav a:hover { color: var(--gold); }
+@media (min-width: 960px) { .masthead__nav { display: flex; } }
+
+/* ---- hero: symmetrical, with a sunburst ---------------------------------------------- */
+.hero { position: relative; overflow: hidden; padding-block: clamp(56px, 9vw, 120px); }
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 50% at 50% 0%, rgba(212,175,55,0.18), transparent 70%);
+}
+.hero__in { position: relative; }
+.hero h1 { font-size: clamp(2rem, 1rem + 4.6vw, 4.25rem); margin-block: 26px; }
+.hero p { margin-inline: auto; max-width: 52ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 36px; }
+
+/* a frame with stepped corner brackets */
+.frame { position: relative; border: 1px solid var(--gold-rest); padding: clamp(28px, 4vw, 56px); }
+.frame::before, .frame::after {
+  content: ""; position: absolute; width: 38px; height: 38px; border: 2px solid var(--gold);
+}
+.frame::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.frame::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+/* ---- diamonds: the container rotates, the content counter-rotates ---------------------- */
+.dia { width: 62px; height: 62px; margin-inline: auto; border: 2px solid var(--gold); background: var(--card); transform: rotate(45deg); display: grid; place-items: center; box-shadow: var(--gold-glow); }
+.dia span { transform: rotate(-45deg); font-family: var(--display); font-size: 1.0625rem; color: var(--gold); letter-spacing: 0.08em; }
+
+/* ---- cards ------------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 860px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { position: relative; background: var(--card); border: 1px solid var(--gold-rest); padding: clamp(26px, 3vw, 36px); text-align: center; transition: border-color 500ms ease-out, transform 500ms ease-out, box-shadow 500ms ease-out; }
+.card:hover { border-color: var(--gold); transform: translateY(-8px); box-shadow: var(--gold-glow); }
+.card h3 { font-size: 1.0625rem; margin-block: 22px 14px; color: var(--gold); }
+.card p { font-size: 0.9375rem; color: var(--pewter); }
+
+/* ---- steps -------------------------------------------------------------------------------- */
+.steps { display: grid; grid-template-columns: 1fr; gap: 34px; }
+@media (min-width: 760px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.step { text-align: center; }
+.step h3 { font-size: 0.9375rem; margin-block: 20px 10px; }
+.step p { font-size: 0.875rem; color: var(--pewter); }
+
+/* ---- pricing -------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; background: var(--card); border: 1px solid var(--gold-rest); padding: clamp(26px, 3vw, 38px); text-align: center; display: flex; flex-direction: column; }
+.tier--lead { border-color: var(--gold); box-shadow: var(--gold-glow); }
+.tier__name { font-family: var(--display); font-size: 0.875rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+.tier__price { font-family: var(--display); font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3rem); margin-block: 18px 2px; letter-spacing: 0.04em; }
+.tier__per { font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pewter); }
+.tier ul { list-style: none; margin: 24px 0 0; padding: 0; }
+.tier li { padding: 10px 0; border-top: 1px solid rgba(212,175,55,0.22); font-size: 0.9375rem; color: var(--pewter); }
+.tier .btn { margin-top: 26px; }
+
+/* ---- faq ---------------------------------------------------------------------------------------- */
+.faq { max-width: 70ch; margin-inline: auto; border-top: 1px solid var(--gold-rest); }
+.faq details { border-bottom: 1px solid var(--gold-rest); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; list-style: none; font-family: var(--display); font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 300ms ease-out; text-align: left; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: var(--gold); }
+.faq summary::after { content: ""; flex: none; width: 11px; height: 11px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg) translate(-2px,-2px); transition: transform 300ms ease-out; }
+.faq details[open] summary::after { transform: rotate(225deg) translate(-2px,-2px); }
+.faq details > div { padding-bottom: 22px; font-size: 0.9375rem; color: var(--pewter); text-align: left; }
+
+/* ---- colophon -------------------------------------------------------------------------------------- */
+.colophon { border-top: 1px solid var(--gold-rest); padding-block: clamp(30px, 4vw, 52px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 14px 34px; align-items: baseline; justify-content: center; }
+.colophon p, .colophon a { font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pewter); }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--gold); }
+
+/* ---- preview badge ------------------------------------------------------------------------------------ */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--card); color: var(--cream); border: 1px solid var(--gold);
+  padding: 9px 16px; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+}
+.flag span { color: var(--pewter); }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/art-deco/">Gilded</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#method">Method</a>
+      <a href="#pricing">Tariff</a>
+      <a href="#faq">Enquiries</a>
+    </nav>
+    <a class="btn btn--ghost" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero mid">
+    <div class="wrap hero__in">
+      <div class="frame">
+        <p class="label">Design preset</p>
+        <h1>Ornament, precisely placed</h1>
+        <p class="muted">Every element here is decorated, and every decoration sits exactly where the
+        geometry puts it. Symmetry rather than asymmetry; glows rather than shadows; hard angles
+        rather than soft curves.</p>
+        <div class="hero__acts">
+          <a class="btn btn--solid" href="/">Build a site with this</a>
+          <a class="btn" href="#system">See the system</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay mid" id="system">
+    <div class="wrap">
+      <p class="label">The system</p>
+      <h2 style="font-size:clamp(1.375rem,1.1rem+1.6vw,2.25rem);margin-block:20px 18px">What the preset decides</h2>
+      <div class="div-orn" aria-hidden="true"><i></i><span>&#10022;</span><i></i></div>
+      <div class="cards" style="margin-top:44px">
+        <article class="card">
+          <div class="dia" aria-hidden="true"><span>I</span></div>
+          <h3>Geometry</h3>
+          <p>Triangles, chevrons, stepped corners and rotated diamonds. The ornament is built from
+          mathematics rather than drawn, which is what keeps it from looking fussy.</p>
+        </article>
+        <article class="card">
+          <div class="dia" aria-hidden="true"><span>II</span></div>
+          <h3>Glow, not shadow</h3>
+          <p>A soft halo around gold elements, as backlit signage. A drop shadow would read as
+          ordinary dark mode the moment it appeared.</p>
+        </article>
+        <article class="card">
+          <div class="dia" aria-hidden="true"><span>III</span></div>
+          <h3>Visible borders</h3>
+          <p>Resting gold rules sit at sixty per cent rather than thirty. At thirty they measure about
+          two to one against the card — present in the stylesheet and invisible on the screen.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ method ============================ -->
+  <section class="bay mid" id="method" style="background:var(--card)">
+    <div class="wrap">
+      <p class="label">The method</p>
+      <h2 style="font-size:clamp(1.375rem,1.1rem+1.6vw,2.25rem);margin-block:20px 18px">Four movements</h2>
+      <div class="div-orn" aria-hidden="true"><i></i><span>&#10022;</span><i></i></div>
+      <div class="steps" style="margin-top:44px">
+        <div class="step"><div class="dia" aria-hidden="true"><span>I</span></div><h3>Set the axis</h3><p>Decide the centre line first. Everything radiates from it.</p></div>
+        <div class="step"><div class="dia" aria-hidden="true"><span>II</span></div><h3>Frame it</h3><p>A thin rule with stepped brackets at opposite corners.</p></div>
+        <div class="step"><div class="dia" aria-hidden="true"><span>III</span></div><h3>Track the caps</h3><p>Display type at a fifth of an em. Most of what reads as Deco.</p></div>
+        <div class="step"><div class="dia" aria-hidden="true"><span>IV</span></div><h3>Light the gold</h3><p>A halo at twenty per cent. Never a drop shadow.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay mid" id="pricing">
+    <div class="wrap">
+      <p class="label">Tariff, as this preset renders it</p>
+      <h2 style="font-size:clamp(1.375rem,1.1rem+1.6vw,2.25rem);margin-block:20px 18px">Three tiers</h2>
+      <div class="div-orn" aria-hidden="true"><i></i><span>&#10022;</span><i></i></div>
+      <div class="tiers" style="margin-top:44px">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--ghost" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn btn--solid" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--ghost" href="/">Choose</a>
+        </div>
+      </div>
+      <p class="label" style="margin-top:28px;color:var(--pewter)">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay mid" id="faq" style="background:var(--card)">
+    <div class="wrap">
+      <p class="label">Enquiries</p>
+      <h2 style="font-size:clamp(1.375rem,1.1rem+1.6vw,2.25rem);margin-block:20px 18px">Frequently asked</h2>
+      <div class="div-orn" aria-hidden="true"><i></i><span>&#10022;</span><i></i></div>
+      <div class="faq" style="margin-top:44px">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the type pairing and the sharp corners. The stepped
+          brackets, rotated diamonds and sunburst are still being folded into the preset and are not
+          all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why are the gold borders at sixty per cent?</summary>
+          <div>Because at thirty they are invisible. Composited over the charcoal card, gold at thirty
+          per cent measures about two to one — below the three to one that a non-text indicator needs.
+          A card whose only resting affordance is that border would be unbordered until hovered. At
+          sixty it reaches roughly four to one, and brightening on hover becomes an enhancement rather
+          than the thing that first makes the card visible.</div>
+        </details>
+        <details>
+          <summary>Why is the numeral inside the diamond upright?</summary>
+          <div>Because the container is rotated forty-five degrees and the content is counter-rotated
+          by the same amount. Skip the second half and the numerals sit on their corner, which reads
+          as a bug rather than as a motif.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="bay mid">
+    <div class="wrap">
+      <div class="frame">
+        <h2 style="font-size:clamp(1.5rem,1.1rem+2.4vw,2.75rem);max-width:20ch;margin-inline:auto">Build a site in this preset.</h2>
+        <p class="muted" style="margin-top:22px;max-width:50ch;margin-inline:auto">Describe the business
+        and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+        design system applied site-wide.</p>
+        <div class="hero__acts">
+          <a class="btn btn--solid" href="/">Open the creator</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Art Deco — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
