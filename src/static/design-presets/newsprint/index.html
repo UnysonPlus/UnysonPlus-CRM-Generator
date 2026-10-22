@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Newsprint — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Newsprint preset: a visible collapsed grid, massive serif headlines, print texture and editorial red used as a signal. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/newsprint/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F9F9F7">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..700&family=Lora:ital,wght@0,400..600;1,400..600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ===========================================================================
+   NEWSPRINT
+   A design preset, shown as a whole page.
+
+   The grid is the design. Where most web layouts hide their structure behind
+   gaps and shadows, this one draws it: cells share 1px rules, sections are
+   separated by 4px ones, and the page reads as a broadsheet rather than a
+   stack of cards.
+
+   One rule in this palette is a hard constraint rather than a preference. The
+   editorial red measures 5.54:1 on the off-white and clears AA, but only
+   3.11:1 on the black - so red NEVER appears on a dark ground. On the inverted
+   band the accent becomes white instead.
+   ========================================================================= */
+
+:root {
+  --paper: #f9f9f7;      /* newsprint off-white, never pure white */
+  --ink: #111111;
+  --rule: #e5e5e0;
+  --red: #cc0000;
+  --meta: #737373;
+
+  --b-hair: 1px;
+  --b-heavy: 4px;
+
+  --serif: "Playfair Display", "Times New Roman", serif;
+  --body: "Lora", Georgia, serif;
+  --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(16px, 4vw, 32px);
+  --bay: clamp(48px, 7vw, 88px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  line-height: 1.625;
+  /* the 4x4 dot pattern that stops this reading as a plain white page */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.05' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em; text-wrap: balance; }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.on-ink :focus-visible { outline-color: var(--paper); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--ink); color: var(--paper); padding: 12px 18px;
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+}
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); border-bottom: var(--b-heavy) solid var(--ink); }
+
+/* The fine graph-paper texture on major sections. Decorative only. */
+.tex { position: relative; }
+.tex::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(0deg, transparent 98%, rgba(0,0,0,0.02) 100%),
+                    linear-gradient(90deg, transparent 98%, rgba(0,0,0,0.02) 100%);
+  background-size: 3px 3px;
+}
+.tex > * { position: relative; }
+
+/* ---- labels + metadata ---------------------------------------------------- */
+.label { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--meta); }
+.label--red { color: var(--red); }
+
+/* ---- masthead -------------------------------------------------------------- */
+.masthead { border-bottom: var(--b-heavy) solid var(--ink); }
+.masthead__edition { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; padding-block: 8px; border-bottom: var(--b-hair) solid var(--ink); font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); }
+.masthead__in { display: flex; align-items: center; gap: 20px; padding-block: 16px; }
+.brand { font-family: var(--serif); font-weight: 900; font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem); letter-spacing: -0.02em; text-decoration: none; margin-right: auto; }
+.masthead__nav { display: none; gap: 24px; }
+.masthead__nav a { font-family: var(--sans); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; }
+.masthead__nav a:hover { color: var(--red); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 46px; padding: 13px 24px;
+  border: var(--b-hair) solid var(--ink); background: var(--ink); color: var(--paper);
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+  border-radius: 0; cursor: pointer;
+  transition: background-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out, transform 200ms ease-out;
+}
+.btn:hover { background: var(--paper); color: var(--ink); box-shadow: 4px 4px 0 0 var(--ink); transform: translate(-2px,-2px); }
+.btn--out { background: transparent; color: var(--ink); }
+.btn--out:hover { background: var(--ink); color: var(--paper); }
+/* On the inverted band the button inverts too - and the accent is NOT red here. */
+.on-ink .btn { border-color: var(--paper); background: var(--paper); color: var(--ink); }
+.on-ink .btn:hover { background: transparent; color: var(--paper); box-shadow: 4px 4px 0 0 var(--paper); }
+
+/* ---- hero ------------------------------------------------------------------ */
+.hero { display: grid; grid-template-columns: 1fr; border-bottom: var(--b-heavy) solid var(--ink); }
+@media (min-width: 980px) { .hero { grid-template-columns: 8fr 4fr; } }   /* 8/4, never 6/6 */
+.hero__lead { padding: clamp(28px, 4vw, 52px) var(--gutter); }
+@media (min-width: 980px) { .hero__lead { border-right: var(--b-hair) solid var(--ink); } }
+.hero h1 { font-size: clamp(2.5rem, 1rem + 7.4vw, 5.5rem); margin-block: 14px 0; }
+.hero__sub { margin-top: 20px; max-width: 46ch; font-size: clamp(1rem, 0.95rem + 0.4vw, 1.1875rem); }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hero__side { padding: clamp(24px, 3vw, 36px) var(--gutter); border-top: var(--b-hair) solid var(--ink); }
+@media (min-width: 980px) { .hero__side { border-top: 0; } }
+.hero__side dl { margin: 14px 0 0; }
+.hero__side dt { font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); padding-top: 12px; border-top: var(--b-hair) solid var(--rule); }
+.hero__side dd { margin: 2px 0 0; font-family: var(--serif); font-size: 1.5rem; font-weight: 700; }
+
+/* ---- ticker ----------------------------------------------------------------- */
+.ticker { background: var(--ink); color: var(--paper); border-bottom: var(--b-heavy) solid var(--ink); overflow: hidden; }
+.ticker__row { display: flex; gap: 0; white-space: nowrap; animation: crawl 38s linear infinite; }
+.ticker__row span { display: inline-flex; align-items: center; gap: 12px; padding: 11px 22px; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; }
+/* The badge is the ONE red on dark that is allowed - because the red is a FILL
+   with light text on it, not red text on the black. */
+.ticker__row b { background: var(--red); color: #fff; padding: 3px 8px; font-weight: 500; }
+@keyframes crawl { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---- collapsed grid --------------------------------------------------------- */
+.grid { display: grid; grid-template-columns: 1fr; border-top: var(--b-hair) solid var(--ink); border-left: var(--b-hair) solid var(--ink); }
+.cell { padding: clamp(20px, 2.6vw, 30px); border-right: var(--b-hair) solid var(--ink); border-bottom: var(--b-hair) solid var(--ink); transition: background-color 200ms ease-out; }
+.cell:hover { background: #f1f1ee; }
+.cell h3 { font-size: clamp(1.25rem, 1.1rem + 0.8vw, 1.625rem); margin-block: 10px 8px; }
+.cell p { font-size: 0.9375rem; }
+@media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1040px) { .grid--3 { grid-template-columns: repeat(3, 1fr); } .grid--4 { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---- the article, with a drop cap -------------------------------------------- */
+.article { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 3vw, 40px); }
+@media (min-width: 900px) { .article { grid-template-columns: 5fr 7fr; } }   /* 5/7 */
+.article__body p + p { margin-top: 1em; }
+@media (min-width: 720px) { .article__body { text-align: justify; hyphens: auto; } }
+.dropcap::first-letter {
+  float: left; font-family: var(--serif); font-size: 4.2em; line-height: 0.78;
+  font-weight: 700; margin: 0.04em 0.1em 0 0;
+}
+
+/* ---- ornamental divider ------------------------------------------------------- */
+.orn { padding-block: clamp(22px, 3vw, 34px); text-align: center; font-family: var(--serif); font-size: 1.125rem; letter-spacing: 1em; color: #b5b5ae; }
+
+/* ---- inverted band ------------------------------------------------------------- */
+.ink-band { background: var(--ink); color: var(--paper); border-bottom: var(--b-heavy) solid var(--ink); }
+.ink-band .label { color: #a3a3a3; }
+.steps { display: grid; grid-template-columns: 1fr; border-top: var(--b-hair) solid rgba(255,255,255,0.3); border-left: var(--b-hair) solid rgba(255,255,255,0.3); }
+.step { padding: clamp(20px, 2.6vw, 30px); border-right: var(--b-hair) solid rgba(255,255,255,0.3); border-bottom: var(--b-hair) solid rgba(255,255,255,0.3); }
+/* The step number is the accent on this band - and it is WHITE, not red: red on
+   #111 measures 3.11:1 and fails. The red lives on the light sections only. */
+.step b { display: block; font-family: var(--serif); font-size: 2.25rem; font-weight: 700; line-height: 1; color: var(--paper); }
+.step h3 { font-size: 1.125rem; margin-block: 12px 8px; }
+.step p { font-size: 0.9375rem; color: #c9c9c9; }
+@media (min-width: 720px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1040px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---- pricing ------------------------------------------------------------------- */
+.tier { padding: clamp(22px, 2.8vw, 32px); border-right: var(--b-hair) solid var(--ink); border-bottom: var(--b-hair) solid var(--ink); display: flex; flex-direction: column; }
+.tier__name { font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--meta); }
+.tier__price { font-family: var(--serif); font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem); font-weight: 700; line-height: 1; margin-block: 12px 2px; }
+.tier__per { font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--meta); }
+.tier ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.tier li { padding: 8px 0; border-top: var(--b-hair) dashed var(--rule); font-size: 0.9375rem; }
+.tier .btn { margin-top: 20px; }
+.tier--lead { background: #f1f1ee; }
+.tier--lead .tier__name { color: var(--red); }
+
+/* ---- faq ---------------------------------------------------------------------- */
+.faq { border-top: var(--b-hair) solid var(--ink); max-width: 72ch; }
+.faq details { border-bottom: var(--b-hair) solid var(--ink); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.3125rem); font-weight: 700; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--sans); font-size: 1.25rem; flex: none; transition: transform 200ms ease-out; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details > div { padding-bottom: 18px; font-size: 0.9375rem; max-width: 60ch; }
+.faq a { color: var(--ink); text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* ---- colophon ------------------------------------------------------------------ */
+.colophon { padding-block: clamp(26px, 4vw, 44px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: baseline; }
+.colophon p, .colophon a { font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--meta); }
+.colophon a { text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* ---- preview badge --------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ink); color: var(--paper); border: var(--b-hair) solid var(--paper);
+  box-shadow: 4px 4px 0 0 var(--ink);
+  padding: 8px 14px; font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.flag span { color: #a3a3a3; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .ticker__row { animation: none; }   /* a crawl is motion, not decoration */
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__edition">
+    <span>Vol. 1 &middot; No. 3</span>
+    <span>A design preset for Unyson+</span>
+    <span>Specimen Edition</span>
+  </div>
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/newsprint/">The Newsprint</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#method">Method</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero tex">
+    <div class="hero__lead">
+      <p class="label label--red">Design preset</p>
+      <h1>The grid is not hidden. It is the design.</h1>
+      <p class="hero__sub">Cells share their rules, sections are divided by heavy ones, and the
+      structure is drawn rather than implied. Density, hierarchy and type do the work that shadows
+      and rounded corners do elsewhere.</p>
+      <div class="hero__acts">
+        <a class="btn" href="/">Build a site with this</a>
+        <a class="btn btn--out" href="#system">See the system</a>
+      </div>
+    </div>
+    <div class="hero__side">
+      <p class="label">At a glance</p>
+      <dl>
+        <dt>Border radius</dt><dd>0</dd>
+        <dt>Typefaces</dt><dd>Four</dd>
+        <dt>Soft shadows</dt><dd>None</dd>
+        <dt>Accent</dt><dd>One red</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================ ticker ============================ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__row">
+      <span><b>Rule</b> Collapsed grids share their borders</span>
+      <span><b>Rule</b> Red is a signal, never decoration</span>
+      <span><b>Rule</b> Radius zero, without exception</span>
+      <span><b>Rule</b> Texture, or it reads as a blank page</span>
+      <span><b>Rule</b> Collapsed grids share their borders</span>
+      <span><b>Rule</b> Red is a signal, never decoration</span>
+      <span><b>Rule</b> Radius zero, without exception</span>
+      <span><b>Rule</b> Texture, or it reads as a blank page</span>
+    </div>
+  </div>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay tex" id="system">
+    <div class="wrap">
+      <p class="label label--red">01 &middot; The system</p>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-block:10px 28px">What the preset decides</h2>
+      <div class="grid grid--3">
+        <article class="cell">
+          <p class="label">i</p>
+          <h3>A visible grid</h3>
+          <p>Adjacent cells share a single hairline rather than each drawing their own. Decide the
+          border per side, or every junction gains a 2px line and the page looks misprinted.</p>
+        </article>
+        <article class="cell">
+          <p class="label">ii</p>
+          <h3>Four faces, four jobs</h3>
+          <p>A display serif for headlines, a reading serif for body, a sans for interface, a mono for
+          data. Each has a job; none is used for mood.</p>
+        </article>
+        <article class="cell">
+          <p class="label">iii</p>
+          <h3>One red</h3>
+          <p>A signal, not a colour scheme &mdash; a badge, a CTA, an underline. On the off-white it
+          measures 5.54:1 and clears AA; on black it is 3.11:1, so it never appears there.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ article ============================ -->
+  <section class="bay tex">
+    <div class="wrap">
+      <p class="label label--red">02 &middot; In detail</p>
+      <div class="article" style="margin-top:22px">
+        <div>
+          <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,2.75rem)">Density is a feature, not a flaw.</h2>
+          <p class="label" style="margin-top:16px">Fig. 1.1 &middot; The measure</p>
+        </div>
+        <div class="article__body">
+          <p class="dropcap">Most web layouts are built to breathe. This one is built to inform: tighter
+          padding, shared rules and a narrower measure put more on the page without making it harder to
+          read, which is exactly the trade a newspaper makes every day.</p>
+          <p>The justified column is part of that. Set with hyphenation and a sensible measure it reads
+          as a printed page rather than a web page; set without either it produces rivers of white and
+          looks broken, which is why it is applied only above the tablet breakpoint here.</p>
+        </div>
+      </div>
+      <div class="orn" aria-hidden="true">&#10039; &#10039; &#10039;</div>
+    </div>
+  </section>
+
+  <!-- ============================ method (inverted) ============================ -->
+  <section class="ink-band on-ink" id="method">
+    <div class="wrap" style="padding-block: var(--bay)">
+      <p class="label label--red" style="color:#a3a3a3">03 &middot; Method</p>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-block:10px 28px">Four moves</h2>
+      <div class="steps">
+        <div class="step"><b>I</b><h3>Rule the grid</h3><p>Decide the columns and let the borders show where they fall.</p></div>
+        <div class="step"><b>II</b><h3>Set the scale</h3><p>A display serif far above a reading serif. The gap is the hierarchy.</p></div>
+        <div class="step"><b>III</b><h3>Lay the texture</h3><p>Dots, graph grid, halftone &mdash; or the page reads as blank stock.</p></div>
+        <div class="step"><b>IV</b><h3>Place the red</h3><p>Once or twice, as a signal. Never on this band.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay tex" id="pricing">
+    <div class="wrap">
+      <p class="label label--red">04 &middot; Rates</p>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-block:10px 28px">Three columns</h2>
+      <div class="grid grid--3">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio &middot; Featured</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+      </div>
+      <p class="label" style="margin-top:18px">Placeholder figures &mdash; shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay tex" id="faq">
+    <div class="wrap">
+      <p class="label label--red">05 &middot; Queries</p>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-block:10px 28px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the type and the structure. The print detail on this
+          page &mdash; the drop cap, the ticker, the halftone texture &mdash; is still being folded
+          into the preset and is not all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why is the red missing from the dark band?</summary>
+          <div>Because it fails there. The editorial red measures 5.54:1 on the off-white and clears
+          AA comfortably, but only 3.11:1 against the black. On the inverted section the accent becomes
+          white instead. It is the one rule in this palette that is a constraint rather than a taste.</div>
+        </details>
+        <details>
+          <summary>Does the density survive a phone?</summary>
+          <div>Yes, with one change: the vertical rules come off and the horizontal ones stay, so a
+          single column does not end up with a stray line down its side. Tap targets stay at 44px
+          regardless &mdash; density must never shrink the thing you are trying to press.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="bay tex" style="text-align:center">
+    <div class="wrap">
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.4vw,3.75rem);max-width:20ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p style="margin:18px auto 0;max-width:52ch">Describe the business and your own AI agent builds it
+      on WordPress with Unyson+ &mdash; real page-builder pages, with this design system applied site-wide.</p>
+      <div class="hero__acts" style="justify-content:center;margin-top:26px">
+        <a class="btn" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Newsprint &mdash; a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
