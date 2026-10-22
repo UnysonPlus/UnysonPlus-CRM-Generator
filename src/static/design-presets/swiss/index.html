@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swiss International — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Swiss International preset: a visible grid, massive neutral typography, thick black borders and one signal red. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/swiss/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap">
+<style>
+/* ===========================================================================
+   SWISS INTERNATIONAL
+   A design preset, shown as a whole page.
+
+   The grid is the authority and it is VISIBLE - drawn with thick borders and
+   faint patterns rather than implied by gaps. Typography is the interface:
+   scale, weight and position carry the whole hierarchy, which is why the
+   typeface itself is deliberately neutral.
+
+   THE TRAP, measured: Swiss Red on white is 3.70:1. That clears the 3:1 bar
+   for LARGE text and non-text indicators and FAILS AA for normal-size text -
+   so the small red uppercase label this style loves is exactly the thing it
+   must not do. White on the red fill is also 3.70:1; BLACK on red is 5.67:1.
+   Red may be large or structural. Never small and readable.
+   ========================================================================= */
+
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --muted: #f2f2f2;
+  --red: #ff3000;
+
+  --b: 2px;
+  --b-thick: 4px;
+
+  --ui: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --bay: clamp(56px, 8vw, 112px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--ui); font-weight: 400;
+  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 900; text-transform: uppercase; line-height: 0.92; letter-spacing: -0.035em; text-wrap: balance; }
+
+/* The focus ring is red: 3.70:1 clears the 3:1 bar for a non-text indicator. */
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.on-ink :focus-visible { outline-color: var(--paper); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--ink); color: var(--paper); padding: 14px 22px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+}
+.skip:focus { top: 14px; }
+
+.wrap { width: 100%; max-width: 1360px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+/* Paper noise on its own layer, so the 1.5% is one number rather than an SVG-internal opacity
+   multiplied by an unknown. Painted onto the body it read as dirt. */
+.noise {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body > *:not(.noise) { position: relative; z-index: 1; }
+
+/* ---- the four patterns ------------------------------------------------------ */
+.p-grid { background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px); background-size: 24px 24px; }
+.p-dots { background-image: radial-gradient(rgba(0,0,0,0.04) 1.4px, transparent 1.4px); background-size: 16px 16px; }
+.p-diag { background-image: repeating-linear-gradient(45deg, transparent, transparent 9px, rgba(0,0,0,0.02) 9px, rgba(0,0,0,0.02) 10px); }
+.muted-bg { background-color: var(--muted); }
+
+/* ---- the numbered section label ----------------------------------------------- */
+/* The NUMERAL is red at a size that clears contrast; the words beside it are black,
+   because a 12px red label on white is 3.70:1 and fails. */
+.sec-label { display: flex; align-items: baseline; gap: 14px; }
+.sec-label b { color: var(--red); font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem); font-weight: 900; line-height: 1; letter-spacing: -0.04em; }
+.sec-label span { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+
+/* ---- buttons ------------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 56px; padding: 17px 32px;
+  border: var(--b-thick) solid var(--ink); background: var(--ink); color: var(--paper);
+  font-family: var(--ui); font-size: 0.8125rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  border-radius: 0; cursor: pointer;
+  transition: background-color 150ms linear, color 150ms linear, border-color 150ms linear;
+}
+.btn:hover { background: var(--red); border-color: var(--red); color: var(--ink); }   /* BLACK on red: 5.67:1 */
+.btn--out { background: transparent; color: var(--ink); }
+.btn--out:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.on-ink .btn { border-color: var(--paper); background: var(--paper); color: var(--ink); }
+.on-ink .btn:hover { background: var(--red); border-color: var(--red); color: var(--ink); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: var(--b-thick) solid var(--ink); }
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 84px; }
+.brand { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.03em; text-transform: uppercase; text-decoration: none; margin-right: auto; }
+.masthead__nav { display: none; gap: 30px; }
+.masthead__nav a { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: color 150ms linear; }
+.masthead__nav a:hover { color: var(--red); }   /* 12px red on white is 3.70:1 - but this is a HOVER state on an already-readable black label, not the resting colour */
+@media (min-width: 960px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ----------------------------------------------------------------------- */
+.hero { display: grid; grid-template-columns: 1fr; border-bottom: var(--b-thick) solid var(--ink); }
+@media (min-width: 1000px) { .hero { grid-template-columns: 8fr 4fr; } }   /* 8:4, never 6:6 */
+.hero__lead { padding: clamp(32px, 5vw, 72px) var(--gutter); }
+@media (min-width: 1000px) { .hero__lead { border-right: var(--b-thick) solid var(--ink); } }
+.hero h1 { font-size: clamp(2.75rem, 1rem + 9vw, 8rem); margin-top: clamp(24px, 4vw, 44px); }
+.hero p { margin-top: clamp(22px, 3vw, 34px); max-width: 48ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: clamp(28px, 4vw, 44px); }
+.hero__art { position: relative; min-height: 300px; padding: var(--gutter); border-top: var(--b-thick) solid var(--ink); overflow: hidden; }
+@media (min-width: 1000px) { .hero__art { border-top: 0; } }
+/* A Bauhaus-adjacent composition: circle, rectangle, line - deliberate, not stock art. */
+.hero__art i { position: absolute; display: block; }
+.hero__art .c { width: 46%; aspect-ratio: 1; border-radius: 50%; background: var(--red); top: 14%; left: 12%; }
+.hero__art .r { width: 38%; height: 30%; background: var(--ink); right: 10%; top: 38%; }
+.hero__art .l { width: 72%; height: var(--b-thick); background: var(--ink); left: 12%; bottom: 20%; }
+
+/* ---- stats: a collapsed grid ------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; border-left: var(--b) solid var(--ink); border-top: var(--b) solid var(--ink); }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { padding: clamp(22px, 3vw, 34px); border-right: var(--b) solid var(--ink); border-bottom: var(--b) solid var(--ink); transition: background-color 150ms linear, color 150ms linear; }
+.stat:hover { background: var(--ink); color: var(--paper); }
+.stat b { display: block; font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; }
+.stat span { display: block; margin-top: 14px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+
+/* ---- cards ------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; border-left: var(--b) solid var(--ink); border-top: var(--b) solid var(--ink); }
+@media (min-width: 760px) { .cards { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1060px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { padding: clamp(24px, 3vw, 40px); border-right: var(--b) solid var(--ink); border-bottom: var(--b) solid var(--ink); transition: background-color 150ms linear, color 150ms linear; }
+.card:hover { background: var(--red); color: var(--ink); }   /* full inversion, snapping */
+.card h3 { font-size: clamp(1.25rem, 1.1rem + 1vw, 1.75rem); margin-block: 16px 12px; }
+.card p { font-size: 0.9375rem; }
+.card__n { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; }
+
+/* ---- split ---------------------------------------------------------------------------- */
+.split { display: grid; grid-template-columns: 1fr; gap: 0; border-top: var(--b-thick) solid var(--ink); }
+@media (min-width: 1000px) { .split { grid-template-columns: 5fr 7fr; } }   /* 5:7 */
+.split__a { padding: clamp(28px, 4vw, 56px) var(--gutter); }
+@media (min-width: 1000px) { .split__a { border-right: var(--b) solid var(--ink); } }
+.split__b { padding: clamp(28px, 4vw, 56px) var(--gutter); border-top: var(--b) solid var(--ink); }
+@media (min-width: 1000px) { .split__b { border-top: 0; } }
+.split__b p + p { margin-top: 1em; }
+
+/* ---- inverted band ---------------------------------------------------------------------- */
+.ink-band { background: var(--ink); color: var(--paper); border-top: var(--b-thick) solid var(--ink); }
+.ink-band .sec-label span { color: var(--paper); }
+/* On black the red numeral is 3.70:1 against white but ~4.5:1 against black - and it is
+   display-sized here, so it clears comfortably either way. */
+.ink-band .sec-label b { color: var(--red); }
+
+/* ---- pricing ------------------------------------------------------------------------------ */
+.tiers { display: grid; grid-template-columns: 1fr; border-left: var(--b) solid var(--ink); border-top: var(--b) solid var(--ink); }
+@media (min-width: 1000px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { padding: clamp(24px, 3vw, 40px); border-right: var(--b) solid var(--ink); border-bottom: var(--b) solid var(--ink); display: flex; flex-direction: column; }
+.tier--lead { background: var(--muted); }
+.tier__name { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+.tier__price { font-size: clamp(2.5rem, 1.6rem + 3vw, 3.75rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; margin-block: 18px 4px; }
+.tier__per { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { padding: 10px 0; border-top: var(--b) solid var(--ink); font-size: 0.9375rem; }
+.tier .btn { margin-top: 24px; }
+
+/* ---- faq -------------------------------------------------------------------------------- */
+.faq { border-top: var(--b-thick) solid var(--ink); max-width: 76ch; }
+.faq details { border-bottom: var(--b) solid var(--ink); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; cursor: pointer; list-style: none; font-weight: 700; text-transform: uppercase; font-size: clamp(0.9375rem, 0.9rem + 0.4vw, 1.125rem); letter-spacing: -0.01em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 1.5rem; font-weight: 700; line-height: 1; flex: none; transition: transform 150ms linear, color 150ms linear; }
+.faq details[open] summary::after { transform: rotate(90deg); color: var(--red); }
+.faq details > div { padding-bottom: 20px; font-size: 0.9375rem; max-width: 64ch; }
+
+/* ---- colophon ----------------------------------------------------------------------------- */
+.colophon { border-top: var(--b-thick) solid var(--ink); padding-block: clamp(28px, 4vw, 48px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 14px 36px; align-items: baseline; }
+.colophon p, .colophon a { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--red); }
+
+/* ---- preview badge -------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ink); color: var(--paper); border: var(--b) solid var(--paper);
+  padding: 9px 15px; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.flag span { opacity: 0.66; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="noise" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/swiss/">Grotesk</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">01 System</a>
+      <a href="#method">02 Method</a>
+      <a href="#pricing">03 Pricing</a>
+      <a href="#faq">04 FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero">
+    <div class="hero__lead p-grid">
+      <p class="sec-label"><b>00</b><span>Design preset</span></p>
+      <h1>The grid is the authority.</h1>
+      <p>Drawn, not implied. Borders do the structural work that gaps and shadows do elsewhere, and the
+      typeface stays neutral so that scale, weight and position carry the whole hierarchy.</p>
+      <div class="hero__acts">
+        <a class="btn" href="/">Build a site with this</a>
+        <a class="btn btn--out" href="#system">See the system</a>
+      </div>
+    </div>
+    <div class="hero__art muted-bg p-dots" aria-hidden="true">
+      <i class="c"></i><i class="r"></i><i class="l"></i>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap bay">
+    <div class="stats">
+      <div class="stat"><b>0</b><span>Border radius</span></div>
+      <div class="stat"><b>4<small style="font-size:0.35em;letter-spacing:0.1em">px</small></b><span>Section borders</span></div>
+      <div class="stat"><b>1</b><span>Signal colour</span></div>
+      <div class="stat"><b>21:1</b><span>Text contrast</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay muted-bg p-grid" style="border-top:var(--b-thick) solid var(--ink)" id="system">
+    <div class="wrap">
+      <p class="sec-label"><b>01</b><span>System</span></p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.2vw,3.5rem);margin-block:24px 40px">What the preset decides</h2>
+      <div class="cards">
+        <article class="card">
+          <p class="card__n">A</p>
+          <h3>Visible structure</h3>
+          <p>Two- and four-pixel borders define every division, and they stay that thick on a phone.
+          Thinning them is what quietly turns a Swiss layout into an ordinary responsive page.</p>
+        </article>
+        <article class="card">
+          <p class="card__n">B</p>
+          <h3>One signal</h3>
+          <p>Red is a stop sign, not a decoration. It appears on numerals at display size, on rules and
+          on focus — and never as small readable text, where it measures 3.70:1 and fails.</p>
+        </article>
+        <article class="card">
+          <p class="card__n">C</p>
+          <h3>Asymmetry</h3>
+          <p>Eight to four. Five to seven. Never six to six. The imbalance creates the tension that a
+          perfectly centred layout gives away for nothing.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ method ============================ -->
+  <section id="method">
+    <div class="split">
+      <div class="split__a">
+        <p class="sec-label"><b>02</b><span>Method</span></p>
+        <h2 style="font-size:clamp(1.75rem,1.2rem+2.6vw,3rem);margin-top:24px;max-width:12ch">Red is large or structural</h2>
+      </div>
+      <div class="split__b p-diag">
+        <p>The accent measures <strong>3.70:1</strong> against white. That clears the three-to-one bar
+        for large text and for non-text indicators like a focus ring or a rule, and it falls short of
+        the four-and-a-half needed for normal-size text.</p>
+        <p>Which makes the small uppercase red label — the single most characteristic element of this
+        style — the one thing it must not do. On this page the section numerals are red at display
+        size and the words beside them are black. On a red fill the label is black too, at 5.67:1,
+        because white on that red is the same failing 3.70.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ inverted ============================ -->
+  <section class="ink-band on-ink">
+    <div class="wrap bay">
+      <p class="sec-label"><b>03</b><span>Inversion</span></p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.2vw,3.5rem);margin-block:24px 24px;max-width:20ch">A card flips wholesale, or not at all.</h2>
+      <p style="max-width:58ch">Hover the cards above. The background, the text and the border change
+      together in a hundred and fifty milliseconds. A gentle opacity fade would read as hesitant — this
+      style states things rather than suggesting them.</p>
+      <div class="hero__acts" style="margin-top:34px">
+        <a class="btn" href="#pricing">Continue</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <p class="sec-label"><b>04</b><span>Pricing, as this preset renders it</span></p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.2vw,3.5rem);margin-block:24px 40px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+      </div>
+      <p style="margin-top:24px;font-size:0.6875rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay" id="faq">
+    <div class="wrap">
+      <p class="sec-label"><b>05</b><span>Questions</span></p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.2vw,3.5rem);margin-block:24px 40px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole rather
+          than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a generated site
+          inherits the palette, the type scale and the zero radius. The grid patterns, the geometric
+          composition and the collapsed borders are still being folded into the preset and are not all
+          emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why are the red labels black?</summary>
+          <div>Because red on white measures 3.70:1. That clears the three-to-one minimum for large text
+          and for non-text indicators, and falls short of the four-and-a-half for normal-size text. The
+          numerals are red because they are display-sized; the words beside them are black because they
+          are not. On a red fill the label is black as well, at 5.67:1 — white there would be the same
+          failing 3.70.</div>
+        </details>
+        <details>
+          <summary>Do the borders really stay 4px on a phone?</summary>
+          <div>Yes. Thinning them is the most common way this style is lost: the layout still stacks
+          correctly and the type still scales, but the structure stops being visible and the page reads
+          as any other responsive site. Border weight is not a desktop luxury here.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="ink-band on-ink">
+    <div class="wrap bay">
+      <h2 style="font-size:clamp(2rem,1.2rem+3.8vw,4.5rem);max-width:18ch">Build a site in this preset.</h2>
+      <p style="margin-top:24px;max-width:52ch">Describe the business and your own AI agent builds it on
+      WordPress with Unyson+ — real page-builder pages, with this design system applied site-wide.</p>
+      <div class="hero__acts" style="margin-top:32px">
+        <a class="btn" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Swiss International — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

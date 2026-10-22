@@ -662,7 +662,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
       <div class="stylep__grid">
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/monochrome/">
-            <img src="/assets/img/styles/monochrome.png" width="1280" height="967" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/monochrome.jpg" width="1280" height="967" loading="lazy" decoding="async"
                  alt="A monochrome editorial style: a large serif headline in black on white, a square-cornered black button, and a pale grey band below it.">
           </a>
           <figcaption>
@@ -672,7 +672,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/bauhaus/">
-            <img src="/assets/img/styles/bauhaus.png" width="1280" height="1150" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/bauhaus.jpg" width="1280" height="1150" loading="lazy" decoding="async"
                  alt="A Bauhaus style: a heavy uppercase headline beside a blue panel holding a yellow circle, a red rotated square and a white square, over a yellow band of statistics.">
           </a>
           <figcaption>
@@ -682,7 +682,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/modern-dark/">
-            <img src="/assets/img/styles/modern-dark.png" width="1280" height="900" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/modern-dark.jpg" width="1280" height="900" loading="lazy" decoding="async"
                  alt="A modern dark style: a large gradient headline on a near-black canvas lit by soft indigo, an indigo button, and an elevated mock application panel below.">
           </a>
           <figcaption>
@@ -692,7 +692,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/newsprint/">
-            <img src="/assets/img/styles/newsprint.png" width="1280" height="786" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/newsprint.jpg" width="1280" height="786" loading="lazy" decoding="async"
                  alt="A newsprint style: a masthead with edition metadata above a very large serif headline, a visible column rule, and a black news ticker with red badges.">
           </a>
           <figcaption>
@@ -702,7 +702,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/saas/">
-            <img src="/assets/img/styles/saas.png" width="1280" height="810" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/saas.jpg" width="1280" height="810" loading="lazy" decoding="async"
                  alt="A minimalist modern style: a warm off-white page with a large serif headline whose last word is filled with an electric blue gradient, beside a white panel with a gradient border.">
           </a>
           <figcaption>
@@ -712,7 +712,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/luxury/">
-            <img src="/assets/img/styles/luxury.png" width="1280" height="1049" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/luxury.jpg" width="1280" height="1049" loading="lazy" decoding="async"
                  alt="A luxury editorial style: a very large serif headline with one italic word on warm off-white, faint vertical gridlines, and a tall greyscale plate to the right.">
           </a>
           <figcaption>
@@ -722,12 +722,42 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/terminal/">
-            <img src="/assets/img/styles/terminal.png" width="1280" height="857" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/terminal.jpg" width="1280" height="857" loading="lazy" decoding="async"
                  alt="A terminal style: phosphor green monospace text on near-black with a blinking block cursor, bracketed buttons and ASCII progress bars.">
           </a>
           <figcaption>
             <b>Terminal CLI</b>
             <span>Monospace throughout, phosphor on near-black, panes and ASCII rules. <a href="/design-presets/terminal/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/swiss/">
+            <img src="/assets/img/styles/swiss.jpg" width="1280" height="933" loading="lazy" decoding="async"
+                 alt="A Swiss style: a very large black uppercase headline on white over a faint grid, beside a composition of a red circle and a black rectangle.">
+          </a>
+          <figcaption>
+            <b>Swiss International</b>
+            <span>A visible grid, massive neutral type, one signal red. <a href="/design-presets/swiss/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/kinetic/">
+            <img src="/assets/img/styles/kinetic.jpg" width="1280" height="1136" loading="lazy" decoding="async"
+                 alt="A kinetic style: enormous uppercase type filling the screen on rich black with one word in acid yellow, above a scrolling yellow marquee.">
+          </a>
+          <figcaption>
+            <b>Kinetic Typography</b>
+            <span>Viewport-scale type, continuous marquees, hard inversions. <a href="/design-presets/kinetic/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/flat-design/">
+            <img src="/assets/img/styles/flat-design.jpg" width="1280" height="775" loading="lazy" decoding="async"
+                 alt="A flat style: a bold headline in dark ink on a full-bleed blue section with a composition of flat circles and rectangles beside it.">
+          </a>
+          <figcaption>
+            <b>Flat Design</b>
+            <span>No shadows at all, full-section colour blocking, bold geometric type. <a href="/design-presets/flat-design/">See it as a page →</a></span>
           </figcaption>
         </figure>
       </div>
@@ -916,7 +946,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

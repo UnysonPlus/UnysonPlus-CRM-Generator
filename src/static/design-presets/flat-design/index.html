@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flat Design — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Flat preset: no shadows at all, full-section colour blocking, bold geometric type and hierarchy carried by scale and colour. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/flat-design/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+/* ===========================================================================
+   FLAT DESIGN
+   A design preset, shown as a whole page.
+
+   The Z-axis does not exist. No shadows, no bevels, no realistic gradients.
+   Hierarchy is carried entirely by size, colour and type - which is a real
+   constraint rather than a stylistic preference, because there is no elevation
+   available to fall back on.
+
+   THE CORRECTION, measured. The source spec says "White text on Blue 500 is
+   okay". It is not:
+
+        white on blue    3.68:1   FAIL        ink on blue    4.79:1  pass
+        white on emerald 2.56:1   FAIL        ink on emerald 9.1:1   pass
+        white on amber   2.15:1   FAIL        ink on amber   9.8:1   pass
+
+   So every vibrant fill on this page carries DARK INK, never white. The style's
+   whole premise is full-bleed colour sections, and white-on-colour is the
+   reflex that would make every one of them non-compliant. White is correct only
+   on the near-black section.
+   ========================================================================= */
+
+:root {
+  --paper: #ffffff;
+  --ink: #111827;
+  --blue: #3b82f6;
+  --emerald: #10b981;
+  --amber: #f59e0b;
+  --muted: #f3f4f6;
+  --line: #e5e7eb;
+
+  --r: 8px;   /* ONE radius, used everywhere */
+  --ui: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 32px);
+  --bay: clamp(64px, 9vw, 112px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--ui); font-weight: 400;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; text-wrap: balance; }
+
+/* With no shadows there is no other affordance, so the ring has to be solid and offset. */
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.on-dark :focus-visible { outline-color: var(--paper); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--ink); color: var(--paper); padding: 13px 20px; border-radius: var(--r);
+  font-weight: 600; text-decoration: none;
+}
+.skip:focus { top: 14px; }
+
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+/* ---- colour blocks. Every one of these carries INK, not white. --------------- */
+.block--blue { background: var(--blue); color: var(--ink); }
+.block--emerald { background: var(--emerald); color: var(--ink); }
+.block--amber { background: var(--amber); color: var(--ink); }
+.block--muted { background: var(--muted); }
+.block--dark { background: var(--ink); color: var(--paper); }   /* white is correct ONLY here */
+
+.label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.lede { font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); }
+.dim { opacity: 0.78; }
+
+/* ---- decorative geometry: poster shapes at low opacity ------------------------ */
+.deco { position: absolute; pointer-events: none; opacity: 0.12; }
+.deco--circle { border-radius: 50%; }
+.deco--sq { transform: rotate(45deg); }
+
+/* ---- buttons: scale, never elevation ------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 56px; padding: 16px 30px; border: 0; border-radius: var(--r);
+  background: var(--blue); color: var(--ink);
+  font-family: var(--ui); font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer;
+  box-shadow: none;
+  transition: transform 200ms ease-out, background-color 200ms ease-out, color 200ms ease-out;
+}
+.btn:hover { transform: scale(1.05); background: #2f76ee; }
+.btn:active { transform: scale(0.98); }
+.btn--dark { background: var(--ink); color: var(--paper); }
+.btn--dark:hover { background: #0b1220; }
+.btn--soft { background: var(--muted); color: var(--ink); }
+.btn--soft:hover { background: #e3e6ea; }
+/* The outline variant is border-4 for boldness and fills on hover. */
+.btn--out { background: transparent; color: var(--ink); border: 4px solid var(--ink); }
+.btn--out:hover { background: var(--ink); color: var(--paper); }
+.on-dark .btn--out { color: var(--paper); border-color: var(--paper); }
+.on-dark .btn--out:hover { background: var(--paper); color: var(--ink); }
+
+/* ---- masthead ------------------------------------------------------------------- */
+.masthead { border-bottom: 2px solid var(--line); }
+.masthead__in { display: flex; align-items: center; gap: 22px; min-height: 76px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1875rem; letter-spacing: -0.03em; text-decoration: none; margin-right: auto; }
+.brand i { width: 26px; height: 26px; border-radius: var(--r); background: var(--blue); display: block; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-weight: 500; text-decoration: none; transition: color 200ms ease-out; }
+.masthead__nav a:hover { color: var(--blue); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------- */
+.hero { position: relative; overflow: hidden; }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(32px, 5vw, 56px); align-items: center; padding-block: clamp(48px, 8vw, 104px); }
+@media (min-width: 960px) { .hero__in { grid-template-columns: 1.05fr 0.95fr; } }
+.hero h1 { font-size: clamp(2.5rem, 1.2rem + 5.4vw, 4.75rem); }
+.hero .lede { margin-top: 22px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.hero .deco--circle { width: 300px; height: 300px; background: var(--paper); top: -90px; right: -70px; }
+.hero .deco--sq { width: 190px; height: 190px; background: var(--paper); bottom: -80px; left: 38%; }
+/* the composition block */
+.compo { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r); background: var(--paper); overflow: hidden; }
+.compo i { position: absolute; display: block; }
+.compo .a { width: 46%; aspect-ratio: 1; border-radius: 50%; background: var(--amber); top: 12%; left: 10%; }
+.compo .b { width: 40%; height: 34%; border-radius: var(--r); background: var(--emerald); right: 10%; top: 24%; }
+.compo .c { width: 54%; height: 16%; border-radius: var(--r); background: var(--ink); left: 16%; bottom: 16%; }
+
+/* ---- stats: each figure a different accent ------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat b { display: block; font-size: clamp(2.25rem, 1.4rem + 3vw, 3.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+.stat:nth-child(1) b { color: var(--blue); }
+.stat:nth-child(2) b { color: var(--emerald); }
+.stat:nth-child(3) b { color: #d97706; }   /* amber darkened: the raw amber on white is too light for a numeral */
+.stat:nth-child(4) b { color: var(--ink); }
+.stat span { display: block; margin-top: 10px; font-size: 0.9375rem; }
+
+/* ---- cards ------------------------------------------------------------------------------ */
+.cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 760px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { border-radius: var(--r); padding: clamp(22px, 2.6vw, 34px); box-shadow: none; transition: transform 200ms ease-out, background-color 200ms ease-out; }
+.card:hover { transform: scale(1.02); }
+.card--b { background: #eff6ff; }
+.card--e { background: #ecfdf5; }
+.card--a { background: #fffbeb; }
+.card--b:hover { background: #dbeafe; }
+.card--e:hover { background: #d1fae5; }
+.card--a:hover { background: #fef3c7; }
+/* an icon in a solid white circle */
+.card__ico { width: 56px; height: 56px; border-radius: 50%; background: var(--paper); display: grid; place-items: center; transition: transform 200ms ease-out; }
+.card:hover .card__ico { transform: scale(1.1); }
+.card--b .card__ico { color: var(--blue); }
+.card--e .card__ico { color: #047857; }
+.card--a .card__ico { color: #b45309; }
+.card h3 { font-size: 1.375rem; margin-block: 18px 10px; }
+.card p { font-size: 0.9375rem; }
+
+/* ---- pricing -------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { border-radius: var(--r); background: var(--muted); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; transition: transform 300ms ease-out; }
+.tier:hover { transform: scale(1.02); }
+.tier--lead { background: var(--blue); color: var(--ink); transform: scale(1.04); }
+.tier--lead:hover { transform: scale(1.06); }
+.tier__name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.tier__price { font-size: clamp(2.5rem, 1.6rem + 2.6vw, 3.25rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; margin-block: 14px 2px; }
+.tier ul { list-style: none; margin: 20px 0 0; padding: 0; }
+.tier li { padding: 8px 0; font-size: 0.9375rem; }
+.tier li::before { content: "● "; font-size: 0.7em; vertical-align: middle; }
+.tier .btn { margin-top: 22px; }
+
+/* ---- faq ---------------------------------------------------------------------------------------- */
+.faq { display: grid; gap: 0; max-width: 72ch; border-top: 2px solid var(--line); }
+.faq details { border-bottom: 2px solid var(--line); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 1.0625rem; transition: color 200ms ease-out; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: var(--blue); }
+.faq summary::after { content: "+"; font-size: 1.5rem; font-weight: 700; line-height: 1; flex: none; transition: transform 200ms ease-out; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details > div { padding-bottom: 20px; font-size: 0.9375rem; max-width: 64ch; }
+
+/* ---- colophon ------------------------------------------------------------------------------------- */
+.colophon { padding-block: clamp(28px, 4vw, 48px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: center; }
+.colophon p, .colophon a { font-size: 0.875rem; }
+.colophon a { text-decoration: none; }
+
+/* ---- preview badge ------------------------------------------------------------------------------------ */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ink); color: var(--paper); border-radius: var(--r);
+  padding: 9px 16px; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.flag span { opacity: 0.66; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .btn:hover, .card:hover, .tier:hover, .card:hover .card__ico { transform: none; }
+  .tier--lead { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/flat-design/"><i aria-hidden="true"></i> Flatstack</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#contrast">Contrast</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--dark" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero block--blue">
+    <span class="deco deco--circle" aria-hidden="true"></span>
+    <span class="deco deco--sq" aria-hidden="true"></span>
+    <div class="wrap hero__in">
+      <div>
+        <p class="label">Design preset</p>
+        <h1 style="margin-top:18px">Depth is not available. Hierarchy still is.</h1>
+        <p class="lede" style="margin-top:22px">No shadows, no bevels, no gradients. Size, colour and
+        type carry the whole structure — which is a real constraint rather than a preference, because
+        there is no elevation to fall back on.</p>
+        <div class="hero__acts">
+          <a class="btn btn--dark" href="/">Build a site with this</a>
+          <a class="btn btn--out" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="compo" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="bay">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><b>0</b><span>Shadows, anywhere</span></div>
+        <div class="stat"><b>1</b><span>Radius value</span></div>
+        <div class="stat"><b>4</b><span>Colour blocks</span></div>
+        <div class="stat"><b>4.79:1</b><span>Ink on the blue</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay block--muted" id="system">
+    <div class="wrap">
+      <p class="label">What the preset decides</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+2.6vw,3rem);margin-block:16px 36px">Three rules</h2>
+      <div class="cards">
+        <article class="card card--b">
+          <div class="card__ico" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="3" width="18" height="18" rx="3"/></svg></div>
+          <h3>No elevation</h3>
+          <p>Not a soft shadow anywhere. Feedback is scale and colour, so a card that wants to look
+          important has to be bigger or louder rather than floating.</p>
+        </article>
+        <article class="card card--e">
+          <div class="card__ico" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/></svg></div>
+          <h3>Whole sections commit</h3>
+          <p>Blue, emerald, amber, near-black. Colour groups the content instead of lines or boxes,
+          and the transitions between them are sharp.</p>
+        </article>
+        <article class="card card--a">
+          <div class="card__ico" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3 3 20h18L12 3Z"/></svg></div>
+          <h3>One radius</h3>
+          <p>Eight pixels, everywhere. In a style this plain an inconsistent corner reads as a mistake
+          rather than as variety.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ contrast ============================ -->
+  <section class="bay block--emerald" id="contrast">
+    <div class="wrap">
+      <p class="label">The correction</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+2.6vw,3rem);margin-block:16px 20px;max-width:22ch">White on colour is the reflex, and it fails</h2>
+      <p class="lede" style="max-width:58ch">The source specification says white text on the blue is
+      acceptable. Measured, it is 3.68:1 — below AA. On the emerald it is 2.56:1 and on the amber
+      2.15:1, both far below.</p>
+      <p class="lede" style="margin-top:16px;max-width:58ch">Dark ink on the same three fills measures
+      4.79, 9.1 and 9.8. So every colour block on this page — including the one you are reading —
+      carries ink, and white appears only on the near-black section.</p>
+      <div class="hero__acts" style="margin-top:30px">
+        <a class="btn btn--dark" href="#pricing">Keep going</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <p class="label">Pricing, as this preset renders it</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+2.6vw,3rem);margin-block:16px 36px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="dim" style="font-size:0.875rem">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--soft" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="dim" style="font-size:0.875rem">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn btn--dark" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="dim" style="font-size:0.875rem">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--soft" href="/">Choose</a>
+        </div>
+      </div>
+      <p class="label" style="margin-top:24px">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay block--muted" id="faq">
+    <div class="wrap">
+      <p class="label">Questions</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+2.6vw,3rem);margin-block:16px 36px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the type and the single radius. The colour blocking and
+          the decorative geometry are still being folded into the preset and are not all emitted
+          automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why is there no white text on the coloured sections?</summary>
+          <div>Because it fails. White measures 3.68:1 on the blue, 2.56:1 on the emerald and 2.15:1 on
+          the amber — all below the four-and-a-half needed for normal text. Dark ink on those same
+          fills measures 4.79, 9.1 and 9.8. The source specification says white on the blue is fine; it
+          is the one correction this preset most needs.</div>
+        </details>
+        <details>
+          <summary>How do I show that something is clickable without a shadow?</summary>
+          <div>Scale and colour. Buttons grow five per cent on hover and shrink two on press; cards
+          grow two. Focus is a solid three-pixel outline with an offset rather than a glow — with no
+          elevation available, a soft ring would simply disappear.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="bay block--dark on-dark">
+    <div class="wrap">
+      <h2 style="font-size:clamp(2rem,1.2rem+3.4vw,3.75rem);max-width:18ch">Build a site in this preset.</h2>
+      <p class="lede dim" style="margin-top:20px;max-width:50ch">Describe the business and your own AI
+      agent builds it on WordPress with Unyson+ — real page-builder pages, with this design system
+      applied site-wide.</p>
+      <div class="hero__acts" style="margin-top:30px">
+        <a class="btn" href="/">Open the creator</a>
+        <a class="btn btn--out" href="https://docs.unysonplus.com/">Read the docs</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Flat Design — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
