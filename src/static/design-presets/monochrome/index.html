@@ -223,14 +223,18 @@ a { color: inherit; }
 
 /* ======================= stats =========================================== */
 .stats { display: grid; grid-template-columns: 1fr; gap: 0; }
-.stat { padding: clamp(28px, 4vw, 44px) 0; border-top: var(--rule-thin) solid rgba(255,255,255,0.28); text-align: center; }
+.stat { position: relative; padding: clamp(28px, 4vw, 44px) 0; border-top: var(--rule-thin) solid rgba(255,255,255,0.28); text-align: center; }
 .stat:first-child { border-top: 0; }
-.stat b { display: block; font-family: var(--display); font-size: clamp(2.75rem, 1.4rem + 5vw, 5rem); font-weight: 500; line-height: 1; letter-spacing: -0.03em; }
+.stat b { display: block; overflow: hidden; }
+.stat b i { display: block; font-style: normal; font-family: var(--display); font-size: clamp(2.75rem, 1.4rem + 5vw, 5rem); font-weight: 500; line-height: 1.06; letter-spacing: -0.03em; }
 .stat span { display: block; margin-top: 14px; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.72; }
 @media (min-width: 760px) {
   .stats { grid-template-columns: repeat(4, 1fr); }
-  .stat { border-top: 0; border-left: var(--rule-thin) solid rgba(255,255,255,0.28); padding: 0 clamp(20px, 3vw, 36px); }
-  .stat:first-child { padding-left: 0; border-left: 0; }
+  .stat { border-top: 0; padding: 0 clamp(20px, 3vw, 36px); }
+  /* The divider is a pseudo-element rather than a border so it can be DRAWN on entrance. */
+  .stat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--rule-thin); background: rgba(255,255,255,0.28); transform-origin: top; }
+  .stat:first-child { padding-left: 0; }
+  .stat:first-child::before { display: none; }
 }
 
 /* ======================= feature cards =================================== */
@@ -343,8 +347,34 @@ a { color: inherit; }
 .note p + p { margin-top: 0.8em; }
 .note b { color: var(--fg); }
 
+/* ---- stats entrance -------------------------------------------------------
+   The style's motion rule - instant, binary, hover and focus only - is about
+   INTERACTION: an easing curve on a hover here feels sluggish and sentimental.
+   An entrance is a different category, so this is a deliberate exception, kept
+   mechanical rather than playful: the numbers rise from behind their own
+   baseline and the rules draw downward, stepped left to right. No bounce, no
+   float, no scale.
+
+   The animation is OPT-IN from script: nothing is hidden until JS says it can
+   be, so with JS off or broken the numbers are simply there. Hiding first and
+   revealing later would mean a failed script leaves a blank black band. */
+.stats[data-anim] .stat b i { transform: translateY(110%); }
+.stats[data-anim] .stat span { opacity: 0; }
+.stats[data-anim] .stat::before { transform: scaleY(0); }
+
+.stats[data-anim="in"] .stat b i,
+.stats[data-anim="in"] .stat span,
+.stats[data-anim="in"] .stat::before { transition: transform 460ms cubic-bezier(.32,0,.1,1), opacity 300ms linear; transition-delay: calc(var(--i, 0) * 90ms); }
+.stats[data-anim="in"] .stat b i { transform: translateY(0); }
+.stats[data-anim="in"] .stat span { opacity: 0.72; transition-delay: calc(var(--i, 0) * 90ms + 200ms); }
+.stats[data-anim="in"] .stat::before { transform: scaleY(1); }
+
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+  /* Final state outright - a 1ms version of a rise is still a flash of movement. */
+  .stats[data-anim] .stat b i { transform: none; }
+  .stats[data-anim] .stat span { opacity: 0.72; }
+  .stats[data-anim] .stat::before { transform: scaleY(1); }
 }
 </style>
 </head>
@@ -388,11 +418,11 @@ a { color: inherit; }
   <!-- ============================ stats ============================ -->
   <section class="ink on-dark">
     <div class="wrap" style="padding-block: calc(var(--bay) / 2)">
-      <div class="stats">
-        <div class="stat"><b>2</b><span>Colours</span></div>
-        <div class="stat"><b>0</b><span>Border radius</span></div>
-        <div class="stat"><b>5</b><span>Rule weights</span></div>
-        <div class="stat"><b>21:1</b><span>Text contrast</span></div>
+      <div class="stats" id="stats">
+        <div class="stat"><b><i>2</i></b><span>Colours</span></div>
+        <div class="stat"><b><i>0</i></b><span>Border radius</span></div>
+        <div class="stat"><b><i>5</i></b><span>Rule weights</span></div>
+        <div class="stat"><b><i>21:1</i></b><span>Text contrast</span></div>
       </div>
     </div>
   </section>
@@ -547,6 +577,34 @@ a { color: inherit; }
   </section>
 
 </main>
+
+<script>
+/* Runs once, when the band is actually on screen. The hidden state is applied HERE rather than in
+   the stylesheet so that a browser with no JS, or a script that fails to parse, shows the numbers
+   normally instead of an empty black band. */
+(function () {
+  var stats = document.getElementById("stats");
+  if (!stats) return;
+
+  var items = stats.querySelectorAll(".stat");
+  for (var i = 0; i < items.length; i++) items[i].style.setProperty("--i", i);
+
+  // Without IntersectionObserver there is nothing to tie the reveal to, so leave it visible.
+  if (!("IntersectionObserver" in window)) return;
+
+  stats.setAttribute("data-anim", "");
+
+  var io = new IntersectionObserver(function (entries) {
+    for (var j = 0; j < entries.length; j++) {
+      if (!entries[j].isIntersecting) continue;
+      stats.setAttribute("data-anim", "in");
+      io.disconnect();          // once only - this is an entrance, not a scroll effect
+    }
+  }, { threshold: 0.35 });
+
+  io.observe(stats);
+})();
+</script>
 
 <footer class="colophon">
   <div class="wrap colophon__in">
