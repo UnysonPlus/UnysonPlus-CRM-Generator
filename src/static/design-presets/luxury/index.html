@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luxury / Editorial — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Luxury preset: warm alabaster and rich charcoal, a visible editorial grid, cinematic motion and gold used strictly as an accent. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/luxury/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F9F8F6">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500&display=swap">
+<style>
+/* ===========================================================================
+   LUXURY / EDITORIAL
+   A design preset, shown as a whole page.
+
+   Three things carry this style and none of them is decoration: more space than
+   feels comfortable, motion slowed to cinematic speeds, and asymmetry used
+   deliberately. Luxury here is not what has been added - it is what has been
+   removed, and how carefully what remains is placed.
+
+   THE TRAP, measured: gold on the charcoal is about 5.2:1 and is fine. Gold on
+   the ALABASTER is roughly 2:1 - it fails AA for text and the 3:1 minimum for
+   non-text indicators. So on light sections gold is a decorative rule only;
+   readable gold, focus gold and stateful gold live on the dark bands. Getting
+   this wrong is the easiest way to ship an inaccessible version of a style
+   whose accent is already "used sparingly".
+   ========================================================================= */
+
+:root {
+  --paper: #f9f8f6;     /* warm alabaster - the warmth is the point */
+  --ink: #1a1a1a;       /* rich charcoal, never pure black */
+  --taupe: #ebe5de;
+  --muted: #6c6863;     /* 4.8:1 - holds AA */
+  --gold: #d4af37;
+
+  --display: "Playfair Display", Georgia, serif;
+  --ui: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  --gutter: clamp(24px, 6vw, 64px);
+  --bay: clamp(80px, 12vw, 160px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height: 1.625;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; line-height: 0.95; text-wrap: balance; }
+
+/* Focus is CHARCOAL on light surfaces - gold would be ~2:1 here and fail even
+   the non-text minimum. It becomes gold only on the dark bands. */
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+.on-ink :focus-visible { outline-color: var(--gold); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--ink); color: var(--paper); padding: 14px 22px;
+  font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+}
+.skip:focus { top: 20px; }
+
+/* ---- the fixed editorial grid + paper grain ------------------------------- */
+.grid-lines { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none; }
+.grid-lines i { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(26,26,26,0.14); }
+@media (min-width: 1024px) { .grid-lines { display: block; } }
+.grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.shell { position: relative; z-index: 1; }
+
+.wrap { width: 100%; max-width: 1600px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+.rule-top { border-top: 1px solid rgba(26,26,26,0.18); }
+
+/* ---- labels + small type --------------------------------------------------- */
+.label { font-size: 0.625rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.on-ink .label { color: rgba(249,248,246,0.66); }
+.lede { color: var(--muted); font-size: clamp(1rem, 0.95rem + 0.4vw, 1.125rem); }
+.on-ink .lede { color: rgba(235,229,222,0.76); }
+/* A short architectural rule used before a label - a deliberate mark, not a divider. */
+.tick { display: inline-block; width: clamp(32px, 4vw, 56px); height: 1px; background: var(--ink); vertical-align: middle; margin-right: 18px; }
+.on-ink .tick { background: var(--gold); }
+
+/* ---- buttons --------------------------------------------------------------- */
+.btn {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 15px 36px;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
+  font-family: var(--ui); font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+  border-radius: 0; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: box-shadow 500ms var(--ease), color 500ms var(--ease), background-color 500ms var(--ease);
+}
+/* The gold slide: a layer translating in from the left, the label held above it.
+   This is why the button needs an isolated stacking context and a span. */
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--gold); transform: translateX(-100%);
+  transition: transform 500ms var(--ease);
+}
+.btn:hover::before { transform: translateX(0); }
+.btn:hover { color: var(--ink); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+.btn--out { background: transparent; color: var(--ink); box-shadow: none; }
+.btn--out:hover { background: var(--ink); color: var(--paper); }
+.btn--out::before { display: none; }
+.on-ink .btn { border-color: var(--paper); background: var(--paper); color: var(--ink); }
+.on-ink .btn:hover { color: var(--ink); }
+
+/* ---- masthead ---------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid rgba(26,26,26,0.18); }
+.masthead__in { display: flex; align-items: center; gap: 28px; min-height: 92px; }
+.brand { font-family: var(--display); font-size: 1.375rem; letter-spacing: 0.02em; text-decoration: none; margin-right: auto; }
+.masthead__nav { display: none; gap: 34px; }
+.masthead__nav a { font-size: 0.625rem; letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 500ms var(--ease); }
+.masthead__nav a:hover { color: var(--ink); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ---------------------------------------------------------------------- */
+.hero { display: grid; grid-template-columns: 1fr; gap: clamp(40px, 6vw, 80px); align-items: end; padding-block: clamp(64px, 10vw, 140px) var(--bay); }
+@media (min-width: 1024px) { .hero { grid-template-columns: 7fr 5fr; } }   /* 7/5, never half */
+.hero h1 { font-size: clamp(2.75rem, 1rem + 8.4vw, 7rem); margin-top: clamp(28px, 4vw, 48px); }
+/* One italic word per headline gives the line a spoken cadence. */
+.hero h1 em { font-style: italic; }
+.hero .lede { margin-top: clamp(28px, 4vw, 44px); max-width: 38ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: clamp(32px, 4vw, 52px); }
+
+/* The media plate. No photograph here: a plate that starts desaturated and warms
+   over 1800ms, which is the treatment this style applies to every image. */
+.plate { position: relative; aspect-ratio: 3 / 4; box-shadow: 0 4px 24px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.06); overflow: hidden; }
+.plate__art {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 20% 15%, #ffffff 0%, transparent 55%),
+    linear-gradient(160deg, #c9c2b8 0%, #9a938a 45%, #4a4642 100%);
+  filter: grayscale(1) contrast(0.96);
+  transform: scale(1);
+  transition: filter 1800ms var(--ease), transform 1800ms var(--ease);
+}
+.plate:hover .plate__art { filter: grayscale(0) contrast(1) saturate(1.1) sepia(0.18); transform: scale(1.05); }
+/* The vertical label on the plate edge - desktop only, decorative. */
+.plate__vert {
+  position: absolute; right: 14px; bottom: 18px; display: none;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-size: 0.5625rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--paper);
+}
+@media (min-width: 1024px) { .plate__vert { display: block; } }
+
+/* ---- stats ---------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px); }
+@media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border-top: 1px solid rgba(26,26,26,0.18); padding-top: 22px; }
+.stat b { display: block; font-family: var(--display); font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); font-weight: 400; line-height: 1; }
+.stat span { display: block; margin-top: 12px; font-size: 0.625rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+
+/* ---- editorial columns ----------------------------------------------------------- */
+.ed { display: grid; grid-template-columns: 1fr; gap: clamp(32px, 5vw, 72px); }
+@media (min-width: 1024px) { .ed { grid-template-columns: 5fr 7fr; } }
+.ed__body p + p { margin-top: 1.1em; }
+.dropcap::first-letter {
+  float: left; font-family: var(--display); font-size: 4.6em; line-height: 0.76;
+  margin: 0.04em 0.14em 0 0;
+}
+
+/* ---- cards: a single top rule, never a box ----------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 56px); }
+@media (min-width: 860px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { border-top: 1px solid var(--ink); padding-top: 26px; transition: background-color 700ms var(--ease); }
+.card h3 { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem); margin-bottom: 14px; }
+.card p { color: var(--muted); font-size: 0.9375rem; }
+.card--lead { border-top-width: 4px; border-top-color: var(--gold); }
+
+/* ---- the inverted band -------------------------------------------------------------- */
+.ink-band { background: var(--ink); color: var(--paper); }
+.quote { max-width: none; }
+.quote blockquote { max-width: 16ch; }   /* 16 characters OF THE DISPLAY SIZE, not of the body size */
+.quote blockquote { margin: 0; font-family: var(--display); font-size: clamp(1.75rem, 1.2rem + 3vw, 3.5rem); line-height: 1.1; font-style: italic; }
+/* Gold is readable HERE (about 5.2:1) and nowhere on the light sections. */
+.quote blockquote em { font-style: italic; color: var(--gold); }
+.quote figcaption { margin-top: clamp(28px, 4vw, 44px); font-size: 0.625rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(249,248,246,0.6); }
+
+/* ---- pricing ------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px); }
+@media (min-width: 1024px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { border-top: 1px solid var(--ink); padding-top: 28px; display: flex; flex-direction: column; }
+.tier--lead { border-top-width: 4px; border-top-color: var(--gold); }
+.tier__name { font-size: 0.625rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.tier__price { font-family: var(--display); font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3rem); line-height: 1; margin-block: 18px 6px; }
+.tier__per { font-size: 0.625rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+.tier ul { list-style: none; margin: 26px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid rgba(26,26,26,0.1); font-size: 0.9375rem; color: var(--muted); }
+.tier .btn { margin-top: 28px; }
+
+/* ---- faq ------------------------------------------------------------------------------ */
+.faq { border-top: 1px solid var(--ink); max-width: 68ch; }
+.faq details { border-bottom: 1px solid rgba(26,26,26,0.18); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; cursor: pointer; list-style: none; font-family: var(--display); font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem); transition: color 500ms var(--ease); }
+.faq summary::-webkit-details-marker { display: none; }
+/* The marker rotates 90 degrees; its border stays charcoal on this light surface. */
+.faq summary::after { content: ""; flex: none; width: 13px; height: 13px; border: 1px solid var(--ink); transition: transform 500ms var(--ease); }
+.faq details[open] summary::after { transform: rotate(90deg); }
+.faq details > div { padding-bottom: 26px; color: var(--muted); font-size: 0.9375rem; max-width: 58ch; }
+
+/* ---- colophon ---------------------------------------------------------------------------- */
+.colophon { border-top: 1px solid rgba(26,26,26,0.18); padding-block: clamp(36px, 5vw, 64px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 16px 42px; align-items: baseline; }
+.colophon p, .colophon a { font-size: 0.625rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+.colophon a { text-decoration: none; transition: color 500ms var(--ease); }
+.colophon a:hover { color: var(--ink); }
+
+/* ---- preview badge -------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 20px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ink); color: var(--paper);
+  padding: 10px 18px; font-size: 0.5625rem; letter-spacing: 0.25em; text-transform: uppercase;
+}
+.flag span { color: rgba(249,248,246,0.6); }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .plate:hover .plate__art { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="grid-lines" aria-hidden="true">
+  <i style="left:12.5%"></i><i style="left:37.5%"></i><i style="left:62.5%"></i><i style="left:87.5%"></i>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="shell">
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/luxury/">Alabaster</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">The System</a>
+      <a href="#detail">The Detail</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">Enquiries</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div>
+      <p class="label"><span class="tick" aria-hidden="true"></span>Design preset</p>
+      <h1>Everything unnecessary, <em>removed</em>.</h1>
+      <p class="lede">More space than feels comfortable. Motion slowed until it reads as deliberate.
+      Asymmetry used on purpose. Luxury here is not what has been added — it is what has been taken
+      away, and how carefully what remains has been placed.</p>
+      <div class="hero__acts">
+        <a class="btn" href="/">Build a site with this</a>
+        <a class="btn btn--out" href="#system">See the system</a>
+      </div>
+    </div>
+    <figure class="plate" style="margin:0">
+      <span class="plate__art" aria-hidden="true"></span>
+      <figcaption class="plate__vert">Editorial &middot; Vol. 01</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap" style="padding-bottom: var(--bay)">
+    <div class="stats">
+      <div class="stat"><b>0</b><span>Border radius</span></div>
+      <div class="stat"><b>2</b><span>Typefaces</span></div>
+      <div class="stat"><b>1800<small style="font-family:var(--ui);font-size:0.4em;letter-spacing:0.1em">ms</small></b><span>Image reveal</span></div>
+      <div class="stat"><b>0.3<small style="font-family:var(--ui);font-size:0.4em;letter-spacing:0.1em">em</small></b><span>Label tracking</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay rule-top" id="system">
+    <div class="wrap">
+      <p class="label"><span class="tick" aria-hidden="true"></span>The system</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3vw,3.25rem);margin-block:26px 56px;max-width:18ch">What the preset <em style="font-style:italic">decides</em></h2>
+      <div class="cards">
+        <article class="card card--lead">
+          <h3>Space</h3>
+          <p>Section padding runs to 160px and component padding to 48px. If the page feels too airy,
+          it is probably correct — crowding is what makes a restrained palette read as plain.</p>
+        </article>
+        <article class="card">
+          <h3>Tracking</h3>
+          <p>Uppercase labels at 0.3em beside a 7rem headline. The distance between those two is the
+          whole hierarchy, and body text is never tracked at all.</p>
+        </article>
+        <article class="card">
+          <h3>Line</h3>
+          <p>A single top rule rather than a box, and four fixed vertical lines down the viewport.
+          Structure is drawn with hairlines, never with a shadow.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ detail ============================ -->
+  <section class="bay rule-top" id="detail">
+    <div class="wrap">
+      <p class="label"><span class="tick" aria-hidden="true"></span>The detail</p>
+      <div class="ed" style="margin-top:36px">
+        <div>
+          <h2 style="font-size:clamp(1.75rem,1.2rem+2.6vw,3rem);max-width:12ch">Slow is the <em style="font-style:italic">point</em>.</h2>
+        </div>
+        <div class="ed__body">
+          <p class="dropcap">Motion in this style is not feedback, it is pacing. An image takes
+          1,800 milliseconds to warm from grey into colour — long enough that a visitor has to rest on
+          it, which is exactly the intention. Colour is a reward rather than a response.</p>
+          <p>Everything else follows the same clock: interactions at 500ms, colour at 700ms, and an
+          easing curve that decelerates rather than snapping. A 300ms version of this page would not
+          read as faster. It would read as ordinary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ quote (inverted) ============================ -->
+  <section class="ink-band on-ink">
+    <div class="wrap bay">
+      <p class="label"><span class="tick" aria-hidden="true"></span>On restraint</p>
+      <figure class="quote" style="margin:36px 0 0">
+        <blockquote>A page with nothing to hide behind has to be <em>right</em>.</blockquote>
+        <figcaption>The accent is readable here, and only here</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <p class="label"><span class="tick" aria-hidden="true"></span>Pricing, as this preset renders it</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3vw,3.25rem);margin-block:26px 56px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--out" href="/">Choose</a>
+        </div>
+      </div>
+      <p class="label" style="margin-top:32px">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay rule-top" id="faq">
+    <div class="wrap">
+      <p class="label"><span class="tick" aria-hidden="true"></span>Enquiries</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3vw,3.25rem);margin-block:26px 56px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the type pairing and the spacing. The editorial detail
+          here — the fixed gridlines, the drop cap, the gold slide, the 1,800ms image reveal — is still
+          being folded into the preset and is not all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why is the gold almost absent from the light sections?</summary>
+          <div>Because it fails there. Gold measures about 5.2:1 on the charcoal and is comfortable,
+          but roughly 2:1 on the alabaster — below AA for text and below the 3:1 minimum for a focus
+          ring or a stateful icon. On light sections gold is a decorative rule and nothing more; focus
+          and emphasis are charcoal. It is the easiest way to ship an inaccessible version of a style
+          whose accent is already meant to be rare.</div>
+        </details>
+        <details>
+          <summary>Does this survive a phone?</summary>
+          <div>Yes, with two changes. The fixed vertical gridlines and the vertical edge label are
+          desktop-only — at phone width they would crowd the very space the style depends on. Padding
+          steps down but never collapses: the air is the design, not a desktop luxury.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="ink-band on-ink">
+    <div class="wrap bay">
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.4vw,4rem);max-width:16ch">Build a site in this preset.</h2>
+      <p class="lede" style="margin-top:28px;max-width:44ch">Describe the business and your own AI agent
+      builds it on WordPress with Unyson+ — real page-builder pages, with this design system applied
+      site-wide.</p>
+      <div class="hero__acts">
+        <a class="btn" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Luxury / Editorial — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+</div>
+
+</body>
+</html>
