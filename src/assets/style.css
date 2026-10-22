@@ -493,3 +493,14 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .note { margin: 2px 0 0; padding: 10px 12px; border-radius: 8px; background: #fff6e8; border: 1px solid #f0d3a8; color: #5b3b0c; font-size: 0.92rem; }
 .hint-line { margin: 6px 0 0; font-size: 0.9rem; color: #4a5a56; }
 .hint-line a { color: inherit; text-decoration: underline; }
+
+/* Style preview — a screenshot of a preset as it actually renders on WordPress. It is shown at half its
+   pixel width (captured at 2x) so it stays sharp on HiDPI screens; without an explicit width the browser
+   would draw it at twice the intended size. The frame is deliberately plain: a border and the page's own
+   radius, nothing that would read as part of the style being previewed. */
+.stylep { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
+.stylep img { display: block; width: 100%; height: auto; }
+.stylep figcaption { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-top: 1px solid var(--line); background: var(--bg); }
+.stylep figcaption b { font-size: 1.08rem; }
+.stylep figcaption span { color: var(--ink-2); font-size: 0.93rem; }
+.stylep__note { color: var(--ink-2); font-size: 0.93rem; margin: 16px 0 0; }
