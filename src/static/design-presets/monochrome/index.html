@@ -340,12 +340,22 @@ a { color: inherit; }
 .colophon p { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-fg); }
 .colophon a { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: var(--rule-thin) solid var(--fg); text-decoration: none; padding-bottom: 3px; }
 
-/* A plain-language note about what this page is. Set quietly, because it is
-   housekeeping rather than part of the design being shown. */
-.note { border: var(--rule-thin) solid var(--line-light); background: var(--muted); padding: clamp(20px, 3vw, 28px); max-width: var(--measure); }
-.note p { font-size: 0.9375rem; color: var(--muted-fg); }
-.note p + p { margin-top: 0.8em; }
-.note b { color: var(--fg); }
+/* The preview badge. Fixed, small, and in-system: square, mono, a white hairline on black. It
+   carries no interaction, so pointer-events are off and it can never sit over a link the visitor
+   is trying to press. */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40;
+  pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--fg); color: var(--bg);
+  border: var(--rule-thin) solid var(--bg);
+  padding: 9px 14px;
+  font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.flag b { font-weight: 500; }
+.flag span { opacity: 0.66; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; font-size: 0.5625rem; letter-spacing: 0.12em; } }
 
 /* ---- stats entrance -------------------------------------------------------
    The style's motion rule - instant, binary, hover and focus only - is about
@@ -528,9 +538,12 @@ a { color: inherit; }
       <div class="faq">
         <details open>
           <summary>Is this a mock-up or the real thing?</summary>
-          <p>This page is hand-built to the preset's specification, so you can see the style at full
-          length. The preset itself is a set of WordPress Theme Settings — the note at the foot of
-          the page says exactly which parts a built site carries today.</p>
+          <p>A specimen. It is hand-built to the preset's specification so the style can be seen
+          whole rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings,
+          and a generated site carries the palette, the type pairing and scale, zero radius, the three
+          surfaces and the inversion-on-dark rule from day one. The finer editorial details here — the
+          boxed drop cap, the pull-quote mark, the elevated pricing tier, the line textures — are still
+          being folded into the preset and are not all emitted automatically yet.</p>
         </details>
         <details>
           <summary>Can I change it afterwards?</summary>
@@ -561,21 +574,6 @@ a { color: inherit; }
     </div>
   </section>
 
-  <!-- ============================ note ============================ -->
-  <section class="bay">
-    <div class="wrap">
-      <div class="note">
-        <p><b>What this page is.</b> A specimen of the Monochrome editorial preset, hand-built to its
-        specification so the style can be seen whole rather than as a thumbnail.</p>
-        <p><b>What a built site carries today.</b> The preset applies the palette, the type scale and
-        pairing, zero radius, the three surfaces and the inversion-on-dark rule as Theme Settings, so
-        those arrive on every page of a generated site. The finer editorial details on this page — the
-        boxed drop cap, the pull-quote mark, the elevated pricing tier, the line textures — are being
-        folded into the preset and are not all emitted automatically yet.</p>
-      </div>
-    </div>
-  </section>
-
 </main>
 
 <script>
@@ -583,8 +581,13 @@ a { color: inherit; }
    the stylesheet so that a browser with no JS, or a script that fails to parse, shows the numbers
    normally instead of an empty black band. */
 (function () {
+  // Off for the preview. The reveal is kept rather than deleted, so turning it back on is this
+  // one line - and because the hidden state is only ever applied below, "off" means the numbers
+  // are simply rendered, not hidden-and-then-shown.
+  var ENTRANCE_MOTION = false;
+
   var stats = document.getElementById("stats");
-  if (!stats) return;
+  if (!stats || !ENTRANCE_MOTION) return;
 
   var items = stats.querySelectorAll(".stat");
   for (var i = 0; i < items.length; i++) items[i].style.setProperty("--i", i);
@@ -605,6 +608,8 @@ a { color: inherit; }
   io.observe(stats);
 })();
 </script>
+
+<p class="flag"><b>Preview only</b> <span>Entrance animation disabled</span></p>
 
 <footer class="colophon">
   <div class="wrap colophon__in">
