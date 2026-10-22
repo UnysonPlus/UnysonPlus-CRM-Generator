@@ -659,18 +659,29 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         <p>A style is a set of Theme Settings — palette, type, button shape, surfaces — applied across the
         whole site rather than to each element. You can change any of it afterwards in WordPress.</p>
       </div>
-      <figure class="stylep">
-        <a class="stylep__link" href="/design-presets/monochrome/">
-        <img src="/assets/img/styles/monochrome.png" width="1280" height="967" loading="lazy" decoding="async"
-             alt="A monochrome editorial style: a large serif headline in near-black on white, a square-cornered black button, and a pale grey band below it.">
-        </a>
-        <figcaption>
-          <b>Monochrome editorial</b>
-          <span>Pure black on white, serif display type, square corners and a three-step surface
-          rhythm. <a href="/design-presets/monochrome/">See the whole preset as a page →</a></span>
-        </figcaption>
-      </figure>
-      <p class="stylep__note">More presets are being added. Until then the creator uses this one unless you ask for something else.</p>
+      <div class="stylep__grid">
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/monochrome/">
+            <img src="/assets/img/styles/monochrome.png" width="1280" height="967" loading="lazy" decoding="async"
+                 alt="A monochrome editorial style: a large serif headline in black on white, a square-cornered black button, and a pale grey band below it.">
+          </a>
+          <figcaption>
+            <b>Monochrome editorial</b>
+            <span>Pure black on white, serif display type, square corners, three surfaces. <a href="/design-presets/monochrome/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/bauhaus/">
+            <img src="/assets/img/styles/bauhaus.png" width="1280" height="1150" loading="lazy" decoding="async"
+                 alt="A Bauhaus style: a heavy uppercase headline beside a blue panel holding a yellow circle, a red rotated square and a white square, over a yellow band of statistics.">
+          </a>
+          <figcaption>
+            <b>Bauhaus</b>
+            <span>Primary colour blocking, thick black borders, hard offset shadows. <a href="/design-presets/bauhaus/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+      </div>
+      <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
   </section>
 
@@ -855,7 +866,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

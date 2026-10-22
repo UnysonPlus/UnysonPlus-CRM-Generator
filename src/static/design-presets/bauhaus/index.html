@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bauhaus — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Bauhaus preset: primary colour blocking, hard offset shadows, thick black borders and geometric composition. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/bauhaus/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1040C0">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap">
+<style>
+/* ===========================================================================
+   BAUHAUS
+   A design preset, shown as a whole page. Where the monochrome preset removes
+   everything until only type and rule weight remain, this one CONSTRUCTS: the
+   page is a composition of circles, squares and triangles in three primaries,
+   held together by thick black borders and hard offset shadows.
+
+   The discipline is in the limits, not the loudness. Three colours and no
+   fourth. Two radii - 0 or a full circle - and nothing between. Shadows are
+   solid offsets, never blurred, because a blur implies soft light and this
+   style has none.
+   ========================================================================= */
+
+:root {
+  --paper: #f0f0f0;
+  --ink: #121212;
+  --white: #ffffff;
+  --muted: #e0e0e0;
+
+  --red: #d02020;
+  --blue: #1040c0;
+  --yellow: #f0c020;
+
+  /* Text that is legible ON each block. White clears AA on the red (5.4:1) and
+     the blue (8.4:1) but fails badly on the yellow (1.7:1), so the yellow block
+     always carries black. This is the one trap in the palette. */
+  --on-red: #ffffff;
+  --on-blue: #ffffff;
+  --on-yellow: #121212;
+
+  --b-thin: 2px;     /* mobile, and small elements */
+  --b-thick: 4px;    /* desktop, and every major division */
+
+  --shadow-sm: 4px 4px 0 0 var(--ink);
+  --shadow-md: 6px 6px 0 0 var(--ink);
+  --shadow-lg: 8px 8px 0 0 var(--ink);
+
+  --font: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 32px);
+  --bay: clamp(48px, 8vw, 96px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height: 1.65;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+h4 { margin: 0; font-weight: 700; text-transform: uppercase; line-height: 1.1; }
+p { margin: 0; }
+
+/* Focus is a hard offset ring, in keeping with everything else being hard. */
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.on-ink :focus-visible, .block--blue :focus-visible, .block--red :focus-visible { outline-color: var(--white); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 60;
+  background: var(--yellow); color: var(--ink);
+  border: var(--b-thin) solid var(--ink); box-shadow: var(--shadow-sm);
+  padding: 12px 18px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; text-decoration: none; font-size: 0.8125rem;
+}
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+
+/* Every major section is divided by a thick black rule. The horizontal rhythm
+   is the structure - without it the colour blocks read as unrelated panels. */
+.block { border-bottom: var(--b-thick) solid var(--ink); padding-block: var(--bay); }
+.block--paper  { background: var(--paper); }
+.block--white  { background: var(--white); }
+.block--red    { background: var(--red);    color: var(--on-red); }
+.block--blue   { background: var(--blue);   color: var(--on-blue); }
+.block--yellow { background: var(--yellow); color: var(--on-yellow); }
+
+/* ---- label ---------------------------------------------------------------- */
+.label {
+  display: inline-block;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  border: var(--b-thin) solid currentColor; padding: 6px 12px; margin-bottom: 24px;
+}
+
+/* ---- buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 13px 26px;
+  border: var(--b-thin) solid var(--ink);
+  box-shadow: var(--shadow-sm);
+  background: var(--white); color: var(--ink);
+  font-family: var(--font); font-weight: 700; font-size: 0.875rem;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  cursor: pointer; border-radius: 0;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, background-color 200ms ease-out;
+}
+/* The press is the signature interaction: the element physically moves into the
+   space its own shadow occupied. Anything softer breaks the illusion. */
+.btn:active { transform: translate(2px, 2px); box-shadow: none; }
+.btn--red    { background: var(--red);    color: var(--on-red); }
+.btn--blue   { background: var(--blue);   color: var(--on-blue); }
+.btn--yellow { background: var(--yellow); color: var(--on-yellow); }
+.btn--pill { border-radius: 9999px; }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-md); }
+.btn:active:hover { transform: translate(2px, 2px); box-shadow: none; }
+
+/* ---- masthead ------------------------------------------------------------- */
+.masthead { background: var(--white); border-bottom: var(--b-thick) solid var(--ink); }
+.masthead__in { display: flex; align-items: center; gap: 20px; min-height: 76px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-right: auto; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; font-size: 1.125rem; }
+/* The mark is the three primitives in the three primaries - the whole system in
+   one object, which is why it is built rather than drawn. */
+.mark { display: flex; align-items: center; gap: 5px; }
+.mark i { display: block; width: 16px; height: 16px; border: 2px solid var(--ink); }
+.mark .c { background: var(--red); border-radius: 9999px; }
+.mark .s { background: var(--blue); }
+.mark .t { background: var(--yellow); border: 0; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); width: 18px; height: 16px; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+.masthead__nav a:hover { color: var(--red); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ----------------------------------------------------------------- */
+.hero { display: grid; grid-template-columns: 1fr; border-bottom: var(--b-thick) solid var(--ink); }
+.hero__copy { background: var(--paper); padding: clamp(40px, 7vw, 88px) var(--gutter); }
+.hero h1 { font-size: clamp(2.5rem, 1rem + 7.6vw, 6rem); }
+.hero__lede { margin-top: clamp(20px, 3vw, 32px); max-width: 44ch; font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 14px; margin-top: clamp(28px, 4vw, 40px); }
+/* The composition panel. Not decoration bolted on - it is the demonstration
+   that the style builds images out of the same three primitives. */
+.hero__art { position: relative; background: var(--blue); min-height: 340px; overflow: hidden; border-top: var(--b-thick) solid var(--ink); }
+@media (min-width: 980px) {
+  .hero { grid-template-columns: 1.15fr 1fr; }
+  .hero__art { border-top: 0; border-left: var(--b-thick) solid var(--ink); }
+}
+.shape { position: absolute; border: var(--b-thick) solid var(--ink); }
+.shape--circle { border-radius: 9999px; }
+.shape--tri { border: 0; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+.hero__art .s1 { width: 46%; aspect-ratio: 1; background: var(--yellow); border-radius: 9999px; top: 12%; left: 10%; }
+.hero__art .s2 { width: 38%; aspect-ratio: 1; background: var(--red); right: 12%; top: 26%; transform: rotate(45deg); }
+.hero__art .s3 { width: 26%; aspect-ratio: 1; background: var(--white); left: 34%; bottom: 14%; }
+.hero__art .s4 { width: 14%; aspect-ratio: 1; background: var(--yellow); left: 40%; bottom: 20%; border: 0; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+
+/* ---- stats ---------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr; border: var(--b-thick) solid var(--ink); background: var(--ink); gap: var(--b-thick); }
+.stat { background: var(--yellow); color: var(--on-yellow); padding: clamp(24px, 3vw, 36px); text-align: center; }
+.stat__fig { width: 76px; height: 76px; margin: 0 auto 16px; border: var(--b-thick) solid var(--ink); background: var(--white); display: grid; place-items: center; font-weight: 900; font-size: 1.75rem; }
+.stat:nth-child(1) .stat__fig { border-radius: 9999px; }
+.stat:nth-child(3) .stat__fig { transform: rotate(45deg); }
+.stat:nth-child(3) .stat__fig span { transform: rotate(-45deg); }  /* counter-rotate, so the number stays upright */
+.stat__label { font-weight: 700; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; }
+@media (min-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---- cards ---------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1040px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card {
+  position: relative; background: var(--white); color: var(--ink);
+  border: var(--b-thick) solid var(--ink); box-shadow: var(--shadow-lg);
+  padding: clamp(24px, 3vw, 34px);
+  transition: transform 200ms ease-out;
+}
+.card:hover { transform: translateY(-6px); }
+/* The corner mark rotates through the three primaries and the three shapes, so
+   no two adjacent cards repeat. */
+.card__dot { position: absolute; top: 16px; right: 16px; width: 16px; height: 16px; border: 2px solid var(--ink); }
+.card:nth-child(1) .card__dot { background: var(--red); border-radius: 9999px; }
+.card:nth-child(2) .card__dot { background: var(--blue); }
+.card:nth-child(3) .card__dot { background: var(--yellow); border: 0; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); width: 18px; }
+.card h3 { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem); margin-bottom: 12px; }
+.card p { font-size: 0.975rem; }
+
+/* ---- steps ---------------------------------------------------------------- */
+.steps { display: grid; grid-template-columns: 1fr; gap: 26px; }
+@media (min-width: 640px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.step__n {
+  width: 64px; height: 64px; display: grid; place-items: center;
+  /* ink EXPLICITLY: this box sits inside the blue block and would otherwise inherit its white
+     text, putting a white numeral on a white square. The coloured variants below set their own. */
+  border: var(--b-thick) solid var(--ink); background: var(--white); color: var(--ink);
+  font-weight: 900; font-size: 1.375rem; margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.step:nth-child(2) .step__n { background: var(--red); color: var(--on-red); border-radius: 9999px; }
+.step:nth-child(3) .step__n { background: var(--blue); color: var(--on-blue); transform: rotate(45deg); }
+.step:nth-child(3) .step__n span { transform: rotate(-45deg); }
+.step:nth-child(4) .step__n { background: var(--yellow); color: var(--on-yellow); }
+.step h4 { font-size: 1.0625rem; margin-bottom: 8px; }
+.step p { font-size: 0.95rem; }
+
+/* ---- benefits ------------------------------------------------------------- */
+.bens { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 760px) { .bens { grid-template-columns: 1fr 1fr; gap: 22px 34px; } }
+.bens li { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; max-width: 46ch; }
+.bens li > span:last-child { flex: 1; }
+.bens b { font-weight: 700; }
+/* A yellow circular badge with a black tick, drawn rather than imported. */
+.bens__tick { flex: none; width: 30px; height: 30px; margin-top: 2px; background: var(--yellow); border: var(--b-thin) solid var(--ink); border-radius: 9999px; position: relative; }
+.bens__tick::after { content: ""; position: absolute; left: 9px; top: 7px; width: 7px; height: 12px; border-right: 3px solid var(--ink); border-bottom: 3px solid var(--ink); transform: rotate(45deg); }
+
+/* ---- pricing -------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+@media (min-width: 1024px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { background: var(--white); color: var(--ink); border: var(--b-thick) solid var(--ink); box-shadow: var(--shadow-lg); padding: clamp(24px, 3vw, 34px); display: flex; flex-direction: column; }
+.tier__name { font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; }
+.tier__price { font-weight: 900; font-size: clamp(2.5rem, 1.6rem + 3.2vw, 3.75rem); line-height: 1; margin-block: 14px 4px; letter-spacing: -0.03em; }
+.tier__per { font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.tier ul { list-style: none; margin: 22px 0 0; padding: 0; }
+.tier li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 0.95rem; }
+.tier li::before { content: ""; flex: none; width: 14px; height: 14px; margin-top: 5px; background: var(--ink); }
+.tier--lead { background: var(--blue); color: var(--on-blue); }
+.tier--lead li::before { background: var(--yellow); }
+.tier--lead .btn { background: var(--yellow); color: var(--on-yellow); }
+.tier .btn { margin-top: 24px; }
+@media (min-width: 1024px) { .tier--lead { margin-block: -24px; padding-block: calc(clamp(24px, 3vw, 34px) + 24px); } }
+
+/* ---- accordion ------------------------------------------------------------ */
+.faq { display: grid; gap: 18px; max-width: 70ch; }
+.faq details { border: var(--b-thick) solid var(--ink); box-shadow: var(--shadow-sm); background: var(--white); }
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 18px 22px; cursor: pointer; list-style: none;
+  font-weight: 700; text-transform: uppercase; font-size: 0.9375rem; letter-spacing: 0.02em;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 12px; height: 12px; border-right: 3px solid currentColor; border-bottom: 3px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform 200ms ease-out; }
+.faq details[open] summary { background: var(--red); color: var(--on-red); border-bottom: var(--b-thick) solid var(--ink); }
+.faq details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+.faq details > div { background: #fff9c4; padding: 20px 22px; font-size: 0.975rem; }
+
+/* ---- closing + footer ----------------------------------------------------- */
+.closing { position: relative; overflow: hidden; text-align: center; }
+.closing h2 { font-size: clamp(2rem, 1.2rem + 4.4vw, 4.5rem); max-width: 20ch; margin-inline: auto; }
+.closing p { margin: 22px auto 0; max-width: 50ch; }
+.closing .hero__acts { justify-content: center; }
+.closing .deco { position: absolute; opacity: 0.5; pointer-events: none; }
+.closing .d1 { width: 220px; height: 220px; border-radius: 9999px; background: var(--red); border: var(--b-thick) solid var(--ink); left: -70px; top: -60px; }
+.closing .d2 { width: 200px; height: 200px; background: var(--blue); border: var(--b-thick) solid var(--ink); right: -60px; bottom: -70px; transform: rotate(45deg); }
+.closing .wrap { position: relative; z-index: 1; }
+
+.colophon { background: var(--ink); color: var(--white); padding-block: clamp(32px, 5vw, 56px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; }
+.colophon p, .colophon a { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.colophon a { text-decoration: none; border-bottom: 2px solid var(--yellow); padding-bottom: 2px; }
+
+/* ---- preview badge -------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40;
+  pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--ink); color: var(--white);
+  border: var(--b-thin) solid var(--white); box-shadow: var(--shadow-sm);
+  padding: 9px 14px;
+  font-weight: 700; font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.flag span { opacity: 0.7; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; font-size: 0.5625rem; letter-spacing: 0.1em; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+  .card:hover, .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/bauhaus/">
+      <span class="mark" aria-hidden="true"><i class="c"></i><i class="s"></i><i class="t"></i></span>
+      Bauhaus
+    </a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#build">Build</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--red" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="hero">
+    <div class="hero__copy">
+      <span class="label">Design preset</span>
+      <h1>Form follows function.</h1>
+      <p class="hero__lede">Three primaries, two radii and a black rule around everything. The page is
+      not laid out so much as constructed — from circles, squares and triangles, stacked with hard
+      shadows that never blur.</p>
+      <div class="hero__acts">
+        <a class="btn btn--red" href="/">Build a site with this</a>
+        <a class="btn" href="#system">See the system</a>
+      </div>
+    </div>
+    <div class="hero__art" aria-hidden="true">
+      <span class="shape s1"></span>
+      <span class="shape s2"></span>
+      <span class="shape s3"></span>
+      <span class="shape s4"></span>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="block block--yellow" style="padding-block: calc(var(--bay) / 1.6)">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><div class="stat__fig"><span>3</span></div><p class="stat__label">Colours</p></div>
+        <div class="stat"><div class="stat__fig"><span>2</span></div><p class="stat__label">Radii, 0 or full</p></div>
+        <div class="stat"><div class="stat__fig"><span>4</span></div><p class="stat__label">Border px</p></div>
+        <div class="stat"><div class="stat__fig"><span>0</span></div><p class="stat__label">Gradients</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="block block--paper" id="system">
+    <div class="wrap">
+      <span class="label">What the preset decides</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-bottom:36px">A kit of parts</h2>
+      <div class="cards">
+        <article class="card">
+          <span class="card__dot" aria-hidden="true"></span>
+          <h3>Three primaries</h3>
+          <p>Red, blue and yellow against black and off-white. There is no fourth colour and no tint
+          of a third — a section commits to one block and the next one changes it.</p>
+        </article>
+        <article class="card">
+          <span class="card__dot" aria-hidden="true"></span>
+          <h3>Two radii</h3>
+          <p>Square or circle, nothing between. The absence of a gentle 8px corner is what keeps the
+          page architectural rather than merely colourful.</p>
+        </article>
+        <article class="card">
+          <span class="card__dot" aria-hidden="true"></span>
+          <h3>Hard shadows</h3>
+          <p>Solid offsets at 4, 6 and 8 pixels, never blurred. A blur implies diffuse light; this
+          style has a single hard source and treats depth as stacking.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ build ============================ -->
+  <section class="block block--blue" id="build">
+    <div class="wrap">
+      <span class="label">How a page gets built</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-bottom:40px">Constructed, in four moves</h2>
+      <div class="steps">
+        <div class="step"><div class="step__n"><span>1</span></div><h4>Block the sections</h4><p>Decide which band is red, blue, yellow or paper before a single word is placed.</p></div>
+        <div class="step"><div class="step__n"><span>2</span></div><h4>Rule the divisions</h4><p>Four-pixel black borders between every band, so the blocks read as one structure.</p></div>
+        <div class="step"><div class="step__n"><span>3</span></div><h4>Set the type</h4><p>One geometric face. Headlines black-weight, uppercase, tight; body at medium for reading.</p></div>
+        <div class="step"><div class="step__n"><span>4</span></div><h4>Compose the shapes</h4><p>Circles, squares and triangles placed as composition — not stock illustration.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ benefits ============================ -->
+  <!-- Red earns a section of its own. Without it the page uses red only for buttons and small
+       shapes, and the style's claim - that whole sections commit to one primary - is made by
+       two colours out of three. -->
+  <section class="block block--red">
+    <div class="wrap">
+      <span class="label">Why build it this way</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-bottom:36px">The limits are the design</h2>
+      <ul class="bens">
+        <li><span class="bens__tick" aria-hidden="true"></span><span><b>Nothing to tune.</b> Three colours and two radii leave almost no room for a thousand small arbitrary decisions.</span></li>
+        <li><span class="bens__tick" aria-hidden="true"></span><span><b>Legible at any size.</b> Hard borders and flat colour survive a phone screen, a projector and a bad monitor alike.</span></li>
+        <li><span class="bens__tick" aria-hidden="true"></span><span><b>Cheap to render.</b> No gradients, no blurs, no shadow passes — flat fills and solid offsets.</span></li>
+        <li><span class="bens__tick" aria-hidden="true"></span><span><b>Hard to make bland.</b> A section must commit to a colour, so the page cannot drift into grey-on-grey.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="block block--paper" id="pricing">
+    <div class="wrap">
+      <span class="label">Pricing, as this preset renders it</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-bottom:36px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+      </div>
+      <p style="margin-top:22px;font-weight:700;font-size:0.6875rem;letter-spacing:0.12em;text-transform:uppercase">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="block block--white" id="faq">
+    <div class="wrap">
+      <span class="label">Questions</span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.4vw,3rem);margin-bottom:36px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen. It is hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a generated
+          site inherits the palette, the type, the zero radius and the section blocking. The composed
+          geometry on this page — the hero panel, the corner marks, the rotated step numbers — is still
+          being folded into the preset and is not all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Is it accessible, with colour this strong?</summary>
+          <div>Yes, with one rule that is easy to get wrong: white clears AA on the red and the blue, but
+          on the yellow it measures about 1.7:1 and fails outright. Yellow blocks therefore always carry
+          black text. Focus rings are hard offsets, switching to white on the coloured blocks.</div>
+        </details>
+        <details>
+          <summary>Can I change the colours afterwards?</summary>
+          <div>Yes — they are palette roles in Theme Settings, so moving one moves everything that
+          references it. The structure survives a palette change; it is the borders, the radii and the
+          shadow offsets that carry the style, not the particular red.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="block block--yellow closing">
+    <span class="deco d1" aria-hidden="true"></span>
+    <span class="deco d2" aria-hidden="true"></span>
+    <div class="wrap">
+      <h2>Build a site in this preset.</h2>
+      <p>Describe the business and your own AI agent builds it on WordPress with Unyson+ — real
+      page-builder pages, with this design system applied site-wide.</p>
+      <div class="hero__acts">
+        <a class="btn btn--red" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span class="mark" aria-hidden="true"><i class="c"></i><i class="s"></i><i class="t"></i></span>
+    <p>Bauhaus — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

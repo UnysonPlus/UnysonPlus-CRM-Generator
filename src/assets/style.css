@@ -507,3 +507,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .stylep__link { display: block; }
 .stylep__link:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
 .stylep figcaption a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Two presets and counting, so the single figure becomes a grid. It stays one column until there is
+   genuinely room for two side by side — these are screenshots of whole pages, and halving them on a
+   narrow screen makes both unreadable rather than compact. */
+.stylep__grid { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: start; }
+@media (min-width: 900px) { .stylep__grid { grid-template-columns: 1fr 1fr; } }
