@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Neo-brutalism — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Neo-brutalist preset: 4px black borders, hard offset shadows, highlighter colours and elements that press and lift. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/neo-brutalism/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FFFDF5">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* ===========================================================================
+   NEO-BRUTALISM
+   A design preset, shown as a whole page.
+
+   If it does not have a border, it does not exist. Structure is enforced with
+   thick black lines; shadows are solid blocks of ink offset at 45 degrees with
+   zero blur. Elements behave like physical objects - buttons press INTO their
+   own shadow, cards lift, stickers sit at slight angles.
+
+   THE TRAP, measured. The source spec lists white as the text colour for "black
+   sections and accent buttons". On a black section that is right. On the
+   accents it is not:
+
+        white on red    2.78:1  FAIL      black on red    7.6:1   pass
+        white on yellow 1.38:1  FAIL      black on yellow 15.3:1  pass
+        white on violet        FAIL       black on violet 11.4:1  pass
+
+   The style's own rule - "it's black or a colour, never a grey" - points the
+   right way. These are highlighter colours, and highlighters are written on in
+   black. White appears only on the black sections.
+   ========================================================================= */
+
+:root {
+  --canvas: #fffdf5;   /* warm cream, never white */
+  --ink: #000000;
+  --red: #ff6b6b;
+  --yellow: #ffd93d;
+  --violet: #c4b5fd;
+
+  --b: 4px;
+  --sh-sm: 4px 4px 0 0 #000;
+  --sh-md: 8px 8px 0 0 #000;
+  --sh-lg: 12px 12px 0 0 #000;
+
+  --ui: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 40px);
+  --bay: clamp(56px, 8vw, 112px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--canvas); color: var(--ink);
+  font-family: var(--ui); font-weight: 700;      /* lightness is forbidden here */
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+/* Halftone texture on its OWN layer, not painted into the body background.
+   Mixed into the body's own background-image it reads to a contrast checker as a
+   black surface under black text (1:1), and it is harder to tune besides. */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(#000 1.4px, transparent 1.5px);
+  background-size: 22px 22px;
+  opacity: 0.1;
+}
+body > * { position: relative; z-index: 1; }
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.88; text-wrap: balance; }
+
+:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
+.on-ink :focus-visible { outline-color: var(--canvas); }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--yellow); color: var(--ink); border: var(--b) solid var(--ink); box-shadow: var(--sh-sm); padding: 12px 20px; text-transform: uppercase; text-decoration: none; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.label { display: inline-block; border: var(--b) solid var(--ink); background: var(--yellow); color: var(--ink); box-shadow: var(--sh-sm); padding: 7px 14px; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ---- buttons: they press into their own shadow ------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 56px; padding: 15px 28px;
+  border: var(--b) solid var(--ink); border-radius: 0;
+  background: var(--red); color: var(--ink);      /* BLACK on the colour, never white */
+  font-family: var(--ui); font-weight: 700; font-size: 0.9375rem;
+  text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: transform 100ms linear, box-shadow 100ms linear, background-color 100ms linear;
+}
+.btn:active { transform: translate(4px, 4px); box-shadow: none; }
+.btn--yellow { background: var(--yellow); }
+.btn--white { background: #fff; }
+.btn--violet { background: var(--violet); }
+
+/* ---- masthead ------------------------------------------------------------------ */
+.masthead { border-bottom: var(--b) solid var(--ink); background: var(--canvas); }
+.masthead__in { display: flex; align-items: center; gap: 18px; min-height: 84px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-right: auto; font-size: 1.25rem; text-transform: uppercase; letter-spacing: -0.02em; }
+.brand i { display: grid; place-items: center; width: 42px; height: 42px; border: var(--b) solid var(--ink); background: var(--violet); box-shadow: var(--sh-sm); font-size: 1.125rem; }
+.masthead__nav { display: none; gap: 10px; }
+.masthead__nav a { padding: 6px 10px; border: var(--b) solid transparent; font-size: 0.875rem; text-transform: uppercase; text-decoration: none; transition: background-color 100ms linear, border-color 100ms linear, box-shadow 100ms linear; }
+.masthead__nav a:hover { border-color: var(--ink); background: var(--red); box-shadow: var(--sh-sm); }
+@media (min-width: 1000px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ------------------------------------------------------------------------ */
+.hero { padding-block: clamp(40px, 6vw, 88px); }
+.hero__in { display: grid; grid-template-columns: 1fr; gap: clamp(32px, 4vw, 56px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.35fr 0.65fr; } }   /* 60/40, not half */
+.hero h1 { font-size: clamp(2.75rem, 1.2rem + 7vw, 6rem); margin-top: 22px; }
+/* hollow display type via text stroke */
+.hero h1 em { font-style: normal; -webkit-text-stroke: 3px var(--ink); color: transparent; }
+.hero p { margin-top: 26px; max-width: 44ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+/* the sticker pile */
+.stickers { position: relative; min-height: 260px; }
+.sticker { position: absolute; border: var(--b) solid var(--ink); box-shadow: var(--sh-md); padding: 16px 20px; text-transform: uppercase; font-size: 0.9375rem; }
+.sticker.s1 { background: var(--yellow); top: 0; left: 4%; transform: rotate(-3deg); }
+.sticker.s2 { background: var(--red); top: 40%; right: 4%; transform: rotate(2deg); }
+.sticker.s3 { background: var(--violet); bottom: 2%; left: 14%; transform: rotate(-1deg); }
+.sticker.s4 { background: #fff; top: 2%; left: 46%; transform: rotate(4deg); border-radius: 999px; padding: 14px 18px; }
+
+/* ---- stats ------------------------------------------------------------------------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (min-width: 860px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border: var(--b) solid var(--ink); box-shadow: var(--sh-md); padding: clamp(18px, 2.4vw, 28px); background: #fff; }
+.stat:nth-child(2) { background: var(--yellow); }
+.stat:nth-child(3) { background: var(--violet); }
+.stat:nth-child(4) { background: var(--red); }
+.stat b { display: block; font-size: clamp(2.25rem, 1.4rem + 3vw, 3.5rem); line-height: 0.9; }
+.stat span { display: block; margin-top: 10px; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ---- cards: they lift and the shadow GROWS -------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 26px; }
+@media (min-width: 860px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { position: relative; background: #fff; border: var(--b) solid var(--ink); box-shadow: var(--sh-md); padding: clamp(22px, 2.6vw, 32px); transition: transform 200ms ease-out, box-shadow 200ms ease-out; }
+.card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); }
+.card__badge { position: absolute; top: -18px; right: -14px; border: var(--b) solid var(--ink); background: var(--yellow); box-shadow: var(--sh-sm); padding: 5px 11px; font-size: 0.75rem; text-transform: uppercase; transform: rotate(6deg); transition: transform 200ms ease-out; }
+.card:hover .card__badge { transform: rotate(12deg); }
+.card h3 { font-size: clamp(1.375rem, 1.1rem + 1.2vw, 1.875rem); margin-bottom: 12px; }
+.card p { font-weight: 500; font-size: 1rem; }
+
+/* ---- the black band ------------------------------------------------------------------- */
+.ink-band { background: var(--ink); color: #fff; border-block: var(--b) solid var(--ink); }
+.ink-band .label { background: var(--yellow); box-shadow: 4px 4px 0 0 #fff; }
+
+/* ---- pricing -------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: start; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { background: #fff; border: var(--b) solid var(--ink); box-shadow: var(--sh-md); padding: clamp(22px, 2.6vw, 32px); display: flex; flex-direction: column; }
+.tier--lead { background: var(--yellow); box-shadow: var(--sh-lg); }
+.tier__name { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.tier__price { font-size: clamp(2.5rem, 1.6rem + 3vw, 3.75rem); line-height: 0.9; margin-block: 14px 2px; }
+.tier__per { font-size: 0.8125rem; text-transform: uppercase; }
+.tier ul { list-style: none; margin: 20px 0 0; padding: 0; font-weight: 500; }
+.tier li { padding: 9px 0; border-top: var(--b) solid var(--ink); font-size: 0.9375rem; }
+.tier .btn { margin-top: 22px; }
+
+/* ---- faq ------------------------------------------------------------------------------- */
+.faq { display: grid; gap: 18px; max-width: 76ch; }
+.faq details { border: var(--b) solid var(--ink); box-shadow: var(--sh-sm); background: #fff; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 22px; cursor: pointer; list-style: none; text-transform: uppercase; font-size: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 1.625rem; line-height: 1; flex: none; transition: transform 100ms linear; }
+.faq details[open] summary { background: var(--red); border-bottom: var(--b) solid var(--ink); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details > div { padding: 20px 22px; background: var(--violet); font-weight: 500; font-size: 0.9375rem; }
+
+/* ---- colophon --------------------------------------------------------------------------- */
+.colophon { background: var(--yellow); border-top: var(--b) solid var(--ink); padding-block: clamp(26px, 4vw, 44px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 14px 30px; align-items: center; }
+.colophon p, .colophon a { font-size: 0.875rem; text-transform: uppercase; }
+.colophon a { text-decoration: none; border-bottom: 3px solid var(--ink); }
+
+/* ---- preview badge ------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: #fff; color: var(--ink); border: var(--b) solid var(--ink); box-shadow: var(--sh-sm);
+  padding: 8px 14px; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.flag span { font-weight: 500; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .card:hover, .card:hover .card__badge { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/neo-brutalism/"><i aria-hidden="true">!</i> Loudmouth</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#physics">Physics</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--white" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <p class="label">Design preset</p>
+        <h1>If it has no border it <em>does not exist</em></h1>
+        <p>Four-pixel black lines around everything, shadows that are solid blocks of ink rather than
+        blur, and elements that behave like physical objects. Ugly by polished standards, deliberate
+        by intention.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--white" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="stickers" aria-hidden="true">
+        <span class="sticker s1">4px borders</span>
+        <span class="sticker s2">Zero blur</span>
+        <span class="sticker s3">Black on colour</span>
+        <span class="sticker s4">Press me</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="stats">
+      <div class="stat"><b>4px</b><span>Border, default</span></div>
+      <div class="stat"><b>0</b><span>Blur, ever</span></div>
+      <div class="stat"><b>3</b><span>Highlighter colours</span></div>
+      <div class="stat"><b>7.6:1</b><span>Black on the red</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay" id="system">
+    <div class="wrap">
+      <p class="label">What the preset decides</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.4vw,3.5rem);margin-block:24px 44px">Three rules</h2>
+      <div class="cards">
+        <article class="card">
+          <span class="card__badge">01</span>
+          <h3>Black on colour</h3>
+          <p>White on the red measures 2.78 to one and fails. On the yellow it is 1.38. These are
+          highlighter colours, and highlighters are written on in black — white appears only on the
+          black sections.</p>
+        </article>
+        <article class="card">
+          <span class="card__badge">02</span>
+          <h3>Ink, not blur</h3>
+          <p>Shadows are solid rectangles offset down and right. A single soft shadow anywhere reverts
+          the whole page to ordinary card design.</p>
+        </article>
+        <article class="card">
+          <span class="card__badge">03</span>
+          <h3>Physical objects</h3>
+          <p>Buttons move into the space their own shadow occupied. Cards lift and their shadow grows.
+          Badges rotate further when you reach for them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ physics ============================ -->
+  <section class="ink-band on-ink" id="physics">
+    <div class="wrap bay">
+      <p class="label">The physics</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.4vw,3.5rem);margin-block:24px 22px;max-width:18ch">Press the button. It goes down.</h2>
+      <p style="max-width:56ch;font-weight:500">On click it translates four pixels down and right and
+      drops its shadow entirely, so it ends up exactly where the shadow was. That is the whole trick —
+      and it is why the shadow has to be a hard offset rather than a blur, because a blur has no edge
+      for the element to land on.</p>
+      <div class="hero__acts" style="margin-top:32px">
+        <a class="btn btn--yellow" href="#pricing">Try it</a>
+        <a class="btn btn--violet" href="#faq">And this one</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <p class="label">Pricing, as this preset renders it</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.4vw,3.5rem);margin-block:24px 44px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="tier__per">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--white" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="tier__per">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--white" href="/">Choose</a>
+        </div>
+      </div>
+      <p class="label" style="margin-top:28px;background:#fff">Placeholder figures — not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay" id="faq">
+    <div class="wrap">
+      <p class="label">Questions</p>
+      <h2 style="font-size:clamp(1.875rem,1.2rem+3.4vw,3.5rem);margin-block:24px 44px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the heavy type and the sharp corners. The hard shadows,
+          the sticker rotations and the press physics are still being folded into the preset and are
+          not all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why is there no white text on the red button?</summary>
+          <div>Because it measures 2.78 to one. On the yellow, white is 1.38 — effectively unreadable.
+          Black on those same fills is 7.6 and 15.3. The style's own rule says it is black or a colour
+          and never a grey, and this is the same instinct applied to the text.</div>
+        </details>
+        <details>
+          <summary>Does the texture matter?</summary>
+          <div>Yes. A flat cream background under all this structure looks unfinished rather than
+          minimal — the halftone dots give the page something to be printed on. The density is the
+          point of the style, not a side effect of it.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="ink-band on-ink">
+    <div class="wrap bay">
+      <h2 style="font-size:clamp(2rem,1.2rem+4vw,4rem);max-width:16ch">Build a site in this preset.</h2>
+      <p style="margin-top:24px;max-width:48ch;font-weight:500">Describe the business and your own AI
+      agent builds it on WordPress with Unyson+ — real page-builder pages, with this design system
+      applied site-wide.</p>
+      <div class="hero__acts" style="margin-top:32px">
+        <a class="btn btn--yellow" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Neo-brutalism — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -770,6 +770,26 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>Obsidian and gold, stepped corners, glows instead of shadows. <a href="/design-presets/art-deco/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/material-design/">
+            <img src="/assets/img/styles/material-design.jpg" width="1280" height="572" loading="lazy" decoding="async"
+                 alt="A Material You style: a large tinted lavender panel with rounded corners, pill buttons and a floating white card of rounded list rows.">
+          </a>
+          <figcaption>
+            <b>Material You</b>
+            <span>Tonal surfaces, pill buttons, generous rounding. <a href="/design-presets/material-design/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/neo-brutalism/">
+            <img src="/assets/img/styles/neo-brutalism.jpg" width="1280" height="979" loading="lazy" decoding="async"
+                 alt="A Neo-brutalist style: a heavy uppercase headline, half of it hollow, on cream, beside rotated stickers and a row of bordered stat blocks with hard black shadows.">
+          </a>
+          <figcaption>
+            <b>Neo-brutalism</b>
+            <span>4px black borders, hard offset shadows, black on every colour. <a href="/design-presets/neo-brutalism/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -956,7 +976,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

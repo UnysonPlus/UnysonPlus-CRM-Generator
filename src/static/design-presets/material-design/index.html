@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Material You — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Material You preset: tonal surfaces, pill buttons, generous radii, organic blurred shapes and state-layer interactions. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/material-design/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#FFFBFE">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+<style>
+/* ===========================================================================
+   MATERIAL YOU (Material Design 3)
+   A design preset, shown as a whole page.
+
+   Tonal surfaces, organic shapes, generous rounding. Colour arrives as whole
+   tinted surfaces rather than as accent highlights, and every button is a pill
+   - the single most identifiable trait of the system.
+
+   THE TRAP is the tonal system itself. The card tone (#F3EDF7) against the page
+   (#FFFBFE) measures 1.12:1 - a boundary that is essentially invisible. The
+   source spec says to separate containers with tone and NOT with borders, which
+   means the elevation shadow is doing accessibility work rather than
+   decoration. Tone alone is not a boundary: a surface with no shadow gets the
+   outline instead. "No border by default" has to mean "no border IN ADDITION
+   TO elevation".
+   ========================================================================= */
+
+:root {
+  --surface: #fffbfe;          /* never pure white */
+  --on-surface: #1c1b1f;       /* ~16.8:1 */
+  --primary: #6750a4;          /* carries white at 6.4:1 */
+  --on-primary: #ffffff;
+  --sec-container: #e8def8;
+  --on-sec-container: #1d192b; /* 13.3:1 on the container */
+  --tertiary: #7d5260;         /* carries white at 6.4:1 */
+  --container: #f3edf7;        /* 1.12:1 against the surface - see the note */
+  --container-low: #e7e0ec;
+  --outline: #79747e;
+  --on-surface-var: #49454f;   /* 9.2:1 */
+
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ui: "Roboto", ui-sans-serif, system-ui, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --bay: clamp(56px, 8vw, 96px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--surface); color: var(--on-surface);
+  font-family: var(--ui); font-weight: 400;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -0.01em; line-height: 1.22; text-wrap: balance; }
+
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+.on-primary :focus-visible { outline-color: #fff; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 60; background: var(--primary); color: #fff; padding: 13px 22px; border-radius: 999px; font-weight: 500; text-decoration: none; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.label { font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--primary); }
+.muted { color: var(--on-surface-var); }
+
+/* ---- organic blurred shapes: without these the tinted surfaces read as flat ---- */
+.blob { position: absolute; border-radius: 999px; filter: blur(70px); pointer-events: none; }
+
+/* ---- buttons: every one a pill ------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 13px 26px;
+  border: 0; border-radius: 999px;
+  background: var(--primary); color: var(--on-primary);
+  font-family: var(--ui); font-size: 0.9375rem; font-weight: 500; text-decoration: none; cursor: pointer;
+  box-shadow: none;
+  transition: background-color 300ms var(--ease), box-shadow 300ms var(--ease), transform 200ms var(--ease);
+}
+/* state layers: an opacity overlay, not a different colour */
+.btn:hover { background: color-mix(in srgb, var(--primary) 90%, #000); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+.btn:active { transform: scale(0.95); }
+.btn--tonal { background: var(--sec-container); color: var(--on-sec-container); }
+.btn--tonal:hover { background: color-mix(in srgb, var(--sec-container) 90%, var(--primary)); }
+.btn--outlined { background: transparent; color: var(--primary); box-shadow: inset 0 0 0 1px var(--outline); }
+.btn--outlined:hover { background: color-mix(in srgb, var(--surface) 95%, var(--primary)); box-shadow: inset 0 0 0 1px var(--primary); }
+.btn--text { background: transparent; color: var(--primary); }
+.btn--text:hover { background: color-mix(in srgb, var(--surface) 90%, var(--primary)); box-shadow: none; }
+
+/* ---- masthead -------------------------------------------------------------------- */
+.masthead { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--surface) 86%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid color-mix(in srgb, var(--outline) 30%, transparent); }
+.masthead__in { display: flex; align-items: center; gap: 20px; min-height: 72px; }
+.brand { display: flex; align-items: center; gap: 11px; font-weight: 500; font-size: 1.1875rem; text-decoration: none; margin-right: auto; }
+.brand i { width: 30px; height: 30px; border-radius: 10px; background: var(--primary); display: block; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-size: 0.9375rem; color: var(--on-surface-var); text-decoration: none; transition: color 200ms var(--ease); }
+.masthead__nav a:hover { color: var(--primary); }
+@media (min-width: 900px) { .masthead__nav { display: flex; } }
+
+/* ---- hero: a big rounded container ------------------------------------------------- */
+.hero { padding-block: clamp(26px, 4vw, 48px) var(--bay); }
+.hero__box { position: relative; overflow: hidden; border-radius: clamp(24px, 4vw, 48px); background: var(--container); padding: clamp(32px, 5vw, 72px); }
+.hero__box .b1 { width: 420px; height: 420px; background: color-mix(in srgb, var(--primary) 30%, transparent); top: -180px; right: -120px; }
+.hero__box .b2 { width: 320px; height: 320px; background: color-mix(in srgb, var(--tertiary) 26%, transparent); bottom: -170px; left: -90px; }
+.hero__in { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px); align-items: center; }
+@media (min-width: 960px) { .hero__in { grid-template-columns: 1.1fr 0.9fr; } }
+.hero h1 { font-size: clamp(2.125rem, 1.2rem + 3.6vw, 3.5rem); margin-top: 16px; }
+.hero p { margin-top: 18px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+/* the nested card: tone PLUS elevation, never tone alone */
+.hero__card { border-radius: 28px; background: var(--surface); padding: clamp(20px, 2.6vw, 30px); box-shadow: 0 4px 14px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06); }
+.hero__row { display: flex; align-items: center; gap: 14px; padding: 11px 0; }
+.hero__row i { width: 40px; height: 40px; border-radius: 14px; flex: none; display: block; background: var(--sec-container); }
+.hero__row i.p { background: var(--primary); }
+.hero__row span { display: block; height: 10px; border-radius: 999px; background: var(--container-low); flex: 1; }
+
+/* ---- cards: tone + elevation ----------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 760px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card {
+  border-radius: 24px; background: var(--container); padding: clamp(22px, 2.6vw, 32px);
+  /* the shadow is the boundary, not an ornament - the tone alone is 1.12:1 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  transition: box-shadow 300ms var(--ease), transform 300ms var(--ease);
+}
+.card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.07); transform: scale(1.02); }
+.card__ico { width: 52px; height: 52px; border-radius: 16px; background: var(--primary); color: #fff; display: grid; place-items: center; transition: transform 300ms var(--ease); }
+.card:hover .card__ico { transform: scale(1.1); }
+.card h3 { font-size: 1.25rem; margin-block: 18px 10px; }
+.card p { font-size: 0.9375rem; color: var(--on-surface-var); }
+
+/* ---- the filled text field: rounded top, square bottom ------------------------------------- */
+.field { display: block; max-width: 420px; }
+.field span { display: block; font-size: 0.75rem; color: var(--on-surface-var); margin-bottom: 6px; }
+.field input {
+  width: 100%; height: 56px; padding: 0 16px;
+  border: 0; border-bottom: 2px solid var(--outline);
+  border-radius: 12px 12px 0 0;
+  background: var(--container-low); color: var(--on-surface);
+  font-family: var(--ui); font-size: 1rem;
+  transition: border-color 200ms var(--ease), background-color 200ms var(--ease);
+}
+.field input:focus { outline: none; border-bottom-color: var(--primary); background: color-mix(in srgb, var(--container-low) 88%, var(--primary)); }
+
+/* ---- pricing ------------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; }
+@media (min-width: 980px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { border-radius: 24px; background: var(--container); padding: clamp(24px, 3vw, 34px); display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.tier--lead { background: var(--sec-container); box-shadow: 0 8px 24px rgba(103,80,164,0.18), 0 0 0 2px var(--primary); }
+@media (min-width: 980px) { .tier--lead { transform: translateY(-16px); } }
+.tier__name { font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-surface-var); }
+.tier--lead .tier__name { color: var(--on-sec-container); }
+.tier__price { font-size: clamp(2.25rem, 1.6rem + 2.2vw, 3rem); font-weight: 500; line-height: 1; margin-block: 14px 2px; }
+.tier ul { list-style: none; margin: 20px 0 0; padding: 0; }
+.tier li { padding: 9px 0; font-size: 0.9375rem; color: var(--on-surface-var); transition: transform 200ms var(--ease); }
+.tier--lead li { color: var(--on-sec-container); }
+.tier li:hover { transform: translateX(6px); }
+.tier .btn { margin-top: 22px; }
+
+/* ---- faq ---------------------------------------------------------------------------------------- */
+.faq { display: grid; gap: 12px; max-width: 72ch; }
+.faq details { border-radius: 24px; background: var(--container); overflow: hidden; transition: background-color 300ms var(--ease); }
+.faq details[open] { background: var(--sec-container); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 26px; cursor: pointer; list-style: none; font-weight: 500; font-size: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px,-2px); transition: transform 300ms var(--ease); }
+.faq details[open] summary::after { transform: rotate(225deg) translate(-2px,-2px); }
+.faq details > div { padding: 0 26px 22px; font-size: 0.9375rem; color: var(--on-surface-var); }
+.faq details[open] > div { color: var(--on-sec-container); }
+
+/* ---- closing + colophon ------------------------------------------------------------------------------ */
+.closing { position: relative; overflow: hidden; border-radius: clamp(24px, 4vw, 48px); background: var(--primary); color: #fff; padding: clamp(36px, 5vw, 72px); }
+.closing .b3 { width: 380px; height: 380px; background: rgba(255,255,255,0.22); top: -160px; left: -90px; }
+.closing > * { position: relative; }
+.colophon { padding-block: clamp(26px, 4vw, 44px); }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 14px 30px; align-items: center; }
+.colophon p, .colophon a { font-size: 0.875rem; color: var(--on-surface-var); }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--primary); }
+
+/* ---- preview badge ------------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 40; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  background: var(--on-surface); color: var(--surface); border-radius: 999px;
+  padding: 9px 18px; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.flag span { opacity: 0.7; }
+@media (max-width: 560px) { .flag { left: 12px; right: 12px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .card:hover, .tier li:hover, .card:hover .card__ico { transform: none; }
+  .tier--lead { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/material-design/"><i aria-hidden="true"></i> Tonal</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#surfaces">Surfaces</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="/">Back to the creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__box">
+      <span class="blob b1" aria-hidden="true"></span>
+      <span class="blob b2" aria-hidden="true"></span>
+      <div class="hero__in">
+        <div>
+          <p class="label">Design preset</p>
+          <h1>Surfaces, not boxes</h1>
+          <p class="muted">Colour arrives as whole tinted planes rather than as accents on a white
+          page, corners are generous enough to be architectural, and every button is a pill — the
+          single most identifiable thing about this system.</p>
+          <div class="hero__acts">
+            <a class="btn" href="/">Build a site with this</a>
+            <a class="btn btn--tonal" href="#system">See the system</a>
+          </div>
+        </div>
+        <div class="hero__card" aria-hidden="true">
+          <div class="hero__row"><i class="p"></i><span style="width:70%"></span></div>
+          <div class="hero__row"><i></i><span style="width:52%"></span></div>
+          <div class="hero__row"><i></i><span style="width:62%"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="bay" id="system">
+    <div class="wrap">
+      <p class="label">What the preset decides</p>
+      <h2 style="font-size:clamp(1.625rem,1.2rem+2.2vw,2.5rem);margin-block:14px 32px">Three decisions</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="card__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="6"/></svg></div>
+          <h3>Pills, always</h3>
+          <p>Every button fully rounded. Not "quite rounded" — a slightly-rounded rectangle reads as a
+          different design system entirely.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+          <h3>State layers</h3>
+          <p>Hover and press are opacity overlays rather than colour swaps, so an element keeps its
+          identity while responding.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10"/></svg></div>
+          <h3>Tone plus elevation</h3>
+          <p>The card tone is barely one-tenth of a step from the page. The shadow is what makes the
+          boundary visible, which makes it structural rather than ornamental.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ surfaces ============================ -->
+  <section class="bay" id="surfaces">
+    <div class="wrap">
+      <p class="label">Surfaces</p>
+      <h2 style="font-size:clamp(1.625rem,1.2rem+2.2vw,2.5rem);margin-block:14px 16px">Tone alone is not a boundary</h2>
+      <p class="muted" style="max-width:58ch">The container tint measures <strong>1.12:1</strong>
+      against the page behind it. That is a difference you can see on a good monitor in a bright room
+      and not much else — so the elevation shadow is doing accessibility work here, not decoration.</p>
+      <p class="muted" style="max-width:58ch;margin-top:14px">Which means "no border by default" has to
+      be read as "no border <em>in addition to</em> elevation". A surface that loses its shadow — in a
+      flat section, in print, in a high-contrast mode — needs the outline back.</p>
+      <div style="margin-top:32px">
+        <label class="field">
+          <span>A filled text field</span>
+          <input type="text" placeholder="Rounded top, square bottom" aria-label="Example filled text field">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="bay" id="pricing">
+    <div class="wrap">
+      <p class="label">Pricing, as this preset renders it</p>
+      <h2 style="font-size:clamp(1.625rem,1.2rem+2.2vw,2.5rem);margin-block:14px 32px">Three tiers</h2>
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier__name">Starter</p>
+          <p class="tier__price">$0</p>
+          <p class="muted" style="font-size:0.875rem">per month</p>
+          <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+          <a class="btn btn--outlined" href="/">Choose</a>
+        </div>
+        <div class="tier tier--lead">
+          <p class="tier__name">Studio</p>
+          <p class="tier__price">$24</p>
+          <p style="font-size:0.875rem;color:var(--on-sec-container)">per month</p>
+          <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+          <a class="btn" href="/">Choose</a>
+        </div>
+        <div class="tier">
+          <p class="tier__name">Agency</p>
+          <p class="tier__price">$72</p>
+          <p class="muted" style="font-size:0.875rem">per month</p>
+          <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+          <a class="btn btn--outlined" href="/">Choose</a>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:22px;font-size:0.8125rem">Placeholder figures — shown to exercise the layout, not an offer</p>
+    </div>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="bay" id="faq">
+    <div class="wrap">
+      <p class="label">Questions</p>
+      <h2 style="font-size:clamp(1.625rem,1.2rem+2.2vw,2.5rem);margin-block:14px 32px">Frequently asked</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is this a mock-up or the real thing?</summary>
+          <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+          rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+          generated site inherits the palette, the type scale and the radii. The blurred shapes, the
+          state layers and the filled text field are still being folded into the preset and are not
+          all emitted automatically yet.</div>
+        </details>
+        <details>
+          <summary>Why do the cards have shadows if the system is tonal?</summary>
+          <div>Because the tone on its own is 1.12:1 against the page, which is not a boundary anyone
+          can rely on. The specification says to separate containers with tone rather than borders, and
+          that only works because elevation is carrying the difference. Remove the shadow and the card
+          needs its outline back.</div>
+        </details>
+        <details>
+          <summary>Do the buttons have to be fully round?</summary>
+          <div>Yes — it is the clearest single marker of the system. A twelve-pixel radius on a button
+          reads as a different design language, even when every other value is correct.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay">
+    <div class="closing on-primary">
+      <span class="blob b3" aria-hidden="true"></span>
+      <h2 style="font-size:clamp(1.75rem,1.2rem+2.8vw,3rem);max-width:18ch">Build a site in this preset.</h2>
+      <p style="margin-top:18px;max-width:50ch;opacity:0.9">Describe the business and your own AI agent
+      builds it on WordPress with Unyson+ — real page-builder pages, with this design system applied
+      site-wide.</p>
+      <div class="hero__acts">
+        <a class="btn btn--tonal" href="/">Open the creator</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag"><b>Preview only</b> <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <p>Material You — a design preset for Unyson+</p>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
