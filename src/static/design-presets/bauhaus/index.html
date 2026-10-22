@@ -246,7 +246,10 @@ p { margin: 0; }
 .tier--lead li::before { background: var(--yellow); }
 .tier--lead .btn { background: var(--yellow); color: var(--on-yellow); }
 .tier .btn { margin-top: 24px; }
-@media (min-width: 1024px) { .tier--lead { margin-block: -24px; padding-block: calc(clamp(24px, 3vw, 34px) + 24px); } }
+@media (min-width: 1024px) {
+  .tier--lead { margin-block: -24px; padding-block: calc(clamp(24px, 3vw, 34px) + 24px); }
+  .tiers { padding-bottom: 24px; }
+}
 
 /* ---- accordion ------------------------------------------------------------ */
 .faq { display: grid; gap: 18px; max-width: 70ch; }

@@ -680,6 +680,16 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>Primary colour blocking, thick black borders, hard offset shadows. <a href="/design-presets/bauhaus/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/modern-dark/">
+            <img src="/assets/img/styles/modern-dark.png" width="1280" height="900" loading="lazy" decoding="async"
+                 alt="A modern dark style: a large gradient headline on a near-black canvas lit by soft indigo, an indigo button, and an elevated mock application panel below.">
+          </a>
+          <figcaption>
+            <b>Modern dark</b>
+            <span>Near-black canvas, layered ambient light, one indigo accent. <a href="/design-presets/modern-dark/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -866,7 +876,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
