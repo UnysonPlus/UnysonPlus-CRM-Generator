@@ -790,6 +790,46 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
             <span>4px black borders, hard offset shadows, black on every colour. <a href="/design-presets/neo-brutalism/">See it as a page →</a></span>
           </figcaption>
         </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/bold-typography/">
+            <img src="/assets/img/styles/bold-typography.jpg" width="1280" height="929" loading="lazy" decoding="async"
+                 alt="A Bold Typography style: a poster-scale headline in white and vermillion on near-black, with a huge faint word behind it and a row of hairline-separated figures below.">
+          </a>
+          <figcaption>
+            <b>Bold Typography</b>
+            <span>Poster-scale headlines, one vermillion accent, no shadows. <a href="/design-presets/bold-typography/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/academia/">
+            <img src="/assets/img/styles/academia.jpg" width="1280" height="971" loading="lazy" decoding="async"
+                 alt="An Academia style: a cream serif headline on deep mahogany beside a brass-edged cathedral arch holding a large letter A, over a row of brass figures.">
+          </a>
+          <figcaption>
+            <b>Academia</b>
+            <span>Mahogany and parchment, three serifs, brass hardware. <a href="/design-presets/academia/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/cyberpunk/">
+            <img src="/assets/img/styles/cyberpunk.jpg" width="1280" height="981" loading="lazy" decoding="async"
+                 alt="A Cyberpunk style: a heavy uppercase headline with the last word glowing neon green on a near-black void, beside a chamfered panel of contrast readouts.">
+          </a>
+          <figcaption>
+            <b>Cyberpunk</b>
+            <span>A void ground, chamfered corners, neon glow and scanlines. <a href="/design-presets/cyberpunk/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
+        <figure class="stylep">
+          <a class="stylep__link" href="/design-presets/web3/">
+            <img src="/assets/img/styles/web3.jpg" width="1280" height="943" loading="lazy" decoding="async"
+                 alt="A Web3 style: a white headline with one word in an orange-to-gold gradient on a near-black ground, beside a translucent glass panel of figures under a soft orange glow.">
+          </a>
+          <figcaption>
+            <b>Web3</b>
+            <span>A true void, a masked grid, orange and gold glow, pill buttons. <a href="/design-presets/web3/">See it as a page →</a></span>
+          </figcaption>
+        </figure>
       </div>
       <p class="stylep__note">More presets are being added. Tell the creator which one you want, or let it choose from your brief.</p>
     </div>
@@ -976,7 +1016,7 @@ console.log('built / (Site Creator home)');
 urls.sort((a, b) => a.length - b.length);
 // Hand-authored pages under src/static/ are copied verbatim rather than generated, so they are not in
 // `urls` and would otherwise be absent from the sitemap - invisible to search despite being real pages.
-urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/');
+urls.push('/design-presets/monochrome/', '/design-presets/bauhaus/', '/design-presets/modern-dark/', '/design-presets/newsprint/', '/design-presets/saas/', '/design-presets/luxury/', '/design-presets/terminal/', '/design-presets/swiss/', '/design-presets/kinetic/', '/design-presets/flat-design/', '/design-presets/art-deco/', '/design-presets/material-design/', '/design-presets/neo-brutalism/', '/design-presets/bold-typography/', '/design-presets/academia/', '/design-presets/cyberpunk/', '/design-presets/web3/');
 
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

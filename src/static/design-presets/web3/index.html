@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Web3 — a design preset for Unyson+</title>
+<meta name="description" content="A full page in the Web3 preset: a true void ground, a masked network grid, orange and gold glow, glass panels and pill buttons. One of the design presets the Unyson+ Site Creator can apply to a WordPress site.">
+<link rel="canonical" href="https://create.unysonplus.com/design-presets/web3/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#030304">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* ===========================================================================
+   WEB3 / DIGITAL GOLD
+   A design preset, shown as a whole page.
+
+   A true void in which data structures glow with orange heat and gold
+   brilliance. Shadows are tinted, never neutral. Panels are glass over a
+   masked network grid. Buttons are pills; figures are monospace.
+
+   THE TRAP, measured - and it is the signature itself. The spec puts white
+   text on the primary gradient linear-gradient(90deg,#EA580C,#F7931A):
+
+                        white       void
+     #EA580C  dark end  3.56:1  X   5.79:1   ok
+     #F7931A  light end 2.30:1  X   8.98:1   ok
+     #FFD600  gold end  1.41:1  X  14.60:1   ok
+
+   So white never sits on the gradient here; the void colour does, and passes
+   at every point along it. The same gradient AS TEXT on the void measures
+   8.98-14.60 and is excellent - which is exactly why the mistake is easy: the
+   gradient really is high-contrast, just not in the direction assumed.
+
+   Second, subtler: A GLASS PANEL'S CONTRAST IS SET BY WHAT IS BEHIND IT.
+   bg-white/5 over the void is effectively the void; the same panel over one of
+   the radial orange fields is much lighter. The panels here are measured
+   against the brightest thing they can float over, which is why their fill is
+   kept low and their text stays white rather than stardust.
+   ========================================================================= */
+
+:root {
+  --void: #030304;
+  --surface: #0f1115;
+  --light: #ffffff;
+  --stardust: #94a3b8;
+  --edge: rgba(255,255,255,.1);
+  --orange: #f7931a;
+  --burnt: #ea580c;
+  --gold: #ffd600;
+
+  --grad: linear-gradient(90deg, #ea580c 0%, #f7931a 100%);
+  --grad-gold: linear-gradient(90deg, #f7931a 0%, #ffd600 100%);
+  --glow: 0 0 30px -5px rgba(247,147,26,.6);
+  --glow-soft: 0 0 50px -10px rgba(247,147,26,.18);
+
+  --head: "Space Grotesk", system-ui, sans-serif;
+  --body: "Inter", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(20px, 4vw, 48px);
+  --bay: clamp(64px, 9vw, 128px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; background: var(--void); color: var(--light);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.65;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--head); font-weight: 600; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 1.2rem + 5.6vw, 4.5rem); }
+h2 { font-size: clamp(2rem, 1.2rem + 2.8vw, 3rem); }
+h3 { font-size: 1.3125rem; }
+.dim { color: var(--stardust); }
+
+a { color: var(--orange); }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 95; background: var(--orange); color: var(--void); font-family: var(--mono); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; padding: 12px 22px; border-radius: 999px; }
+.skip:focus { top: 16px; }
+
+.wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+.bay { padding-block: var(--bay); }
+
+.tag { display: inline-block; font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--orange); }
+
+/* the gradient as TEXT - 8.98 to 14.60 on the void */
+.grad-text { color: var(--gold); }
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .grad-text { background: var(--grad-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+}
+
+/* ---- buttons: pills, void text on every fill -------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 30px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--grad); color: var(--void);          /* never white - 2.30:1 at the light end */
+  font-family: var(--body); font-weight: 600; font-size: 0.9375rem; text-decoration: none;
+  box-shadow: var(--glow);
+  transition: box-shadow 250ms ease, transform 250ms ease, filter 250ms ease;
+}
+.btn:hover { box-shadow: 0 0 40px -4px rgba(247,147,26,.75); transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--out { background: none; color: var(--light); border: 1px solid var(--edge); box-shadow: none; }
+.btn--out:hover { border-color: rgba(247,147,26,.5); box-shadow: var(--glow-soft); transform: none; }
+
+.btn--gold { background: var(--grad-gold); color: var(--void); box-shadow: 0 0 30px -5px rgba(255,214,0,.4); }
+
+/* ---- masthead ----------------------------------------------------------------- */
+.masthead { border-bottom: 1px solid var(--edge); }
+.masthead__in { display: flex; align-items: center; gap: 24px; min-height: 82px; }
+.brand { margin-right: auto; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--light); font-family: var(--head); font-weight: 700; font-size: 1.125rem; letter-spacing: -0.02em; }
+.brand i { width: 26px; height: 26px; border-radius: 999px; background: var(--grad); box-shadow: var(--glow); font-style: normal; }
+.masthead__nav { display: none; gap: 26px; }
+.masthead__nav a { font-family: var(--mono); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--stardust); text-decoration: none; transition: color 250ms ease; }
+.masthead__nav a:hover { color: var(--orange); }
+@media (min-width: 960px) { .masthead__nav { display: flex; } }
+
+/* ---- hero ----------------------------------------------------------------------- */
+.hero { position: relative; padding-block: clamp(48px, 7vw, 104px) var(--bay); overflow: hidden; }
+/* the masked network grid - the signature texture */
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(30,41,59,.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30,41,59,.5) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 32%, transparent 78%);
+  mask-image: radial-gradient(circle at 50% 35%, #000 32%, transparent 78%);
+}
+/* the radial energy field */
+.hero::after {
+  content: ""; position: absolute; width: 520px; height: 520px; right: -120px; top: -160px;
+  border-radius: 999px; background: var(--orange); opacity: 0.1; filter: blur(120px); pointer-events: none;
+}
+.hero__in { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+@media (min-width: 1000px) { .hero__in { grid-template-columns: 1.15fr 0.85fr; } }
+.hero h1 { margin-top: 20px; }
+.hero p { margin-top: 24px; max-width: 46ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+
+/* glass - the fill stays low because the panel can float over a glow */
+.glass { border-radius: 16px; border: 1px solid var(--edge); background: rgba(255,255,255,.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: clamp(22px, 2.6vw, 30px); box-shadow: var(--glow-soft); }
+.glass__row { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--edge); font-family: var(--mono); font-size: 0.8125rem; }
+.glass__row:last-child { border-bottom: 0; }
+.glass__row span { color: var(--light); opacity: .72; }
+.glass__row b { font-weight: 500; color: var(--gold); }
+.glass__row b.bad { color: #ff8a8a; }
+
+/* ---- stats ------------------------------------------------------------------------ */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border-radius: 16px; border: 1px solid var(--edge); background: var(--surface); padding: clamp(20px, 2.4vw, 30px); }
+.stat b { display: block; font-family: var(--mono); font-weight: 500; font-size: clamp(1.625rem, 1.1rem + 1.9vw, 2.375rem); line-height: 1.1; color: var(--orange); }
+.stat:nth-child(2) b, .stat:nth-child(4) b { color: var(--gold); }
+.stat span { display: block; margin-top: 12px; font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--stardust); }
+
+/* ---- cards -------------------------------------------------------------------------- */
+.cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { position: relative; border-radius: 16px; border: 1px solid var(--edge); background: var(--surface); padding: clamp(24px, 2.8vw, 34px); transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease; }
+.card:hover { border-color: rgba(247,147,26,.5); box-shadow: var(--glow-soft); transform: translateY(-2px); }
+.card__ico { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--grad); color: var(--void); font-family: var(--mono); font-weight: 500; box-shadow: var(--glow); }
+.card h3 { margin-block: 18px 12px; }
+.card p { color: var(--stardust); font-size: 1rem; }
+
+/* ---- the gradient proof --------------------------------------------------------------- */
+.proof { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .proof { grid-template-columns: 1fr 1fr; } }
+.band { border-radius: 16px; padding: 26px 28px; }
+.band--grad { background: var(--grad); color: var(--void); }
+.band--gold { background: var(--grad-gold); color: var(--void); }
+.band b { display: block; font-family: var(--head); font-weight: 700; font-size: 1.375rem; }
+.band span { display: block; margin-top: 8px; font-family: var(--mono); font-size: 0.8125rem; }
+
+/* ---- pricing ----------------------------------------------------------------------------- */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; }
+@media (min-width: 960px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+.tier { position: relative; border-radius: 16px; border: 1px solid var(--edge); background: var(--surface); padding: clamp(24px, 2.8vw, 34px); display: flex; flex-direction: column; }
+.tier--lead { border-color: rgba(247,147,26,.5); box-shadow: var(--glow-soft); }
+.tier__flag { display: inline-block; border-radius: 999px; background: var(--grad); color: var(--void); font-family: var(--mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.12em; padding: 5px 14px; margin-bottom: 16px; }
+.tier__name { font-family: var(--mono); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--stardust); }
+.tier__price { font-family: var(--mono); font-weight: 500; font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3rem); line-height: 1; margin-block: 14px 4px; }
+.tier__per { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--stardust); }
+.tier ul { list-style: none; margin: 24px 0 0; padding: 0; }
+.tier li { padding: 11px 0; border-top: 1px solid var(--edge); font-size: 0.9375rem; color: var(--stardust); }
+.tier .btn { margin-top: 26px; }
+
+/* ---- faq ------------------------------------------------------------------------------------ */
+.faq { max-width: 76ch; }
+.faq details { border-radius: 16px; border: 1px solid var(--edge); background: var(--surface); margin-bottom: 14px; }
+.faq summary { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 20px 24px; cursor: pointer; list-style: none; font-family: var(--head); font-weight: 500; font-size: 1.0625rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--orange); flex: none; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details > div { padding: 0 24px 22px; color: var(--stardust); font-size: 0.9375rem; }
+
+/* ---- colophon ---------------------------------------------------------------------------------- */
+.colophon { border-top: 1px solid var(--edge); padding-block: 40px; }
+.colophon__in { display: flex; flex-wrap: wrap; gap: 12px 30px; align-items: center; font-family: var(--mono); font-size: 0.8125rem; color: var(--stardust); }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--gold); }
+
+/* ---- preview badge -------------------------------------------------------------------------------- */
+.flag {
+  position: fixed; right: var(--gutter); bottom: 18px; z-index: 95; pointer-events: none;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  max-width: calc(100vw - (var(--gutter) * 2));
+  border-radius: 999px; border: 1px solid var(--edge); background: rgba(15,17,21,.92); backdrop-filter: blur(10px);
+  color: var(--light); padding: 9px 18px; font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+}
+.flag span { color: var(--stardust); }
+@media (max-width: 560px) { .flag { left: 16px; right: 16px; bottom: 12px; justify-content: center; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; } .card:hover, .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__in">
+    <a class="brand" href="/design-presets/web3/"><i aria-hidden="true"></i> Ledgerlight</a>
+    <nav class="masthead__nav" aria-label="Sections of this preset">
+      <a href="#system">System</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--out" href="/">Back to creator</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ hero ============================ -->
+  <section class="wrap hero">
+    <div class="hero__in">
+      <div>
+        <span class="tag">Design preset</span>
+        <h1>A void that <span class="grad-text">glows</span>, not a dark theme</h1>
+        <p class="dim">A network grid masked to fade at the edges, radial fields of orange light,
+        glass panels floating above them, and tinted shadows throughout — because a neutral black
+        shadow flattens all of it back into ordinary dark mode.</p>
+        <div class="hero__acts">
+          <a class="btn" href="/">Build a site with this</a>
+          <a class="btn btn--out" href="#system">See the system</a>
+        </div>
+      </div>
+      <div class="glass">
+        <p class="glass__row"><span>White on the void</span><b>20.62:1</b></p>
+        <p class="glass__row"><span>Void on the gradient</span><b>5.79 &ndash; 8.98:1</b></p>
+        <p class="glass__row"><span>Gradient as text</span><b>8.98 &ndash; 14.60:1</b></p>
+        <p class="glass__row"><span>White on the gradient</span><b class="bad">2.30 &ndash; 3.56:1</b></p>
+        <p class="glass__row"><span>Stardust on the void</span><b>8.04:1</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ stats ============================ -->
+  <section class="wrap">
+    <div class="stats">
+      <div class="stat"><b>2.30:1</b><span>White on the gradient</span></div>
+      <div class="stat"><b>8.98:1</b><span>Void on the same</span></div>
+      <div class="stat"><b>50px</b><span>Network grid</span></div>
+      <div class="stat"><b>0</b><span>Neutral shadows</span></div>
+    </div>
+  </section>
+
+  <!-- ============================ system ============================ -->
+  <section class="wrap bay" id="system">
+    <span class="tag">What the preset decides</span>
+    <h2 style="margin-block:18px 40px">Three rules</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="card__ico">01</span>
+        <h3>The void on every fill</h3>
+        <p>White on the signature gradient is 3.56 at its dark end and 2.30 at its light end. The
+        background colour sits on it instead and passes at every point along the sweep.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">02</span>
+        <h3>Glass is measured against the glow</h3>
+        <p>A five-per-cent white panel over the void is effectively the void; the same panel over an
+        orange field is far lighter. The brightest thing it can float over is what sets its text.</p>
+      </article>
+      <article class="card">
+        <span class="card__ico">03</span>
+        <h3>Shadows are tinted</h3>
+        <p>Orange and gold, never neutral black. One grey shadow and the page stops looking lit and
+        starts looking like a dark theme with an accent colour.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ proof ============================ -->
+  <section class="wrap bay" id="proof" style="padding-top:0">
+    <span class="tag">The pairing, shown rather than claimed</span>
+    <h2 style="margin-block:18px 32px">Void on the gradient</h2>
+    <div class="proof">
+      <div class="band band--grad"><b>5.79 &rarr; 8.98:1</b><span>Void on #EA580C &rarr; #F7931A</span></div>
+      <div class="band band--gold"><b>8.98 &rarr; 14.60:1</b><span>Void on #F7931A &rarr; #FFD600</span></div>
+    </div>
+    <p class="dim" style="margin-top:22px;max-width:64ch">The same two sweeps carrying white would run
+    3.56 down to 1.41. The gradient really is high-contrast — just not in the direction the
+    specification assumes, which is what makes the error so easy to make.</p>
+  </section>
+
+  <!-- ============================ pricing ============================ -->
+  <section class="wrap bay" id="pricing" style="padding-top:0">
+    <span class="tag">Pricing, as this preset renders it</span>
+    <h2 style="margin-block:18px 40px">Three tiers</h2>
+    <div class="tiers">
+      <div class="tier">
+        <p class="tier__name">Starter</p>
+        <p class="tier__price">$0</p>
+        <p class="tier__per">per month</p>
+        <ul><li>One project</li><li>Community support</li><li>Core components</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+      <div class="tier tier--lead">
+        <span class="tier__flag">Most chosen</span>
+        <p class="tier__name">Studio</p>
+        <p class="tier__price grad-text">$24</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Ten projects</li><li>Priority support</li><li>Every component</li><li>Design export</li></ul>
+        <a class="btn" href="/">Choose</a>
+      </div>
+      <div class="tier">
+        <p class="tier__name">Agency</p>
+        <p class="tier__price">$72</p>
+        <p class="tier__per">per month</p>
+        <ul><li>Unlimited projects</li><li>Shared libraries</li><li>Client handover</li></ul>
+        <a class="btn btn--out" href="/">Choose</a>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:24px;color:var(--stardust)">Placeholder figures — not an offer</p>
+  </section>
+
+  <!-- ============================ faq ============================ -->
+  <section class="wrap bay" id="faq" style="padding-top:0">
+    <span class="tag">Questions</span>
+    <h2 style="margin-block:18px 40px">Frequently asked</h2>
+    <div class="faq">
+      <details open>
+        <summary>Is this a mock-up or the real thing?</summary>
+        <div>A specimen, hand-built to the preset's specification so the style can be seen whole
+        rather than as a thumbnail. The preset itself is a set of WordPress Theme Settings; a
+        generated site inherits the palette, the three font stacks and the pill buttons. The masked
+        grid, the radial fields and the glass panels are still being folded into the preset and are
+        not all emitted automatically yet.</div>
+      </details>
+      <details>
+        <summary>Why is the button text dark?</summary>
+        <div>Because white on the orange gradient measures 3.56 to one at the dark end and 2.30 at
+        the light end, and fails at both. The background colour on the same sweep runs 5.79 to 8.98.
+        The gradient is excellent as text on the void — it is only as a bed for white that it
+        collapses.</div>
+      </details>
+      <details>
+        <summary>Why does the grid fade out?</summary>
+        <div>Because a grid that runs to the edges reads as a wireframe rather than as depth. The
+        radial mask makes it a field the content sits inside, which is also what keeps the darkness
+        from looking flat.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ closing ============================ -->
+  <section class="wrap bay" style="padding-top:0">
+    <div class="glass" style="text-align:center;padding-block:clamp(40px,6vw,72px)">
+      <h2 style="max-width:18ch;margin-inline:auto">Build a site in this preset.</h2>
+      <p class="dim" style="margin-top:22px;max-width:52ch;margin-inline:auto">Describe the business
+      and your own AI agent builds it on WordPress with Unyson+ — real page-builder pages, with this
+      design system applied site-wide.</p>
+      <p style="margin-top:30px"><a class="btn btn--gold" href="/">Open the creator</a></p>
+    </div>
+  </section>
+
+</main>
+
+<p class="flag">Preview only <span>Specimen page</span></p>
+
+<footer class="colophon">
+  <div class="wrap colophon__in">
+    <span>Web3 — a design preset for Unyson+</span>
+    <a href="/">Unyson+ Site Creator</a>
+    <a href="https://docs.unysonplus.com/">Documentation</a>
+  </div>
+</footer>
+
+</body>
+</html>
