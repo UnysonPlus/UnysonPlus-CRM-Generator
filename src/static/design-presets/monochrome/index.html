@@ -223,7 +223,7 @@ a { color: inherit; }
 
 /* ======================= stats =========================================== */
 .stats { display: grid; grid-template-columns: 1fr; gap: 0; }
-.stat { padding: clamp(28px, 4vw, 44px) 0; border-top: var(--rule-thin) solid rgba(255,255,255,0.28); }
+.stat { padding: clamp(28px, 4vw, 44px) 0; border-top: var(--rule-thin) solid rgba(255,255,255,0.28); text-align: center; }
 .stat:first-child { border-top: 0; }
 .stat b { display: block; font-family: var(--display); font-size: clamp(2.75rem, 1.4rem + 5vw, 5rem); font-weight: 500; line-height: 1; letter-spacing: -0.03em; }
 .stat span { display: block; margin-top: 14px; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.72; }
@@ -291,6 +291,12 @@ a { color: inherit; }
 .tier li { padding: 11px 0; border-top: var(--rule-hair) solid var(--line-light); font-size: 0.95rem; }
 .tier:hover li { border-top-color: rgba(255,255,255,0.28); }
 .tier .btn { margin-top: clamp(24px, 3vw, 32px); }
+/* A hovered tier inverts, which leaves an outline button drawing a BLACK border and BLACK text on a
+   black panel - invisible. Measured at rest it is fine, so this only shows up while the pointer is
+   down the page. Inside an inverted tier the button takes the same on-dark treatment the inverted
+   bands use: white rule, white label, filling white on its own hover. */
+.tier:hover .btn--out { border-color: var(--bg); color: var(--bg); }
+.tier:hover .btn--out:hover { background: var(--bg); color: var(--fg); }
 .tier--lead { background: var(--fg); color: var(--bg); }
 .tier--lead .tier__per, .tier--lead li { color: var(--bg); }
 .tier--lead li { border-top-color: rgba(255,255,255,0.28); }
@@ -381,7 +387,7 @@ a { color: inherit; }
 
   <!-- ============================ stats ============================ -->
   <section class="ink on-dark">
-    <div class="wrap" style="padding-block: var(--bay)">
+    <div class="wrap" style="padding-block: calc(var(--bay) / 2)">
       <div class="stats">
         <div class="stat"><b>2</b><span>Colours</span></div>
         <div class="stat"><b>0</b><span>Border radius</span></div>
