@@ -446,11 +446,19 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .crumbs [aria-current] { color: var(--hero-ink); font-weight: 600; }
 
 /* Industry picker (home) */
-.pick { background: var(--band); padding-block: clamp(48px, 7vw, 88px); }
+/* Three .pick sections run back to back on the home page, and with one shared background
+   they read as a single long slab rather than as three sections. They alternate, and each
+   carries a hairline so the edge is visible even where two of the same colour meet. */
+.pick { background: var(--band); padding-block: clamp(56px, 8vw, 96px); border-top: 1px solid var(--line); }
+.pick + .pick { background: var(--bg); }
+.pick + .pick + .pick { background: var(--band); }
 .pick__head { max-width: 62ch; margin-bottom: 28px; }
 .pick__head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700; }
 .pick__head p { color: var(--ink-2); font-size: 1.05rem; margin: 12px 0 0; }
-.pick__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px 22px; }
+/* auto-FIT, not auto-fill: auto-fill leaves the empty tracks in place, so three cards in a
+   row 1200px wide sat in three of five tracks and stopped at 60% with a ragged right edge.
+   auto-fit collapses the empty tracks and the items share the full width. */
+.pick__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 22px; }
 .ind > a, .ind > div { display: flex; flex-direction: column; gap: 4px; height: 100%; text-decoration: none; color: var(--ink); }
 .ind__img { display: block; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; margin-bottom: 12px; background: var(--surface-2); border: 1px solid var(--line); }
 .ind__img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms var(--ease), filter 500ms var(--ease); }
