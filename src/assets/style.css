@@ -119,9 +119,24 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
    hero art; the Site Creator home does not, and the bare `1.05fr 1fr` left a third of the
    hero reserved for nothing - which is what the empty right-hand side was. */
 .hero__in { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
-.hero__in:has(.hero__art) { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-@supports not selector(:has(*)) { .hero__in { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
+/* Inside the media query on purpose: :has() adds specificity, so an unscoped version of this
+   rule outranks the narrow-screen `1fr` further down and leaves a second, empty column at
+   390px - the very bug this block exists to fix, reappearing one breakpoint down. */
+@media (min-width: 901px) {
+  .hero__in:has(.hero__art) { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  @supports not selector(:has(*)) { .hero__in { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
+}
 .hero__in:not(:has(.hero__art)) .hero__copy { max-width: 46rem; }
+
+/* The ambient scene. It is decoration that happens to be the product's own story, so it
+   never holds anything up: the player is deferred, the scene plays on view rather than on
+   load, and the column simply collapses on narrow screens where the copy needs the width. */
+.hero__scene { margin: 0; min-width: 0; }
+.hero__scene [data-upw-scene] { width: 100%; }
+/* No reduced-motion rule here on purpose: the player already honours the setting and holds
+   the poster frame (scene `playback.posterTime`), which is the finished page - a better
+   outcome than hiding the visual entirely. Below 900px the copy wants the whole width. */
+@media (max-width: 900px) { .hero__scene { display: none; } }
 .hero__tag { margin: 0 0 18px; font-weight: 600; color: var(--accent); font-size: 0.95rem; }
 .hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); font-weight: 700; letter-spacing: -0.01em; max-width: 15ch; }
 .hero__lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--hero-ink-2); max-width: 52ch; margin: 22px 0 30px; line-height: 1.55; }

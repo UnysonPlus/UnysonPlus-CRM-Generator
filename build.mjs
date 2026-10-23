@@ -54,6 +54,14 @@ const PATHS = Object.fromEntries(Object.values(presets).map((p) => [p.id, p.path
 
 /* ---------- helpers ---------- */
 
+/* The hero's ambient scene, made in Kinetic Scenes and played by its published player at a
+   permanent versioned address, so it keeps playing exactly as made. Inlined rather than
+   fetched: it is 6KB, and a hero visual that arrives on a second round trip is worse than
+   no hero visual. The copy never waits on it - the player is deferred and the scene sits in
+   its own column. */
+const SCENE = fs.readFileSync(path.join(SRC, 'assets', 'hero-scene.json'), 'utf8').trim();
+const SCENE_PLAYER = 'https://kinetic-scenes.unysonplus.com/player/0.0.44/scene-player.js';
+
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const strip = (s) => String(s).replace(/<[^>]+>/g, '');
 function rmrf(p) { fs.rmSync(p, { recursive: true, force: true }); }
@@ -800,6 +808,9 @@ ${topbar({ app: 'Site Creator', nav: [['#cgen', 'Generator'], ['#start', 'How it
         </div>
         <p class="note">${esc(P.page.note)}</p>
       </div>
+      <figure class="hero__art hero__scene" aria-label="A typed description turning into a built page">
+        <div data-upw-scene><script type="application/json">${SCENE}</script></div>
+      </figure>
     </div>
   </section>
 
@@ -909,6 +920,7 @@ ${footer()}
   probe(0);
 })();
 </script>
+<script src="${SCENE_PLAYER}" defer></script>
 <script>window.UPWSTYLES = ${JSON.stringify(STYLES)};</script>
 <script src="/assets/creator.js?v=${v.creator}" defer></script>
 </body>
