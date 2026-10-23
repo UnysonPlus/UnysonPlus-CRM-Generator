@@ -662,7 +662,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
       <div class="stylep__grid">
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/monochrome/">
-            <img src="/assets/img/styles/monochrome.jpg" width="1280" height="967" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/monochrome.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A monochrome editorial style: a large serif headline in black on white, a square-cornered black button, and a pale grey band below it.">
           </a>
           <figcaption>
@@ -672,7 +672,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/bauhaus/">
-            <img src="/assets/img/styles/bauhaus.jpg" width="1280" height="1150" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/bauhaus.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Bauhaus style: a heavy uppercase headline beside a blue panel holding a yellow circle, a red rotated square and a white square, over a yellow band of statistics.">
           </a>
           <figcaption>
@@ -682,7 +682,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/modern-dark/">
-            <img src="/assets/img/styles/modern-dark.jpg" width="1280" height="900" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/modern-dark.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A modern dark style: a large gradient headline on a near-black canvas lit by soft indigo, an indigo button, and an elevated mock application panel below.">
           </a>
           <figcaption>
@@ -692,7 +692,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/newsprint/">
-            <img src="/assets/img/styles/newsprint.jpg" width="1280" height="786" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/newsprint.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A newsprint style: a masthead with edition metadata above a very large serif headline, a visible column rule, and a black news ticker with red badges.">
           </a>
           <figcaption>
@@ -702,7 +702,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/saas/">
-            <img src="/assets/img/styles/saas.jpg" width="1280" height="810" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/saas.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A minimalist modern style: a warm off-white page with a large serif headline whose last word is filled with an electric blue gradient, beside a white panel with a gradient border.">
           </a>
           <figcaption>
@@ -712,7 +712,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/luxury/">
-            <img src="/assets/img/styles/luxury.jpg" width="1280" height="1049" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/luxury.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A luxury editorial style: a very large serif headline with one italic word on warm off-white, faint vertical gridlines, and a tall greyscale plate to the right.">
           </a>
           <figcaption>
@@ -722,7 +722,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/terminal/">
-            <img src="/assets/img/styles/terminal.jpg" width="1280" height="857" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/terminal.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A terminal style: phosphor green monospace text on near-black with a blinking block cursor, bracketed buttons and ASCII progress bars.">
           </a>
           <figcaption>
@@ -732,7 +732,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/swiss/">
-            <img src="/assets/img/styles/swiss.jpg" width="1280" height="933" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/swiss.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Swiss style: a very large black uppercase headline on white over a faint grid, beside a composition of a red circle and a black rectangle.">
           </a>
           <figcaption>
@@ -742,7 +742,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/kinetic/">
-            <img src="/assets/img/styles/kinetic.jpg" width="1280" height="1136" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/kinetic.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A kinetic style: enormous uppercase type filling the screen on rich black with one word in acid yellow, above a scrolling yellow marquee.">
           </a>
           <figcaption>
@@ -752,7 +752,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/flat-design/">
-            <img src="/assets/img/styles/flat-design.jpg" width="1280" height="775" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/flat-design.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A flat style: a bold headline in dark ink on a full-bleed blue section with a composition of flat circles and rectangles beside it.">
           </a>
           <figcaption>
@@ -762,7 +762,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/art-deco/">
-            <img src="/assets/img/styles/art-deco.jpg" width="1280" height="840" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/art-deco.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="An Art Deco style: gold uppercase type centred on obsidian inside a thin gold frame with stepped corner brackets, under a soft golden sunburst.">
           </a>
           <figcaption>
@@ -772,7 +772,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/material-design/">
-            <img src="/assets/img/styles/material-design.jpg" width="1280" height="572" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/material-design.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Material You style: a large tinted lavender panel with rounded corners, pill buttons and a floating white card of rounded list rows.">
           </a>
           <figcaption>
@@ -782,7 +782,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/neo-brutalism/">
-            <img src="/assets/img/styles/neo-brutalism.jpg" width="1280" height="979" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/neo-brutalism.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Neo-brutalist style: a heavy uppercase headline, half of it hollow, on cream, beside rotated stickers and a row of bordered stat blocks with hard black shadows.">
           </a>
           <figcaption>
@@ -792,7 +792,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/bold-typography/">
-            <img src="/assets/img/styles/bold-typography.jpg" width="1280" height="929" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/bold-typography.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Bold Typography style: a poster-scale headline in white and vermillion on near-black, with a huge faint word behind it and a row of hairline-separated figures below.">
           </a>
           <figcaption>
@@ -802,7 +802,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/academia/">
-            <img src="/assets/img/styles/academia.jpg" width="1280" height="971" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/academia.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="An Academia style: a cream serif headline on deep mahogany beside a brass-edged cathedral arch holding a large letter A, over a row of brass figures.">
           </a>
           <figcaption>
@@ -812,7 +812,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/cyberpunk/">
-            <img src="/assets/img/styles/cyberpunk.jpg" width="1280" height="981" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/cyberpunk.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Cyberpunk style: a heavy uppercase headline with the last word glowing neon green on a near-black void, beside a chamfered panel of contrast readouts.">
           </a>
           <figcaption>
@@ -822,7 +822,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/web3/">
-            <img src="/assets/img/styles/web3.jpg" width="1280" height="943" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/web3.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Web3 style: a white headline with one word in an orange-to-gold gradient on a near-black ground, beside a translucent glass panel of figures under a soft orange glow.">
           </a>
           <figcaption>
@@ -832,7 +832,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/minimal-dark/">
-            <img src="/assets/img/styles/minimal-dark.jpg" width="1280" height="1165" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/minimal-dark.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Minimalist Dark style: a white headline on layered near-black with a soft amber glow behind it and a translucent glass panel of figures.">
           </a>
           <figcaption>
@@ -842,7 +842,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/playful-geometric/">
-            <img src="/assets/img/styles/playful-geometric.jpg" width="1280" height="843" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/playful-geometric.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Playful Geometric style: a heavy headline with a yellow highlight on warm cream, beside circles and rounded shapes with hard black offset shadows.">
           </a>
           <figcaption>
@@ -852,7 +852,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/claymorphism/">
-            <img src="/assets/img/styles/claymorphism.jpg" width="1280" height="1061" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/claymorphism.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Claymorphism style: a rounded headline on pale lavender beside four saturated circles that bulge off the page with soft coloured shadows.">
           </a>
           <figcaption>
@@ -862,7 +862,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/professional/">
-            <img src="/assets/img/styles/professional.jpg" width="1280" height="907" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/professional.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Professional Editorial style: a Playfair Display headline in black and gold on warm ivory, with a ruled standfirst column and hairline-separated figures.">
           </a>
           <figcaption>
@@ -872,7 +872,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/botanical/">
-            <img src="/assets/img/styles/botanical.jpg" width="1280" height="1018" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/botanical.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Botanical style: a serif headline on warm rice paper beside an arch-topped plate holding a sage leaf shape.">
           </a>
           <figcaption>
@@ -882,7 +882,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/vaporwave/">
-            <img src="/assets/img/styles/vaporwave.jpg" width="1280" height="1067" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/vaporwave.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Vaporwave style: a wide uppercase headline in white and magenta over a purple-black void, with a gradient sun and a perspective grid below.">
           </a>
           <figcaption>
@@ -892,7 +892,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/enterprise/">
-            <img src="/assets/img/styles/enterprise.jpg" width="1280" height="961" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/enterprise.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="An Enterprise SaaS style: a bold headline with one gradient phrase on a cool near-white page, beside a white dashboard card of contrast figures.">
           </a>
           <figcaption>
@@ -902,7 +902,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/sketch/">
-            <img src="/assets/img/styles/sketch.jpg" width="1280" height="1070" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/sketch.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Sketchbook style: a handwritten headline on warm paper beside a tilted note panel, both drawn with thick pencil borders and uneven corners.">
           </a>
           <figcaption>
@@ -912,7 +912,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/industrial/">
-            <img src="/assets/img/styles/industrial.jpg" width="1280" height="952" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/industrial.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="An Industrial style: a bold headline embossed into a pale blue-grey chassis, beside a recessed panel of raised monospace readout slots.">
           </a>
           <figcaption>
@@ -922,7 +922,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/neumorphism/">
-            <img src="/assets/img/styles/neumorphism.jpg" width="1280" height="959" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/neumorphism.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Neumorphism style: a heading on a single pale blue-grey surface with soft extruded buttons and a recessed well of chips, all shaped by light and shadow.">
           </a>
           <figcaption>
@@ -932,7 +932,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/organic/">
-            <img src="/assets/img/styles/organic.jpg" width="1280" height="994" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/organic.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="An Organic style: a serif headline on warm rice paper beside a cluster of leaf-shaped blobs in moss, terracotta and sand.">
           </a>
           <figcaption>
@@ -942,7 +942,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/maximalism/">
-            <img src="/assets/img/styles/maximalism.jpg" width="1280" height="1177" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/maximalism.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Maximalism style: a huge headline in white, yellow and cyan over a near-black void, with stacked multi-coloured hard shadows on every block.">
           </a>
           <figcaption>
@@ -952,7 +952,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/retro/">
-            <img src="/assets/img/styles/retro.jpg" width="1280" height="758" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/retro.jpg" width="1280" height="800" loading="lazy" decoding="async"
                  alt="A Retro Desktop style: a heavy black headline on a silver chassis beside a windowed notepad panel with a navy title bar and bevelled controls.">
           </a>
           <figcaption>

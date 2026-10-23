@@ -107,8 +107,11 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
 /* Hero */
 .hero {
   background-color: var(--hero-bg);
-  background-image: url("img/hero-bg.jpg");
-  background-image: image-set(url("img/hero-bg.webp") type("image/webp"), url("img/hero-bg.jpg") type("image/jpeg"));
+  /* The marketing site's hero photograph, with the same darkening treatment it uses
+     there (rgba(13,24,26,.55) to .74). The overlay is not decoration: the photograph
+     carries a white keyboard and pale notebooks, and the hero text sits over them. */
+  background-image: linear-gradient(rgba(13, 24, 26, 0.55) 0%, rgba(13, 24, 26, 0.74) 100%), url("img/hero-bg.jpg");
+  background-image: linear-gradient(rgba(13, 24, 26, 0.55) 0%, rgba(13, 24, 26, 0.74) 100%), image-set(url("img/hero-bg.webp") type("image/webp"), url("img/hero-bg.jpg") type("image/jpeg"));
   background-size: cover; background-position: center;
   color: var(--hero-ink); padding-block: calc(84px + env(safe-area-inset-top, 0px) + clamp(32px, 6vw, 80px)) clamp(56px, 8vw, 112px); overflow: hidden;
 }
@@ -360,8 +363,11 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 /* IDX note */
 .idx {
   background-color: var(--hero-bg);
-  background-image: url("img/hero-bg.jpg");
-  background-image: image-set(url("img/hero-bg.webp") type("image/webp"), url("img/hero-bg.jpg") type("image/jpeg"));
+  /* The marketing site's hero photograph, with the same darkening treatment it uses
+     there (rgba(13,24,26,.55) to .74). The overlay is not decoration: the photograph
+     carries a white keyboard and pale notebooks, and the hero text sits over them. */
+  background-image: linear-gradient(rgba(13, 24, 26, 0.55) 0%, rgba(13, 24, 26, 0.74) 100%), url("img/hero-bg.jpg");
+  background-image: linear-gradient(rgba(13, 24, 26, 0.55) 0%, rgba(13, 24, 26, 0.74) 100%), image-set(url("img/hero-bg.webp") type("image/webp"), url("img/hero-bg.jpg") type("image/jpeg"));
   background-size: cover; background-position: center;
   color: var(--hero-ink); padding-block: clamp(48px, 7vw, 88px);
 }
@@ -498,9 +504,13 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
    pixel width (captured at 2x) so it stays sharp on HiDPI screens; without an explicit width the browser
    would draw it at twice the intended size. The frame is deliberately plain: a border and the page's own
    radius, nothing that would read as part of the style being previewed. */
-.stylep { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
+/* Every preview is captured at one fixed size (1280x800 at 2x, stored 1600x1000),
+   so the images align. The cards are stretched and the caption grows to fill,
+   because a one-line description beside a two-line one would otherwise leave the
+   row ragged again for a reason that has nothing to do with the design. */
+.stylep { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); display: flex; flex-direction: column; height: 100%; }
 .stylep img { display: block; width: 100%; height: auto; }
-.stylep figcaption { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-top: 1px solid var(--line); background: var(--bg); }
+.stylep figcaption { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-top: 1px solid var(--line); background: var(--bg); flex: 1 0 auto; }
 .stylep figcaption b { font-size: 1.08rem; }
 .stylep figcaption span { color: var(--ink-2); font-size: 0.93rem; }
 .stylep__note { color: var(--ink-2); font-size: 0.93rem; margin: 16px 0 0; }
@@ -511,5 +521,5 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 /* Two presets and counting, so the single figure becomes a grid. It stays one column until there is
    genuinely room for two side by side — these are screenshots of whole pages, and halving them on a
    narrow screen makes both unreadable rather than compact. */
-.stylep__grid { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: start; }
+.stylep__grid { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: stretch; }
 @media (min-width: 900px) { .stylep__grid { grid-template-columns: 1fr 1fr; } }
