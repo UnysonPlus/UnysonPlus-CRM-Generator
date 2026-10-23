@@ -586,6 +586,175 @@ function footer() {
 
    The kit button is progressive enhancement: the page is complete and useful with the probe failing,
    which is the normal case for someone meeting this for the first time. */
+/* The style library, as the single source for the home page's picker AND its gallery cards.
+   30 presets, each with a brief in the kit and a rendered page under /design-presets/. */
+const STYLES = [
+  { slug: 'monochrome', label: 'Monochrome editorial', blurb: 'Pure black on white, serif display type, square corners, three surfaces.' },
+  { slug: 'bauhaus', label: 'Bauhaus', blurb: 'Primary colour blocking, thick black borders, hard offset shadows.' },
+  { slug: 'modern-dark', label: 'Modern dark', blurb: 'Near-black canvas, layered ambient light, one indigo accent.' },
+  { slug: 'newsprint', label: 'Newsprint', blurb: 'A visible collapsed grid, four serif and sans faces, one editorial red.' },
+  { slug: 'saas', label: 'Minimalist Modern', blurb: 'Warm off-white, a dual-font pairing, one electric blue gradient.' },
+  { slug: 'luxury', label: 'Luxury / Editorial', blurb: 'Warm alabaster and charcoal, a visible grid, cinematic motion.' },
+  { slug: 'terminal', label: 'Terminal CLI', blurb: 'Monospace throughout, phosphor on near-black, panes and ASCII rules.' },
+  { slug: 'swiss', label: 'Swiss International', blurb: 'A visible grid, massive neutral type, one signal red.' },
+  { slug: 'kinetic', label: 'Kinetic Typography', blurb: 'Viewport-scale type, continuous marquees, hard inversions.' },
+  { slug: 'flat-design', label: 'Flat Design', blurb: 'No shadows at all, full-section colour blocking, bold geometric type.' },
+  { slug: 'art-deco', label: 'Art Deco', blurb: 'Obsidian and gold, stepped corners, glows instead of shadows.' },
+  { slug: 'material-design', label: 'Material You', blurb: 'Tonal surfaces, pill buttons, generous rounding.' },
+  { slug: 'neo-brutalism', label: 'Neo-brutalism', blurb: '4px black borders, hard offset shadows, black on every colour.' },
+  { slug: 'bold-typography', label: 'Bold Typography', blurb: 'Poster-scale headlines, one vermillion accent, no shadows.' },
+  { slug: 'academia', label: 'Academia', blurb: 'Mahogany and parchment, three serifs, brass hardware.' },
+  { slug: 'cyberpunk', label: 'Cyberpunk', blurb: 'A void ground, chamfered corners, neon glow and scanlines.' },
+  { slug: 'web3', label: 'Web3', blurb: 'A true void, a masked grid, orange and gold glow, pill buttons.' },
+  { slug: 'minimal-dark', label: 'Minimalist Dark', blurb: 'Layered slate, one warm amber, ambient glow.' },
+  { slug: 'playful-geometric', label: 'Playful Geometric', blurb: 'Sticker shadows, mixed radii, confetti colour.' },
+  { slug: 'claymorphism', label: 'Claymorphism', blurb: 'Digital clay, tinted shadows, super-rounded corners.' },
+  { slug: 'professional', label: 'Professional Editorial', blurb: 'Warm ivory, fine hairlines, one burnished gold.' },
+  { slug: 'botanical', label: 'Botanical', blurb: 'Rice paper, forest ink, sage surfaces, pills.' },
+  { slug: 'vaporwave', label: 'Vaporwave', blurb: 'A purple void, magenta and cyan tubes, a receding grid.' },
+  { slug: 'enterprise', label: 'Enterprise SaaS', blurb: 'Indigo gradient, blurred orbs, 12px cards.' },
+  { slug: 'sketch', label: 'Sketchbook', blurb: 'Pencil borders, wobbly corners, a marker red.' },
+  { slug: 'industrial', label: 'Industrial Control', blurb: 'A moulded chassis, two-shadow keys, one alert red.' },
+  { slug: 'neumorphism', label: 'Neumorphism', blurb: 'One surface colour, extruded by light alone.' },
+  { slug: 'organic', label: 'Organic', blurb: 'Moss and terracotta on rice paper, highly rounded.' },
+  { slug: 'maximalism', label: 'Maximalism', blurb: 'Five accents over a void, stacked hard shadows.' },
+  { slug: 'retro', label: 'Retro Desktop', blurb: 'A silver chassis, 2px bevels, navy title bars.' },
+];
+
+/* The general website generator - the description-first route the hero promises.
+   It emits the kit's site-spec.json (source: "brief") plus a build prompt; the client
+   module is src/assets/creator.js. The CRM generator under /crm/ is untouched: that is
+   a vertical, and this is the thing a vertical is a starting point FOR. */
+function creatorForm() {
+  const page = (v, label, hint, on) =>
+    `<label><input type="checkbox" name="pages" value="${v}"${on ? ' checked' : ''}${v === 'home' ? ' disabled' : ''}><span><b>${esc(label)}</b><small>${esc(hint)}</small></span></label>`;
+  const act = (v, label, on) =>
+    `<label><input type="radio" name="action" value="${v}"${on ? ' checked' : ''}><span><b>${esc(label)}</b></span></label>`;
+  const have = (v, label, hint) =>
+    `<label><input type="checkbox" name="has" value="${v}"><span><b>${esc(label)}</b><small>${esc(hint)}</small></span></label>`;
+
+  return `<form id="cform" class="gen__form" autocomplete="off">
+          <fieldset>
+            <legend>1 &middot; The business</legend>
+            ${input('name', 'Business name', { placeholder: 'Northwind Studio', auto: 'organization' })}
+            ${input('describe', 'What does it do?', { textarea: true, placeholder: 'We photograph weddings across the north of England, and sell prints from past shoots.' })}
+            ${input('market', 'Where does it work?', { placeholder: 'Leeds and West Yorkshire', hint: 'optional' })}
+            ${select('type', 'Size', [
+              { value: '', label: 'Not saying' },
+              { value: 'self-employed', label: 'Self-employed' },
+              { value: 'small team', label: 'Small team', selected: true },
+              { value: 'company', label: 'Company' },
+              { value: 'non-profit', label: 'Non-profit' },
+            ])}
+            ${input('phone', 'Phone', { placeholder: '0113 496 0000', hint: 'optional', type: 'tel' })}
+            ${input('email', 'Email', { placeholder: 'hello@example.com', hint: 'optional', type: 'email' })}
+          </fieldset>
+
+          <fieldset>
+            <legend>2 &middot; The pages</legend>
+            <p class="sub">Fewer real pages beat more padded ones. Home and a way to get in touch are usually enough to start.</p>
+            <div class="seg">
+              ${page('home', 'Home', 'Always built', true)}
+              ${page('about', 'About', 'Who is behind it', true)}
+              ${page('services', 'Services', 'What is offered', true)}
+              ${page('work', 'Work', 'Past projects or a gallery', false)}
+              ${page('pricing', 'Pricing', 'Tiers or from-prices', false)}
+              ${page('blog', 'Blog', 'An article index', false)}
+              ${page('faq', 'FAQ', 'Questions that come up', false)}
+              ${page('contact', 'Contact', 'The enquiry form lives here', true)}
+            </div>
+            ${input('extraPages', 'Any other pages', { textarea: true, placeholder: 'One per line', hint: 'optional' })}
+          </fieldset>
+
+          <fieldset>
+            <legend>3 &middot; The look</legend>
+            <p class="sub">A style is a set of Theme Settings &mdash; palette, type, button shape, surfaces &mdash; applied site-wide. You can change all of it afterwards.</p>
+            ${select('style', 'Style', [{ value: '', label: 'Pick a style' }]
+              .concat(STYLES.map((s) => ({ value: s.slug, label: s.label })))
+              .concat([{ value: 'custom', label: 'Describe my own' }]))}
+            <p class="fld-prev"><a id="cStyleLink" href="/design-presets/monochrome/" hidden>See this style as a full page &rarr;</a></p>
+            <label class="field" id="cNotesField" hidden><span>Describe the look you want</span>
+              <textarea name="styleNotes" rows="3" placeholder="Warm and dark, restrained, one accent. Nothing glossy."></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>4 &middot; The one action</legend>
+            <p class="sub">What should a visitor do? It decides every call to action and the header button.</p>
+            <div class="seg">
+              ${act('enquire', 'Send an enquiry', true)}
+              ${act('book', 'Book an appointment', false)}
+              ${act('call', 'Call', false)}
+              ${act('quote', 'Request a quote', false)}
+              ${act('buy', 'Buy online', false)}
+              ${act('signup', 'Sign up or subscribe', false)}
+              ${act('download', 'Download something', false)}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>5 &middot; What you already have</legend>
+            <p class="sub">Anything you do not tick is listed in the spec as something the agent must ask for rather than invent.</p>
+            <div class="seg">
+              ${have('copy', 'Written copy', 'Text for the pages')}
+              ${have('photos', 'Photographs', 'Your own images')}
+              ${have('logo', 'A logo', 'Otherwise it sets your name in type')}
+              ${have('testimonials', 'Testimonials', 'Decides whether a proof band exists')}
+              ${have('numbers', 'Real numbers', 'Results, counts, years')}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>6 &middot; Where it gets built</legend>
+            ${input('target', 'The WordPress install', { placeholder: 'http://localhost/mysite or the host you use' })}
+            ${select('agent', 'Your AI agent', [
+              { value: 'claude-app', label: 'Claude app, through the Unyson+ connector', selected: true },
+              { value: 'claude-code', label: 'Claude Code' },
+              { value: 'cursor', label: 'Cursor' },
+              { value: 'other', label: 'Something else' },
+            ])}
+            <div class="seg" role="radiogroup" aria-label="Publish state">
+              <label><input type="radio" name="publish" value="draft" checked><span><b>Build as drafts</b><small>Nothing goes live until you say so</small></span></label>
+              <label><input type="radio" name="publish" value="publish"><span><b>Publish</b><small>Pages go live as they are built</small></span></label>
+            </div>
+          </fieldset>
+        </form>`;
+}
+
+function creator() {
+  return `<section id="cgen" class="gen" aria-labelledby="cgenTitle">
+    <div class="wrap">
+      <div class="gen__head">
+        <h2 id="cgenTitle">Describe the site</h2>
+        <p>Six questions, then copy the result into your AI agent. Everything stays in this browser; nothing is sent anywhere.</p>
+      </div>
+      <div class="gen__grid">
+        ${creatorForm()}
+
+        <aside class="out" aria-label="Generated output">
+          <div class="out__bar">
+            <div class="tabs" role="tablist">
+              <button type="button" role="tab" data-tab="prompt" aria-controls="cpanel-prompt" aria-selected="true">Prompt</button>
+              <button type="button" role="tab" data-tab="preview" aria-controls="cpanel-preview" aria-selected="false" tabindex="-1">Preview</button>
+              <button type="button" role="tab" data-tab="spec" aria-controls="cpanel-spec" aria-selected="false" tabindex="-1">site-spec.json</button>
+            </div>
+            <span class="out__meta" id="cMeta" aria-live="polite"></span>
+          </div>
+          <div class="out__panel" id="cpanel-prompt" role="tabpanel" tabindex="0"><pre id="cPromptOut"></pre></div>
+          <div class="out__panel out__panel--light" id="cpanel-preview" role="tabpanel" tabindex="0" hidden><div id="cPreviewOut" class="prev"></div></div>
+          <div class="out__panel" id="cpanel-spec" role="tabpanel" tabindex="0" hidden><pre id="cSpecOut"></pre></div>
+          <div class="out__actions">
+            <button type="button" class="btn btn--accent" id="cCopy">Copy prompt</button>
+            <button type="button" class="btn btn--ghost-dark" id="cDownload">Download prompt</button>
+            <button type="button" class="btn btn--ghost-dark" id="cSpecDownload">Download site-spec.json</button>
+          </div>
+          <p class="out__status" id="cStatus" role="status" aria-live="polite"></p>
+        </aside>
+      </div>
+    </div>
+  </section>`;
+}
+
 function homePage(v) {
   const P = {
     id: 'site-creator',
@@ -610,17 +779,23 @@ function homePage(v) {
   return `${head(P, v)}
 <body>
 <a class="skip" href="#start">Skip to the start</a>
-${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM websites'], ['https://docs.unysonplus.com/create-a-site', 'Docs']] })}
+${topbar({ app: 'Site Creator', nav: [['#cgen', 'Generator'], ['#start', 'How it works'], ['/crm/', 'CRM websites'], ['https://docs.unysonplus.com/create-a-site', 'Docs']] })}
 <main>
   <section class="hero">
     <div class="wrap hero__in">
       <div class="hero__copy">
         <h1>${esc(P.page.h1)}</h1>
         <p class="lede">${esc(P.page.lede)}</p>
+        <div class="hero__cta">
+          <a class="btn btn--accent" href="#cgen">Describe your site</a>
+          <a class="btn btn--ghost" href="#start">See how it works</a>
+        </div>
         <p class="note">${esc(P.page.note)}</p>
       </div>
     </div>
   </section>
+
+  ${creator()}
 
   <section id="start" class="pick" aria-labelledby="startTitle">
     <div class="wrap">
@@ -629,10 +804,10 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         <p>The same build, started from whatever you already have.</p>
       </div>
       <ul class="pick__list">
-        ${route('A description', 'Say what the business is. The only route that needs nothing else.')}
-        ${route('A reference site', 'Point at a URL. It is captured and rebuilt as editable Unyson+ pages.')}
-        ${route('A design you like', 'A screenshot or mockup. The look is read into a design system; the content is yours.')}
-        ${route('An industry template', 'Start from a template for your trade, then fill in the facts.')}
+        ${route('A description', 'Say what the business is. The only route that needs nothing else — it is the form above.')}
+        ${route('A reference site', 'Point at a URL. It is captured and rebuilt as editable Unyson+ pages. Run it from the AI Dev Kit.')}
+        ${route('A design you like', 'A screenshot or mockup. The look is read into a design system; the content is yours. From the kit.')}
+        ${route('An industry template', 'Start from a template for your trade, then fill in the facts. The CRM family is the first.')}
       </ul>
     </div>
   </section>
@@ -662,7 +837,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
       <div class="stylep__grid">
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/monochrome/">
-            <img src="/assets/img/styles/monochrome.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/monochrome.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A monochrome editorial style: a large serif headline in black on white, a square-cornered black button, and a pale grey band below it.">
           </a>
           <figcaption>
@@ -672,7 +847,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/bauhaus/">
-            <img src="/assets/img/styles/bauhaus.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/bauhaus.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Bauhaus style: a heavy uppercase headline beside a blue panel holding a yellow circle, a red rotated square and a white square, over a yellow band of statistics.">
           </a>
           <figcaption>
@@ -682,7 +857,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/modern-dark/">
-            <img src="/assets/img/styles/modern-dark.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/modern-dark.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A modern dark style: a large gradient headline on a near-black canvas lit by soft indigo, an indigo button, and an elevated mock application panel below.">
           </a>
           <figcaption>
@@ -692,7 +867,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/newsprint/">
-            <img src="/assets/img/styles/newsprint.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/newsprint.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A newsprint style: a masthead with edition metadata above a very large serif headline, a visible column rule, and a black news ticker with red badges.">
           </a>
           <figcaption>
@@ -702,7 +877,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/saas/">
-            <img src="/assets/img/styles/saas.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/saas.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A minimalist modern style: a warm off-white page with a large serif headline whose last word is filled with an electric blue gradient, beside a white panel with a gradient border.">
           </a>
           <figcaption>
@@ -712,7 +887,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/luxury/">
-            <img src="/assets/img/styles/luxury.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/luxury.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A luxury editorial style: a very large serif headline with one italic word on warm off-white, faint vertical gridlines, and a tall greyscale plate to the right.">
           </a>
           <figcaption>
@@ -722,7 +897,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/terminal/">
-            <img src="/assets/img/styles/terminal.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/terminal.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A terminal style: phosphor green monospace text on near-black with a blinking block cursor, bracketed buttons and ASCII progress bars.">
           </a>
           <figcaption>
@@ -732,7 +907,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/swiss/">
-            <img src="/assets/img/styles/swiss.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/swiss.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Swiss style: a very large black uppercase headline on white over a faint grid, beside a composition of a red circle and a black rectangle.">
           </a>
           <figcaption>
@@ -742,7 +917,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/kinetic/">
-            <img src="/assets/img/styles/kinetic.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/kinetic.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A kinetic style: enormous uppercase type filling the screen on rich black with one word in acid yellow, above a scrolling yellow marquee.">
           </a>
           <figcaption>
@@ -752,7 +927,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/flat-design/">
-            <img src="/assets/img/styles/flat-design.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/flat-design.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A flat style: a bold headline in dark ink on a full-bleed blue section with a composition of flat circles and rectangles beside it.">
           </a>
           <figcaption>
@@ -762,7 +937,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/art-deco/">
-            <img src="/assets/img/styles/art-deco.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/art-deco.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="An Art Deco style: gold uppercase type centred on obsidian inside a thin gold frame with stepped corner brackets, under a soft golden sunburst.">
           </a>
           <figcaption>
@@ -772,7 +947,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/material-design/">
-            <img src="/assets/img/styles/material-design.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/material-design.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Material You style: a large tinted lavender panel with rounded corners, pill buttons and a floating white card of rounded list rows.">
           </a>
           <figcaption>
@@ -782,7 +957,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/neo-brutalism/">
-            <img src="/assets/img/styles/neo-brutalism.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/neo-brutalism.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Neo-brutalist style: a heavy uppercase headline, half of it hollow, on cream, beside rotated stickers and a row of bordered stat blocks with hard black shadows.">
           </a>
           <figcaption>
@@ -792,7 +967,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/bold-typography/">
-            <img src="/assets/img/styles/bold-typography.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/bold-typography.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Bold Typography style: a poster-scale headline in white and vermillion on near-black, with a huge faint word behind it and a row of hairline-separated figures below.">
           </a>
           <figcaption>
@@ -802,7 +977,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/academia/">
-            <img src="/assets/img/styles/academia.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/academia.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="An Academia style: a cream serif headline on deep mahogany beside a brass-edged cathedral arch holding a large letter A, over a row of brass figures.">
           </a>
           <figcaption>
@@ -812,7 +987,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/cyberpunk/">
-            <img src="/assets/img/styles/cyberpunk.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/cyberpunk.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Cyberpunk style: a heavy uppercase headline with the last word glowing neon green on a near-black void, beside a chamfered panel of contrast readouts.">
           </a>
           <figcaption>
@@ -822,7 +997,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/web3/">
-            <img src="/assets/img/styles/web3.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/web3.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Web3 style: a white headline with one word in an orange-to-gold gradient on a near-black ground, beside a translucent glass panel of figures under a soft orange glow.">
           </a>
           <figcaption>
@@ -832,7 +1007,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/minimal-dark/">
-            <img src="/assets/img/styles/minimal-dark.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/minimal-dark.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Minimalist Dark style: a white headline on layered near-black with a soft amber glow behind it and a translucent glass panel of figures.">
           </a>
           <figcaption>
@@ -842,7 +1017,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/playful-geometric/">
-            <img src="/assets/img/styles/playful-geometric.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/playful-geometric.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Playful Geometric style: a heavy headline with a yellow highlight on warm cream, beside circles and rounded shapes with hard black offset shadows.">
           </a>
           <figcaption>
@@ -852,7 +1027,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/claymorphism/">
-            <img src="/assets/img/styles/claymorphism.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/claymorphism.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Claymorphism style: a rounded headline on pale lavender beside four saturated circles that bulge off the page with soft coloured shadows.">
           </a>
           <figcaption>
@@ -862,7 +1037,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/professional/">
-            <img src="/assets/img/styles/professional.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/professional.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Professional Editorial style: a Playfair Display headline in black and gold on warm ivory, with a ruled standfirst column and hairline-separated figures.">
           </a>
           <figcaption>
@@ -872,7 +1047,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/botanical/">
-            <img src="/assets/img/styles/botanical.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/botanical.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Botanical style: a serif headline on warm rice paper beside an arch-topped plate holding a sage leaf shape.">
           </a>
           <figcaption>
@@ -882,7 +1057,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/vaporwave/">
-            <img src="/assets/img/styles/vaporwave.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/vaporwave.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Vaporwave style: a wide uppercase headline in white and magenta over a purple-black void, with a gradient sun and a perspective grid below.">
           </a>
           <figcaption>
@@ -892,7 +1067,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/enterprise/">
-            <img src="/assets/img/styles/enterprise.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/enterprise.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="An Enterprise SaaS style: a bold headline with one gradient phrase on a cool near-white page, beside a white dashboard card of contrast figures.">
           </a>
           <figcaption>
@@ -902,7 +1077,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/sketch/">
-            <img src="/assets/img/styles/sketch.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/sketch.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Sketchbook style: a handwritten headline on warm paper beside a tilted note panel, both drawn with thick pencil borders and uneven corners.">
           </a>
           <figcaption>
@@ -912,7 +1087,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/industrial/">
-            <img src="/assets/img/styles/industrial.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/industrial.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="An Industrial style: a bold headline embossed into a pale blue-grey chassis, beside a recessed panel of raised monospace readout slots.">
           </a>
           <figcaption>
@@ -922,7 +1097,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/neumorphism/">
-            <img src="/assets/img/styles/neumorphism.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/neumorphism.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Neumorphism style: a heading on a single pale blue-grey surface with soft extruded buttons and a recessed well of chips, all shaped by light and shadow.">
           </a>
           <figcaption>
@@ -932,7 +1107,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/organic/">
-            <img src="/assets/img/styles/organic.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/organic.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="An Organic style: a serif headline on warm rice paper beside a cluster of leaf-shaped blobs in moss, terracotta and sand.">
           </a>
           <figcaption>
@@ -942,7 +1117,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/maximalism/">
-            <img src="/assets/img/styles/maximalism.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/maximalism.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Maximalism style: a huge headline in white, yellow and cyan over a near-black void, with stacked multi-coloured hard shadows on every block.">
           </a>
           <figcaption>
@@ -952,7 +1127,7 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
         </figure>
         <figure class="stylep">
           <a class="stylep__link" href="/design-presets/retro/">
-            <img src="/assets/img/styles/retro.jpg" width="1280" height="800" loading="lazy" decoding="async"
+            <img src="/assets/img/styles/retro.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="A Retro Desktop style: a heavy black headline on a silver chassis beside a windowed notepad panel with a navy title bar and bevelled controls.">
           </a>
           <figcaption>
@@ -981,8 +1156,8 @@ ${topbar({ app: 'Site Creator', nav: [['#start', 'How it works'], ['/crm/', 'CRM
   ${closing({
     title: 'Start with a description',
     body: 'Say what the business is and let your AI agent build it on WordPress with Unyson+. Free, with no account to create.',
-    cta: 'Choose your industry',
-    href: '/crm/',
+    cta: 'Describe your site',
+    href: '#cgen',
   })}
 </main>
 ${footer()}
@@ -1039,6 +1214,8 @@ ${footer()}
   probe(0);
 })();
 </script>
+<script>window.UPWSTYLES = ${JSON.stringify(STYLES)};</script>
+<script src="/assets/creator.js?v=${v.creator}" defer></script>
 </body>
 </html>
 `;
@@ -1086,7 +1263,7 @@ copyDir(path.join(SRC, 'assets'), path.join(OUT, 'assets'));
 copyDir(path.join(SRC, 'presets'), path.join(OUT, 'assets', 'presets'));
 copyDir(path.join(SRC, 'static'), OUT);
 
-const v = { css: hash(path.join(SRC, 'assets', 'style.css')), engine: hash(path.join(SRC, 'assets', 'engine.js')) };
+const v = { css: hash(path.join(SRC, 'assets', 'style.css')), engine: hash(path.join(SRC, 'assets', 'engine.js')), creator: hash(path.join(SRC, 'assets', 'creator.js')) };
 for (const id of Object.keys(presets)) v[id] = hash(path.join(SRC, 'presets', id + '.js'));
 
 const urls = [];

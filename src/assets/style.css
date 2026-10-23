@@ -429,6 +429,17 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 
 /* Preview tab */
 .out__panel--light { background: var(--surface); color: var(--ink); }
+
+/* The general generator's Preview tab. The panel itself has no padding (the prompt and
+   spec tabs hold a <pre> that supplies its own), so the preview brings its own - without
+   it the first heading sits flush against the tab bar and reads as clipped. */
+.prev { padding: 18px 20px 22px; }
+.prev h3 { margin: 0 0 8px; font-size: 1.15rem; }
+.prev__lede { margin: 0 0 14px; color: var(--ink-2); }
+.prev__row { margin: 0 0 8px; }
+.prev__row b { display: inline-block; min-width: 92px; }
+.prev__miss { margin: 16px 0 0; padding: 12px 14px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--line-strong); font-size: 0.92rem; }
+.prev__miss b { display: block; margin-bottom: 4px; }
 .pv { padding: 16px; display: grid; gap: 10px; }
 .pv-site { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); }
 .pv-bar { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--pv-primary); color: #fff; font-size: 0.72rem; }
