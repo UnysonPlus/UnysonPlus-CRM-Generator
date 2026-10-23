@@ -145,7 +145,10 @@
       },
       pages: pages,
       brand: {
-        style: s.style === 'custom' ? 'custom' : (s.style || 'monochrome'),
+        /* An unpicked style used to fall through to 'monochrome', which asserted a decision
+           nobody made - the same fabrication missing[] exists to prevent, just quieter because
+           it was always the same answer. Unpicked now says so, and the prompt asks. */
+        style: s.style === 'custom' ? 'custom' : (s.style || 'unset'),
         style_notes: s.style === 'custom' ? (s.styleNotes || null) : (st ? st.blurb : null),
         primary: null,
         accent: null,
@@ -169,6 +172,7 @@
       missing: missing
     };
 
+    if (!s.style) missing.push('brand.style');
     if (!s.name) missing.unshift('business.name');
     if (!s.describe) missing.push('business.description');
     if (!s.target) missing.push('build.target');
@@ -215,7 +219,12 @@
     out.push('');
 
     out.push('## The look');
-    if (s.style === 'custom') {
+    if (!s.style) {
+      out.push('- No style chosen yet. Propose two from the library that suit the business,');
+      out.push('  one line each on what they would cost, and wait for an answer before building.');
+      out.push('- The library is in the kit at `docs/site-creator/styles/prompts/`, and every one');
+      out.push('  of the thirty has a rendered page under https://create.unysonplus.com/design-presets/');
+    } else if (s.style === 'custom') {
       out.push('- Style: described below, not one of the library presets.');
       out.push('- ' + (s.styleNotes || '[describe the look you want]'));
     } else if (st) {
@@ -297,6 +306,16 @@
   var notesField = document.getElementById('cNotesField');
   var lastPrompt = '';
 
+  /* Step 3 is otherwise blank until someone picks, so the preview - and the fact that there
+     are thirty of these at all - is invisible on arrival. This shows ONE OF THEM AS A SAMPLE,
+     chosen once per page load, without touching the select.
+
+     Deliberately not a random SELECTION: this generator's one real promise is that it does not
+     put words in your mouth, and a style quietly chosen by dice is exactly that - a decision
+     the person never made, carried into brand.style as though they had. A sample commits to
+     nothing and still shows the library. */
+  var sample = STYLES.length ? STYLES[Math.floor(Math.random() * STYLES.length)] : null;
+
   function render() {
     var s = readState();
     var st = styleBy(s.style);
@@ -314,18 +333,29 @@
     /* A glimpse of the look under the dropdown. The image is only pointed at a file once a
        style is chosen, so nothing is fetched for the 'Pick a style' default or for the
        describe-your-own path, where there is no preset to show. */
-    var showMini = !!(st && s.style && s.style !== 'custom');
-    if (styleMini) styleMini.hidden = !showMini;
-    if (showMini) {
-      var href = '/design-presets/' + s.style + '/';
-      var src = '/assets/img/styles/' + s.style + '.jpg';
+    var chosen = (st && s.style && s.style !== 'custom') ? st : null;
+    var shown = chosen || (s.style === 'custom' ? null : sample);
+    if (styleMini) {
+      styleMini.hidden = !shown;
+      styleMini.classList.toggle('stylemini--sample', !!shown && !chosen);
+    }
+    if (shown) {
+      var href = '/design-presets/' + shown.slug + '/';
+      var src = '/assets/img/styles/' + shown.slug + '.jpg';
       if (styleImg.getAttribute('src') !== src) {
         styleImg.setAttribute('src', src);
-        styleImg.setAttribute('alt', st.label + ' — ' + st.blurb);
+        styleImg.setAttribute('alt', shown.label + ' — ' + shown.blurb);
       }
       styleThumb.href = href;
       styleLink.href = href;
-      if (styleDesc) styleDesc.textContent = st.blurb;
+      if (styleDesc) {
+        styleDesc.textContent = chosen
+          ? shown.blurb
+          : shown.label + ' — ' + shown.blurb + ' One of thirty; pick one above to choose it.';
+      }
+      styleLink.textContent = chosen
+        ? 'See this style as a full page →'
+        : 'See this one as a full page →';
     }
 
     try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* private mode */ }

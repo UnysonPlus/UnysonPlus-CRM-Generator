@@ -171,6 +171,10 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
 .stylemini a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .stylemini figcaption { font-size: 0.92rem; display: grid; gap: 4px; }
 .stylemini figcaption #cStyleDesc { color: var(--ink-2); }
+/* A sample is shown, not chosen. It reads quieter than a picked style so nobody mistakes
+   it for their own selection - which is the whole reason it is a sample and not a default. */
+.stylemini--sample img { opacity: 0.82; }
+.stylemini--sample:hover img, .stylemini--sample:focus-within img { opacity: 1; }
 .stylemini figcaption a { color: var(--ink); text-underline-offset: 3px; }
 fieldset {
   margin: 0; border: 1px solid var(--line); border-radius: var(--radius);
