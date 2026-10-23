@@ -672,7 +672,12 @@ function creatorForm() {
             ${select('style', 'Style', [{ value: '', label: 'Pick a style' }]
               .concat(STYLES.map((s) => ({ value: s.slug, label: s.label })))
               .concat([{ value: 'custom', label: 'Describe my own' }]))}
-            <p class="fld-prev"><a id="cStyleLink" href="/design-presets/monochrome/" hidden>See this style as a full page &rarr;</a></p>
+            <figure class="stylemini" id="cStyleMini" hidden>
+              <a id="cStyleThumb" href="/design-presets/monochrome/" target="_blank" rel="noopener">
+                <img id="cStyleImg" src="" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+              </a>
+              <figcaption><a id="cStyleLink" href="/design-presets/monochrome/" target="_blank" rel="noopener">See this style as a full page &rarr;</a></figcaption>
+            </figure>
             <label class="field" id="cNotesField" hidden><span>Describe the look you want</span>
               <textarea name="styleNotes" rows="3" placeholder="Warm and dark, restrained, one accent. Nothing glossy."></textarea>
             </label>

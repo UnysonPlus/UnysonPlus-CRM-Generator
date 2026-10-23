@@ -152,6 +152,25 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2);
 .gen__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 3vw, 40px); align-items: start; }
 
 .form { display: grid; gap: 18px; }
+/* The general generator's form. It was emitted with its own class and no rule to match,
+   so the six steps stacked flush against each other with no gap at all. They are numbered
+   steps rather than a single run of fields, so they get a little more room than .form. */
+.gen__form { display: grid; gap: 26px; min-width: 0; }
+.gen__form fieldset { padding: 22px 20px 24px; gap: 16px; }
+.gen__form legend { font-size: 1.05rem; }
+.gen__form .sub { margin-bottom: 2px; }
+
+/* A glimpse of the chosen style, under the dropdown. Capped by aspect-ratio rather than a
+   height, so the card keeps the same shape as the gallery and never jumps as it swaps. */
+.stylemini { margin: 4px 0 0; display: grid; gap: 8px; }
+.stylemini a { display: block; border-radius: 10px; }
+.stylemini img {
+  display: block; width: 100%; height: auto; aspect-ratio: 1600 / 1000; object-fit: cover;
+  border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface-2);
+}
+.stylemini a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.stylemini figcaption { font-size: 0.92rem; }
+.stylemini figcaption a { color: var(--ink); text-underline-offset: 3px; }
 fieldset {
   margin: 0; border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--surface); padding: 20px 20px 22px; display: grid; gap: 14px; min-width: 0;

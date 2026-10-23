@@ -290,11 +290,15 @@
   var meta = document.getElementById('cMeta');
   var statusEl = document.getElementById('cStatus');
   var styleLink = document.getElementById('cStyleLink');
+  var styleMini = document.getElementById('cStyleMini');
+  var styleThumb = document.getElementById('cStyleThumb');
+  var styleImg = document.getElementById('cStyleImg');
   var notesField = document.getElementById('cNotesField');
   var lastPrompt = '';
 
   function render() {
     var s = readState();
+    var st = styleBy(s.style);
     var spec = toSpec(s);
     lastPrompt = toPrompt(s, spec);
 
@@ -305,13 +309,21 @@
     meta.textContent = spec.pages.length + ' pages · ' + spec.missing.length + ' to confirm';
 
     if (notesField) notesField.hidden = s.style !== 'custom';
-    if (styleLink) {
-      if (s.style && s.style !== 'custom') {
-        styleLink.hidden = false;
-        styleLink.href = '/design-presets/' + s.style + '/';
-      } else {
-        styleLink.hidden = true;
+
+    /* A glimpse of the look under the dropdown. The image is only pointed at a file once a
+       style is chosen, so nothing is fetched for the 'Pick a style' default or for the
+       describe-your-own path, where there is no preset to show. */
+    var showMini = !!(st && s.style && s.style !== 'custom');
+    if (styleMini) styleMini.hidden = !showMini;
+    if (showMini) {
+      var href = '/design-presets/' + s.style + '/';
+      var src = '/assets/img/styles/' + s.style + '.jpg';
+      if (styleImg.getAttribute('src') !== src) {
+        styleImg.setAttribute('src', src);
+        styleImg.setAttribute('alt', st.label + ' — ' + st.blurb);
       }
+      styleThumb.href = href;
+      styleLink.href = href;
     }
 
     try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* private mode */ }
