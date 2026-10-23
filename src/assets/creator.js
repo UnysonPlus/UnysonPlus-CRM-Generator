@@ -293,6 +293,7 @@
   var styleMini = document.getElementById('cStyleMini');
   var styleThumb = document.getElementById('cStyleThumb');
   var styleImg = document.getElementById('cStyleImg');
+  var styleDesc = document.getElementById('cStyleDesc');
   var notesField = document.getElementById('cNotesField');
   var lastPrompt = '';
 
@@ -324,6 +325,7 @@
       }
       styleThumb.href = href;
       styleLink.href = href;
+      if (styleDesc) styleDesc.textContent = st.blurb;
     }
 
     try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* private mode */ }
