@@ -281,7 +281,6 @@
         var o = (P.audience.options || []).filter(function (x) { return x.value === a; })[0];
         return o && o.list ? o.list : cap(a);
       });
-      var firstTag = 'stage-' + slug(stages[0]);
       spec.lead_capture = {
         notify_email: s.leadEmail || '[ask the owner]',
         forms: P.forms.filter(function (f) { return s.forms.indexOf(f.id) !== -1 || f.required; }).map(function (f) {
@@ -294,14 +293,14 @@
             starter: f.starter === 'Newsletter signup' ? 'Newsletter signup' : (f.starter === 'Booking / Appointment' ? 'Appointment request' : 'Contact'),
             fields: fields, placement: f.where,
             subscribe_list: f.list && lists.indexOf(f.list) !== -1 ? f.list : (lists[0] || null),
-            subscribe_tag: firstTag,
-            actions: ['store_entry', 'subscribe_with_consent']
+            actions: ['store_entry', 'add_to_crm_as_deal', 'subscribe_with_consent']
           };
         })
       };
       spec.crm = {
         engine: 'crm',
-        pipeline: { method: 'tags', tag_prefix: 'Stage: ', stages: stages, tag_slugs: stages.map(function (x) { return 'stage-' + slug(x); }), saved_segment_per_stage: true },
+        modules: ['pipeline', 'automations'],
+        pipeline: { method: 'pipeline', name: 'Leads', stages: stages, new_leads_start_in: stages[0] },
         lists: lists,
         double_opt_in: true,
         emails: s.emails.map(function (e) {
@@ -421,30 +420,37 @@
       p('## Step ', n, ': Lead capture');
       p('Build each form with the Forms extension\'s contact form element. Start from the starter named for each form (**Contact**, **Appointment request** or **Newsletter signup**) and make the fields exactly match the list below: remove every other field the starter brings, but keep its required privacy agreement box. Do not use the Table booking (restaurant) or Quote starters; they carry restaurant and survey fields. On every form:');
       if (app) {
-        p('- place it with forms_add: email_to ', spec.lead_capture.notify_email, ', store true, and subscribe { list: the list slug below, tags: ["Stage: ', spec.crm.pipeline.stages[0], '"], name_field: "Name" };');
-        p('- include one optional **consent** field (type consent, purpose newsletter): only people who tick it join the CRM. Create the CRM lists and stage tags (the CRM step) before the forms, because a form can only subscribe people to a list that exists.');
+        p('- place it with forms_add: email_to ', spec.lead_capture.notify_email, ', store true, crm { add_contact: true, create: "deal", pipeline: "', spec.crm.pipeline.name, '" } so every enquiry becomes a contact with a deal in the first stage, and subscribe { list: the list slug below, name_field: "Name" } for the newsletter;');
+        p('- include one optional **consent** field (type consent, purpose newsletter): only people who tick it are subscribed to email; everyone else is still a contact with a deal, just not on the newsletter. Do the CRM step first (lists, the pipeline), because a form can only subscribe people to a list that exists and open deals in a pipeline that exists.');
       } else {
         p('- keep the **Store entry** action on and send notifications to ', spec.lead_capture.notify_email, ';');
-        p('- add one optional **Consent** field (purpose: newsletter) and the **Subscribe to the newsletter** action, set to the list named below. In its Tags box enter the first stage tag, "Stage: ', spec.crm.pipeline.stages[0], '".');
+        p('- in the **Add to the CRM** action, switch on **Add the sender to the CRM** and set **Also create** to **A deal in the sales pipeline** (pipeline "', spec.crm.pipeline.name, '"), so every enquiry becomes a contact with a deal in the first stage;');
+        p('- add one optional **Consent** field (purpose: newsletter) and, in the same action, switch on **Subscribe them to the newsletter when they tick consent**, set to the list named below.');
       }
       p('Forms are elements placed on pages. Where a placement says footer or header button, put a button there that links to the form on its page; the footer cannot hold a form.');
       spec.lead_capture.forms.forEach(function (f) {
         p('- **', f.title, '** (starter: ', f.starter, '). Fields: ', f.fields.join(', '), '. Place on: ', f.placement, '.', f.subscribe_list ? ' Subscribe list: ' + f.subscribe_list + '.' : '');
       });
-      p('Only people who tick the consent box reach the CRM; every other enquiry is kept in **Unyson+ → Form Entries**. Say this plainly in your report.');
+      p('Every enquiry becomes a CRM contact with a deal; only people who tick the consent box are subscribed to email. Every submission is also kept in **Unyson+ → Form Entries**. Say this plainly in your report.');
       p('');
 
       p('## Step ', n + 1, ': CRM');
       p('Use the **CRM** extension. Do not build custom CRM tables or a custom CRM plugin.');
-      if (app) p('Tools: crm_save_lists (lists and stage tags in one call), crm_save_segment (one per stage: the stage tag and status subscribed), crm_settings (double opt-in and the welcome email), crm_save_campaign (drafts only), and crm_describe to check the result.');
+      if (app) p('Tools: crm_describe (check which modules are on, and the result), crm_save_lists (lists), crm_save_pipeline (the pipeline and its stages), crm_save_automation (draft automations, from a recipe or your own steps), crm_settings (double opt-in), crm_campaign_from_template and crm_save_campaign (draft campaigns), and crm_automations to see the recipes, triggers and actions.');
+      p('- Modules: the **Sales pipeline** and **Automations** modules must be on (', app ? 'crm_describe shows them; if either is off, ask me to switch it on under ' : '', '**CRM → Modules**).');
       if (spec.crm.lists.length) p('- Create lists: ', spec.crm.lists.join(', '), '.');
-      p('- Pipeline: under **CRM → Lists, Tags & Segments**, create one tag per stage: ', spec.crm.pipeline.stages.map(function (x, i) { return '"Stage: ' + x + '" (`' + spec.crm.pipeline.tag_slugs[i] + '`)'; }).join(', '), '. New leads start in "Stage: ', spec.crm.pipeline.stages[0], '". Save one segment per stage so I can open each stage in one click. To move a lead on: CRM → Contacts, tick the lead, Bulk actions → "Add tag" for the next stage, then "Remove tag" for the old one. Show me this.');
+      p('- Pipeline: create the pipeline "', spec.crm.pipeline.name, '" with these stages, in order: ', spec.crm.pipeline.stages.join(', '), '. Give each stage a sensible win probability (it grows towards the last stage) and flag deals that sit too long in a stage. New enquiries arrive as deals in "', spec.crm.pipeline.new_leads_start_in, '". To move a lead on, drag its card to the next stage on **CRM → Deals**. Show me this.');
       p('- Keep **double opt-in** on (CRM → Settings; it is on by default).');
       var welcome = spec.crm.emails.filter(function (e) { return e.id === 'welcome'; })[0];
       var campaigns = spec.crm.emails.filter(function (e) { return e.id !== 'welcome'; });
-      if (welcome) p('- Welcome email: it is one setting in CRM → Settings, sent to everyone who confirms. Write it there in my voice (', welcome.description.toLowerCase(), ') and leave automatic sending off until I approve it.');
+      if (welcome) {
+        if (app) p('- Welcome: create an automation from the **Welcome series** recipe with crm_save_automation (recipe "welcome-series"), then rewrite its emails in my voice (', welcome.description.toLowerCase(), ') with crm_save_automation. It stays a draft: tell me to read it and switch it on under **CRM → Automations**.');
+        else p('- Welcome: under **CRM → Automations**, use the **Welcome series** recipe and rewrite its emails in my voice (', welcome.description.toLowerCase(), '). Leave it as a draft until I approve it, then switch it on.');
+      }
+      if (app) p('- Follow-up: also create a draft automation from the **Quote or booking follow-up** recipe so every enquiry gets a thank-you and a reminder for me; rewrite its emails in my voice.');
+      else p('- Follow-up: also add the **Quote or booking follow-up** recipe as a draft, with its emails in my voice.');
       if (campaigns.length) {
-        p('- Save these as **draft campaigns** in my voice, each aimed at the list or stage segment it is for. Do not send anything:');
+        p('- Save these as **draft campaigns** in my voice', app ? ' (crm_campaign_from_template lays one out from a starter template)' : '', ', each aimed at the list it is for. Do not send anything:');
         campaigns.forEach(function (e) { p('  - ', e.description.replace(/ \(campaign template\)$/, '')); });
       }
       p('');
@@ -459,8 +465,8 @@
       p('');
 
       p('## Step ', n + 3, ': Check everything and report back');
-      if (app) p('Run render_check on every page and fix what it reports. Then ask me to look at each page on a computer and a phone, and to submit each form once (ticking the consent box on one): no tool reads entries or subscribers, by design, so ask me to confirm the entries appear under **Unyson+ → Form Entries** and that the test lead appears under **CRM → Contacts** with the first stage tag, then to delete those test records. If a notification email fails, the visitor still sees the success message and the entry notes "Notification email: Not sent": tell me, because live sites need working email (SMTP).');
-      else p('Open every page at desktop and phone width and fix anything broken or misaligned, including sideways scrolling on phones. Submit each form once and confirm the entry appears under **Unyson+ → Form Entries**, and that a test lead who ticks the consent box appears in the CRM with the first stage tag. Then delete the test entries and subscribers. If a notification email fails, the visitor still sees the success message and the entry notes "Notification email: Not sent": tell me, because live sites need working email (SMTP).');
+      if (app) p('Run render_check on every page and fix what it reports. Then ask me to look at each page on a computer and a phone, and to submit each form once (ticking the consent box on one): no tool reads entries or subscribers, by design, so ask me to confirm the entries appear under **Unyson+ → Form Entries** and that the test lead appears under **CRM → Contacts** and as a deal in the first stage on **CRM → Deals**, then to delete those test records. If a notification email fails, the visitor still sees the success message and the entry notes "Notification email: Not sent": tell me, because live sites need working email (SMTP).');
+      else p('Open every page at desktop and phone width and fix anything broken or misaligned, including sideways scrolling on phones. Submit each form once and confirm the entry appears under **Unyson+ → Form Entries**, and that each test lead appears under **CRM → Contacts** with a deal in the first stage on **CRM → Deals** (and, if they ticked the consent box, as a subscriber). Then delete the test entries, contacts and deals. If a notification email fails, the visitor still sees the success message and the entry notes "Notification email: Not sent": tell me, because live sites need working email (SMTP).');
       if (!app && s.wp === 'host' && s.access === 'migrate') p('Then, once I approve the local site, move it to my web host: use the Unyson+ Site Migration extension if it fits, or my host\'s own migration tool, and walk me through every step I have to do myself. Never ask for my hosting password.');
       p('Finish with a short report: what you built, what still needs me (', P.prompt.needs(s), '), and how I edit ', P.prompt.editWhat, ' in wp-admin.');
       if (app) p('Last, remind me that I can switch the connector to read-only, or disconnect it, on the Unyson+ AI Assistant screen now that the build is done.');
